@@ -1,5 +1,4 @@
 node_modules/
 contact-backend/node_modules/
 contact-backend/.env
-contact-backend/package-lock.json
 dist/
