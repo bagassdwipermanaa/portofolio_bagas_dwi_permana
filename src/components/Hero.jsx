@@ -89,7 +89,7 @@ const Hero = () => {
               className="relative"
               data-text="Bagas Dwi Permana"
             >
-              Fakhri Arkananta Permana
+              Bagas Dwi Permana
               <motion.span 
                 className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-cyber-blue to-cyber-purple"
                 initial={{ width: 0 }}
