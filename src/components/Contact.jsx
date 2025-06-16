@@ -25,7 +25,7 @@ const Contact = () => {
   setIsSubmitting(true);
 
   try {
-    const response = await fetch('https://portofolio-backend.glitch.me/api/contact', {
+    const response = await fetch('https://portofolio-backend.glitch.me/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
