@@ -1,0 +1,254 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 11%; /* Darker blue-ish black */
+  --foreground: 210 40% 96%; /* Lighter gray for text */
+  --card: 222 47% 13%; /* Slightly lighter card background */
+  --card-foreground: 210 40% 96%;
+  --popover: 222 47% 13%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 195 100% 45%; /* Cyber Blue - slightly desaturated */
+  --primary-foreground: 222 47% 11%;
+  --secondary: 260 100% 60%; /* Cyber Purple - for accents */
+  --secondary-foreground: 210 40% 96%;
+  --muted: 222 47% 18%; /* Muted dark blue */
+  --muted-foreground: 210 40% 60%; /* Muted gray text */
+  --accent: 195 100% 45%; 
+  --accent-foreground: 210 40% 96%;
+  --destructive: 0 70% 50%; /* Darker red */
+  --destructive-foreground: 210 40% 96%;
+  --border: 222 47% 20%; /* Darker border */
+  --input: 222 47% 18%; /* Darker input */
+  --ring: 195 100% 50%; /* Brighter ring for focus */
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar - Darker theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, hsl(var(--primary) / 0.7), hsl(var(--secondary) / 0.7));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+}
+
+/* Cyber grid background - More subtle */
+.cyber-grid {
+  background-image: 
+    linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px; /* Slightly larger grid */
+  animation: grid-move 30s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+/* Glitch text effect - More subtle and dark */
+.glitch-text {
+  position: relative;
+  color: hsl(var(--primary));
+  font-weight: 600; /* Slightly less bold */
+  text-shadow: 0 0 5px hsl(var(--primary) / 0.5);
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  animation: glitch-dark-1 0.8s infinite steps(1);
+  color: hsl(var(--secondary)); /* Purple for one glitch layer */
+  z-index: -1;
+  text-shadow: 1px 1px 3px hsl(var(--secondary) / 0.3);
+}
+
+.glitch-text::after {
+  animation: glitch-dark-2 0.6s infinite steps(1);
+  color: hsl(180 100% 50% / 0.8); /* Cyan for another glitch layer */
+  z-index: -2;
+  text-shadow: -1px -1px 3px hsl(180 100% 50% / 0.3);
+}
+
+@keyframes glitch-dark-1 {
+  0%, 100% { clip-path: inset(50% 0 30% 0); transform: translate(-0.025em, 0.01em); }
+  20% { clip-path: inset(10% 0 80% 0); transform: translate(0.01em, -0.01em); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(-0.01em, 0.02em); }
+  60% { clip-path: inset(30% 0 50% 0); transform: translate(0.02em, -0.01em); }
+  80% { clip-path: inset(0 0 90% 0); transform: translate(-0.01em, 0.01em); }
+}
+
+@keyframes glitch-dark-2 {
+  0%, 100% { clip-path: inset(70% 0 10% 0); transform: translate(0.015em, -0.005em); }
+  15% { clip-path: inset(0 0 85% 0); transform: translate(-0.01em, 0.005em); }
+  30% { clip-path: inset(40% 0 40% 0); transform: translate(0.005em, 0.01em); }
+  45% { clip-path: inset(80% 0 5% 0); transform: translate(-0.005em, -0.01em); }
+  60% { clip-path: inset(20% 0 70% 0); transform: translate(0.01em, 0.005em); }
+  75% { clip-path: inset(50% 0 30% 0); transform: translate(-0.01em, -0.005em); }
+  90% { clip-path: inset(90% 0 0 0); transform: translate(0.005em, 0.01em); }
+}
+
+
+/* Neon glow effects - More subtle */
+.neon-glow {
+  box-shadow: 
+    0 0 3px currentColor,
+    0 0 6px currentColor,
+    0 0 9px currentColor;
+}
+
+.neon-border {
+  border: 1px solid;
+  border-image: linear-gradient(45deg, hsl(var(--primary)/0.6), hsl(var(--secondary)/0.6)) 1;
+}
+
+/* Cyber button styles - Darker and more refined */
+.cyber-button {
+  position: relative;
+  background: hsl(var(--primary) / 0.05);
+  border: 1px solid hsl(var(--primary) / 0.3);
+  color: hsl(var(--primary));
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cyber-button:hover::before {
+  left: 150%;
+}
+
+.cyber-button:hover {
+  background: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary) / 0.6);
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.2);
+  transform: translateY(-1px);
+  color: hsl(var(--primary));
+}
+.cyber-button:active {
+  transform: translateY(0px);
+}
+
+
+/* Timeline styles - Darker theme */
+.timeline-line {
+  background: linear-gradient(to bottom, hsl(var(--primary)/0.4), hsl(var(--secondary)/0.4));
+}
+
+.timeline-dot {
+  background: radial-gradient(circle, hsl(var(--primary)), hsl(var(--secondary)/0.7));
+  box-shadow: 0 0 10px hsl(var(--primary) / 0.4);
+}
+
+/* Project card hover effects - Darker theme */
+.project-card {
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border) / 0.5);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: hsl(var(--primary) / 0.7);
+  box-shadow: 
+    0 15px 30px hsl(var(--background) / 0.5),
+    0 0 20px hsl(var(--primary) / 0.2);
+}
+
+/* Form styles - Darker theme */
+.cyber-input {
+  background: hsl(var(--input) / 0.8);
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.3);
+  outline: none;
+  background: hsl(var(--input));
+}
+
+/* Loading animation */
+.loading-dots {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  height: 1em;
+}
+
+.loading-dots::after {
+  content: '.';
+  animation: loading-dots-anim 1.5s infinite;
+  position: absolute;
+  left: 0;
+}
+
+@keyframes loading-dots-anim {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .cyber-grid {
+    background-size: 40px 40px;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    /* Keep glitch on mobile but maybe less intense if needed */
+    /* opacity: 0.6; */
+  }
+  .text-4xl { font-size: 2rem; line-height: 2.5rem; }
+  .text-5xl { font-size: 2.5rem; line-height: 3rem; }
+}
