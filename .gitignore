@@ -1,3 +1,4 @@
 node_modules/
 contact-backend/node_modules/
 contact-backend/.env
+dist/
