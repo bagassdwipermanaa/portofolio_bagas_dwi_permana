@@ -21,7 +21,7 @@ const Certifications = () => {
     issuer: 'SMK Telkom Sandhy Putra Jakarta • Cisco Networking Academy',
     date: 'May 20, 2025',
     description: 'This certificate is awarded to Bagas Dwi Permana for successfully completing JavaScript Essentials 1 through the Cisco Networking Academy program.',
-    pdfLink: '#',
+    pdfLink: '/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf',
     gradient: 'from-cyber-purple to-cyber-pink',
   },
   {
@@ -59,7 +59,18 @@ const Certifications = () => {
     description: 'Awarded to Bagas Dwi Permana for completing the Level 3 Qualification Competency Test on "Creating a Simple CV Website Using HTML and Bootstrap" on November 25, 2024, and declared Competent.',
     pdfLink: '#',
     gradient: 'from-cyber-purple to-cyber-green',
+  },
+  {
+  "id": 7,
+  "title": "CERTIFICATE OF APPRECIATION",
+  "issuer": "Chairperson\nErlangga Dafa Pratama\nHead of Study Program\nInformatics Engineering\nUniversitas Mercu Buana\nDr. Hadi Santoso, S.Kom., M.Kom.\nPrincipal\nSMK Telkom Jakarta",
+  "date": "January 22, 2025",
+  "description": "Presented to:\nPARTICIPANT\nBagas Dwi Permana\nIn the event of \"Training on Building a Simple Website Using Programming Languages HTML, CSS, JavaScript, and PHP\" held at SMK Telkom Jakarta.",
+  "pdfLink": "/Bagas Dwi Permana.pdf",
+  "gradient": "from-cyber-purple to-cyber-green"
   }
+
+
 ];
 
 
