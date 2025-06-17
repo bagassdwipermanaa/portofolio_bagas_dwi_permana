@@ -29,7 +29,7 @@ const Hero = () => {
   };
 
   const handleDownloadCV = () => {
-    const pdfUrl = '/CV_BAGAS_DWI_PERMANA_XI_TEL_8.pdf'; 
+    const pdfUrl = '/cvbagasdwipermana.pdf'; 
     if (pdfUrl === '#') {
       toast({
         title: "🚧 URL PDF Belum Disetel!",
