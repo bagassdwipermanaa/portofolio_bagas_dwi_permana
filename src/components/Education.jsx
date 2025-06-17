@@ -176,10 +176,10 @@ const Education = () => {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { label: 'Year of Study', value: '7+', color: 'from-cyber-blue to-cyber-purple' },
-            { label: 'Certification', value: '6', color: 'from-cyber-purple to-cyber-pink' },
-            { label: 'Project Completed', value: '5', color: 'from-cyber-pink to-cyber-green' },
-            { label: 'Technology Mastered', value: '18', color: 'from-cyber-green to-cyber-blue' },
+            { value: 'Class 11', label: 'Grade (Software Engineering)', color: 'from-cyber-blue to-cyber-purple' },
+            { value: '7 Certif', label: 'Certifications (Tech & Soft Skills)', color: 'from-cyber-purple to-cyber-pink' },
+            { value: '5 Projects', label: 'Projects (Personal & School)', color: 'from-cyber-pink to-cyber-green' },
+            { value: '18 Tech', label: 'Technologies (Languages, Frameworks, Tools)', color: 'from-cyber-green to-cyber-blue' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
