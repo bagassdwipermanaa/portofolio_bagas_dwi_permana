@@ -47,7 +47,7 @@ const Navbar = () => {
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
             <span className="text-2xl font-space font-bold text-cyber-blue glitch-text" data-text="Bagas">
-              Bagas
+              Bagas Dwi Permana
             </span>
           </motion.div>
 
