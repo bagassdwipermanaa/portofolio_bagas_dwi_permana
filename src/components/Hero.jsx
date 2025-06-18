@@ -66,8 +66,8 @@ const Hero = () => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyber-blue/30 via-cyber-purple/30 to-slate-800 p-1 animate-glow-pulse">
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
                 <img   
-                  className="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500" 
-                  alt="Bagas Dwi Permana - Professional headshot of a web developer" src="IMG_2237.JPG" />
+                  className="w-full h-full object-cover rounded-full hover:grayscale-0 transition-all duration-500" 
+                  alt="Bagas Dwi Permana - Professional headshot of a web developer" src="IMG_2341.JPG" />
               </div>
             </div>
             <motion.div 
