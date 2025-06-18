@@ -77,15 +77,15 @@ const Contact = () => {
     {
       icon: Phone,
       label: 'Telepon',
-      value: '+62 859-6656-5357', // Ganti dengan nomor teleponmu
-      href: 'tel:+6285966565357', // Ganti dengan nomor teleponmu
+      value: '+62 859-6656-5357', 
+      href: 'https://wa.me/62855966565357', 
       color: 'from-cyber-purple to-cyber-pink'
     },
     {
       icon: MapPin,
       label: 'Lokasi',
-      value: 'Jakarta, Indonesia', // Ganti dengan lokasimu
-      href: 'https://maps.app.goo.gl/FNuZafstA5ye1MAX9', // Jika tidak ada link, biarkan '#'
+      value: 'Jakarta, Indonesia',
+      href: 'https://maps.app.goo.gl/FNuZafstA5ye1MAX9',
       color: 'from-cyber-pink to-cyber-green'
     }
   ];
