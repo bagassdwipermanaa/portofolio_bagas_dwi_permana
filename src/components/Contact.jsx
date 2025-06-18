@@ -94,7 +94,7 @@ const Contact = () => {
     {
       icon: Github,
       label: 'GitHub',
-      href: 'https://github.com/CodeWithBagas', // Ganti '#' dengan URL GitHub-mu
+      href: 'https://github.com/bagassdwipermanaa', // Ganti '#' dengan URL GitHub-mu
       color: 'hover:text-cyber-blue'
     },
     {
