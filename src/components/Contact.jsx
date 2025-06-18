@@ -78,7 +78,7 @@ const Contact = () => {
       icon: Phone,
       label: 'Telepon',
       value: '+62 859-6656-5357', 
-      href: 'https://wa.me/62855966565357', 
+      href: 'https://wa.me/6285966565357', 
       color: 'from-cyber-purple to-cyber-pink'
     },
     {
