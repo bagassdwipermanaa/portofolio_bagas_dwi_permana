@@ -1,4 +1,8 @@
 node_modules/
+contact-backend/server.js/
 contact-backend/node_modules/
 contact-backend/.env
+contact-backend/
+contact-backend/package-lock.json/
+contact-backend/package.json
 dist/
