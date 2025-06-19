@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://bagasdwipermana.com.netlify.app' }));
 app.use(express.json());
 
 // Default route
