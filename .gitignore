@@ -1,4 +1,5 @@
 node_modules/
+contact-backend/server.js
 contact-backend/node_modules/
 contact-backend/.env
 dist/
