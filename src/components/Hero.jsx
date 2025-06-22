@@ -67,7 +67,7 @@ const Hero = () => {
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
                 <img   
                   className="w-full h-full object-cover rounded-full hover:grayscale-0 transition-all duration-500" 
-                  alt="Bagas Dwi Permana - Professional headshot of a web developer" src="IMG_2341.JPG" />
+                  alt="Bagas Dwi Permana - Professional headshot of a web developer" src="IMG_2237.JPG" />
               </div>
             </div>
             <motion.div 
