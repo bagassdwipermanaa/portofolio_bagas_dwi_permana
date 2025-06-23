@@ -76,6 +76,19 @@ const Projects = () => {
   gradient: 'from-teal-400 to-blue-600',
   pdfLink: 'webcareplusdesign.pdf',
   githubLink: 'https://github.com/CodeWithBagas/web-careplus-uiux-design',
+},
+{
+  id: 6,
+  title: 'Canteen Management System',
+  description:
+    'A modern and responsive web application built with React and Tailwind CSS to manage canteen products and transactions efficiently. Features include adding, editing, and deleting product items with a clean and intuitive interface.',
+  image: '/kantinmanagement.png',
+  technologies: ['React', 'Tailwind CSS'],
+  category: 'Full Stack',
+  status: 'Completed',
+  gradient: 'from-cyber-blue to-cyber-purple',
+  pdfLink: '/kantenmanagementbagas.pdf',
+  githubLink: 'https://github.com/bagassdwipermanaa/kantinmanagement-bybagas',
 }
   ];
 
