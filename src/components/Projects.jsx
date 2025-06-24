@@ -43,7 +43,7 @@ const Projects = () => {
         'A modern and responsive personal portfolio website to showcase projects, certificates, and technical skills. Built with smooth animations, futuristic UI elements, and optimized for all devices.',
       image: '/thumbnailportofoliobagas.jpg',
       technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
-      category: 'Frontend',
+      category: 'Full Stack',
       status: 'Completed',
       gradient: 'from-cyber-pink to-cyber-green',
       pdfLink: '/webportofoliobagas.pdf',
