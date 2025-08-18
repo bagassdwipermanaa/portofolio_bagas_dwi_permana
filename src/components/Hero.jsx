@@ -56,7 +56,7 @@ const Hero = () => {
         items={["ANIMATION", "BRANDING", "ANIMATION", "BRANDING"]}
         backgroundClass="bg-white"
         textClass="text-black"
-        dotClass="bg-orange-500"
+        dotClass="bg-white"
         rotate={35}
         className="top-[-4rem]"
         height="h-14"
@@ -68,7 +68,7 @@ const Hero = () => {
         items={["CREATIVE DESIGN", "UI/UX", "MARKETING", "MOTION", "ANIMATION"]}
         backgroundClass="bg-neutral-900/90 border border-neutral-800"
         textClass="text-white"
-        dotClass="bg-orange-500"
+        dotClass="bg-white"
         rotate={-12}
         className="bottom-10"
         height="h-16"

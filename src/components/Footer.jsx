@@ -1,33 +1,32 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUp, Heart, Code } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUp, Heart, Code } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const quickLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'certifications', label: 'Certifications'},
-    { id: 'contact', label: 'Contact' },
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "projects", label: "Projects" },
+    { id: "certifications", label: "Certifications" },
+    { id: "contact", label: "Contact" },
   ];
 
   return (
     <footer className="relative overflow-hidden bg-black/50 backdrop-blur-md border-t border-gray-800">
       <div className="absolute inset-0 bg-gradient-to-t from-cyber-blue/5 to-transparent"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="py-12">
           <div className="grid md:grid-cols-3 gap-8">
@@ -40,16 +39,20 @@ const Footer = () => {
               className="space-y-4"
             >
               <div className="flex items-center space-x-2">
-                <span className="text-2xl font-space font-bold text-cyber-blue glitch-text" data-text="Bagas">
+                <span
+                  className="text-2xl font-space font-bold text-cyber-blue glitch-text"
+                  data-text="Bagas"
+                >
                   Bagas
                 </span>
-                <Code className="h-6 w-6 text-cyber-purple" />
+                <Code className="h-6 w-6 text-white" />
               </div>
-              
+
               <p className="text-gray-300 font-space leading-relaxed">
-                A web developer passionate about creating stunning and innovative digital experiences using cutting-edge technology.
+                A web developer passionate about creating stunning and
+                innovative digital experiences using cutting-edge technology.
               </p>
-              
+
               <div className="flex items-center space-x-2 text-cyber-pink">
                 <span className="font-space text-sm">Made with</span>
                 <Heart className="h-4 w-4 fill-current animate-pulse" />
@@ -68,7 +71,7 @@ const Footer = () => {
               <span className="text-lg font-space font-semibold text-cyber-purple">
                 Quick Links
               </span>
-              
+
               <nav className="flex flex-col space-y-2">
                 {quickLinks.map((link) => (
                   <motion.button
@@ -94,15 +97,15 @@ const Footer = () => {
               <span className="text-lg font-space font-semibold text-cyber-green">
                 Get In Touch
               </span>
-              
+
               <div className="space-y-2 text-gray-300 font-space">
                 <p>bagastelkomschool@gmail.com</p>
                 <p>+62 859-6656-5357</p>
                 <p>Jakarta, Indonesia</p>
               </div>
-              
+
               <Button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection("contact")}
                 className="cyber-button mt-4"
               >
                 Hubungi Saya
@@ -121,7 +124,8 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               className="text-gray-400 font-space text-sm text-center md:text-left"
             >
-              © 2025 Bagas Dwi Permana. All rights reserved. Built with React & Tailwind CSS.
+              © 2025 Bagas Dwi Permana. All rights reserved. Built with React &
+              Tailwind CSS.
             </motion.p>
 
             {/* Back to Top Button */}
@@ -146,7 +150,7 @@ const Footer = () => {
 
       {/* Decorative Elements */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-pink"></div>
-      
+
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
@@ -155,7 +159,7 @@ const Footer = () => {
         transition={{
           duration: 20,
           repeat: Infinity,
-          ease: "linear"
+          ease: "linear",
         }}
         className="absolute -bottom-4 -right-4 w-8 h-8 border-2 border-cyber-blue/20 rotate-45"
       />

@@ -1,118 +1,127 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Instagram, Linkedin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Github,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  try {
-    const response = await fetch('https://portofolio-backend.glitch.me/api/contact', {
+    try {
+      const response = await fetch(
+        "https://portofolio-backend.glitch.me/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+      const result = await response.json();
 
-    const result = await response.json();
-
-    if (result.success) {
+      if (result.success) {
+        toast({
+          title: "✅ Pesan berhasil dikirim!",
+          description: "Terima kasih telah menghubungi saya.",
+          variant: "default",
+          duration: 5000,
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast({
+          title: "❌ Gagal mengirim pesan",
+          description: result.message || "Terjadi kesalahan saat mengirim.",
+          variant: "destructive",
+          duration: 5000,
+        });
+      }
+    } catch (error) {
+      console.error("Error saat mengirim:", error);
       toast({
-        title: "✅ Pesan berhasil dikirim!",
-        description: "Terima kasih telah menghubungi saya.",
-        variant: "default",
-        duration: 5000,
-      });
-      setFormData({ name: '', email: '', message: '' });
-    } else {
-      toast({
-        title: "❌ Gagal mengirim pesan",
-        description: result.message || "Terjadi kesalahan saat mengirim.",
+        title: "⚠️ Error saat mengirim",
+        description: "Cek koneksi ke server atau backend Anda.",
         variant: "destructive",
         duration: 5000,
       });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error('Error saat mengirim:', error);
-    toast({
-      title: "⚠️ Error saat mengirim",
-      description: "Cek koneksi ke server atau backend Anda.",
-      variant: "destructive",
-      duration: 5000,
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
+  };
 
   const contactInfo = [
-{
-  icon: Mail,
-  label: 'Email',
-  value: 'bagastelkomschool@gmail.com',
-  href: 'mailto:bagastelkomschool@gmail.com',
-  color: 'from-cyber-blue to-cyber-purple'
-},
+    {
+      icon: Mail,
+      label: "Email",
+      value: "bagastelkomschool@gmail.com",
+      href: "mailto:bagastelkomschool@gmail.com",
+      color: "from-cyber-blue to-cyber-purple",
+    },
     {
       icon: Phone,
-      label: 'Telepon',
-      value: '+62 859-6656-5357', 
-      href: 'https://wa.me/6285966565357', 
-      color: 'from-cyber-purple to-cyber-pink'
+      label: "Telepon",
+      value: "+62 859-6656-5357",
+      href: "https://wa.me/6285966565357",
+      color: "from-cyber-purple to-cyber-pink",
     },
     {
       icon: MapPin,
-      label: 'Lokasi',
-      value: 'Jakarta, Indonesia',
-      href: 'https://maps.app.goo.gl/FNuZafstA5ye1MAX9',
-      color: 'from-cyber-pink to-cyber-green'
-    }
+      label: "Lokasi",
+      value: "Jakarta, Indonesia",
+      href: "https://maps.app.goo.gl/FNuZafstA5ye1MAX9",
+      color: "from-cyber-pink to-cyber-green",
+    },
   ];
 
   const socialLinks = [
     {
       icon: Github,
-      label: 'GitHub',
-      href: 'https://github.com/bagassdwipermanaa', // Ganti '#' dengan URL GitHub-mu
-      color: 'hover:text-cyber-blue'
+      label: "GitHub",
+      href: "https://github.com/bagassdwipermanaa", // Ganti '#' dengan URL GitHub-mu
+      color: "hover:text-cyber-blue",
     },
     {
       icon: Instagram,
-      label: 'Instagram',
-      href: 'https://www.instagram.com/bagassdwipermanaa?igsh=MW10NHJqZDlmMGw3dw%3D%3D&utm_source=qr', // Ganti '#' dengan URL Instagram-mu
-      color: 'hover:text-cyber-pink'
+      label: "Instagram",
+      href: "https://www.instagram.com/bagassdwipermanaa?igsh=MW10NHJqZDlmMGw3dw%3D%3D&utm_source=qr", // Ganti '#' dengan URL Instagram-mu
+      color: "hover:text-cyber-pink",
     },
     {
       icon: Linkedin,
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/bagas-dwi-permana/', // Ganti '#' dengan URL LinkedIn-mu
-      color: 'hover:text-cyber-purple'
-    }
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/bagas-dwi-permana/", // Ganti '#' dengan URL LinkedIn-mu
+      color: "hover:text-cyber-purple",
+    },
   ];
 
   const handleSocialClick = (href, platform) => {
-    if (href === '#') {
+    if (href === "#") {
       toast({
         title: `🚧 URL ${platform} Belum Disetel!`,
         description: `Harap ganti '#' dengan URL ${platform} Anda di kode.`,
@@ -120,14 +129,14 @@ const Contact = () => {
         duration: 5000,
       });
     } else {
-      window.open(href, '_blank');
+      window.open(href, "_blank");
     }
   };
 
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-pink/5 to-transparent"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -141,11 +150,12 @@ const Contact = () => {
               Contact Me
             </span>
           </h2>
-          
+
           <div className="w-24 h-1 bg-gradient-to-r from-cyber-pink to-cyber-blue mx-auto mb-8"></div>
-          
+
           <p className="text-xl text-gray-300 font-space max-w-3xl mx-auto">
-            Let's work together to transform creative ideas into remarkable digital experiences.
+            Let's work together to transform creative ideas into remarkable
+            digital experiences.
           </p>
         </motion.div>
 
@@ -161,47 +171,50 @@ const Contact = () => {
               <h3 className="text-2xl font-space font-bold text-cyber-blue mb-6">
                 Contact Information
               </h3>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((info, index) => {
-  const isClickable = info.href !== '#';
-  return (
-    <motion.div
-      key={info.label}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ scale: 1.02 }}
-      className="flex items-center space-x-4 p-4 bg-black/30 backdrop-blur-md border border-gray-700 rounded-xl hover:border-cyber-blue/50 transition-all duration-300"
-    >
-      <div className={`p-3 bg-gradient-to-r ${info.color} rounded-lg`}>
-        <info.icon className="h-6 w-6 text-white" />
-      </div>
-      <div>
-        <p className="text-gray-400 text-sm font-space">{info.label}</p>
-        <a
-          href={info.href}
-          {...(isClickable
-            ? {
-                target: "_blank",
-                rel: "noopener noreferrer",
-              }
-            : {
-                onClick: (e) => {
-                  e.preventDefault();
-                  handleSocialClick(info.href, info.label);
-                },
-              })}
-          className="text-white font-space font-medium hover:text-cyber-blue transition-colors"
-        >
-          {info.value}
-        </a>
-      </div>
-    </motion.div>
-  );
-})}
-
+                  const isClickable = info.href !== "#";
+                  return (
+                    <motion.div
+                      key={info.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      className="flex items-center space-x-4 p-4 bg-black/30 backdrop-blur-md border border-gray-700 rounded-xl hover:border-cyber-blue/50 transition-all duration-300"
+                    >
+                      <div
+                        className={`p-3 bg-gradient-to-r ${info.color} rounded-lg`}
+                      >
+                        <info.icon className="h-6 w-6 text-black" />
+                      </div>
+                      <div>
+                        <p className="text-gray-400 text-sm font-space">
+                          {info.label}
+                        </p>
+                        <a
+                          href={info.href}
+                          {...(isClickable
+                            ? {
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                              }
+                            : {
+                                onClick: (e) => {
+                                  e.preventDefault();
+                                  handleSocialClick(info.href, info.label);
+                                },
+                              })}
+                          className="text-white font-space font-medium hover:text-cyber-blue transition-colors"
+                        >
+                          {info.value}
+                        </a>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
@@ -209,7 +222,7 @@ const Contact = () => {
               <h4 className="text-xl font-space font-bold text-cyber-purple mb-4">
                 Follow me
               </h4>
-              
+
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.button
@@ -238,7 +251,8 @@ const Contact = () => {
               className="bg-gradient-to-r from-cyber-blue/10 to-cyber-purple/10 border border-cyber-blue/30 rounded-xl p-6 backdrop-blur-sm"
             >
               <p className="text-cyber-blue font-space font-semibold text-lg italic">
-                "Each project is a chance to craft something exceptional. Let’s collaborate to realize your digital vision."
+                "Each project is a chance to craft something exceptional. Let’s
+                collaborate to realize your digital vision."
               </p>
             </motion.div>
           </motion.div>
@@ -256,7 +270,10 @@ const Contact = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-space font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                  >
                     Full name
                   </label>
                   <input
@@ -272,7 +289,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-space font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                  >
                     Email
                   </label>
                   <input
@@ -288,7 +308,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-space font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                  >
                     Message
                   </label>
                   <textarea
@@ -312,7 +335,11 @@ const Contact = () => {
                     <>
                       <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                         className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
                       />
                       Send...

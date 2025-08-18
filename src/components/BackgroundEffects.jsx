@@ -16,7 +16,7 @@ const BackgroundEffects = () => {
           size: Math.random() * 2 + 0.5,
           delay: Math.random() * 10,
           duration: Math.random() * 15 + 10,
-          color: ["#00f5ff", "#8b5cf6", "#3b82f6"][
+          color: ["#ffffff", "#e5e7eb", "#9ca3af"][
             Math.floor(Math.random() * 3)
           ],
         });

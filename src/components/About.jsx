@@ -1,14 +1,33 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Code, Palette, Zap, Heart } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Code, Palette, Zap, Heart } from "lucide-react";
 
 const About = () => {
   const skills = [
-    { name: 'Frontend Development', icon: Code, level: 90, color: 'from-cyber-blue to-cyber-purple' },
-    { name: 'UI/UX Design', icon: Palette, level: 85, color: 'from-cyber-purple to-cyber-pink' },
-    { name: 'Performance Optimization', icon: Zap, level: 80, color: 'from-cyber-pink to-cyber-blue' },
-    { name: 'Problem Solving', icon: Heart, level: 95, color: 'from-cyber-blue to-cyber-green' },
+    {
+      name: "Frontend Development",
+      icon: Code,
+      level: 90,
+      color: "from-cyber-blue to-cyber-purple",
+    },
+    {
+      name: "UI/UX Design",
+      icon: Palette,
+      level: 85,
+      color: "from-cyber-purple to-cyber-pink",
+    },
+    {
+      name: "Performance Optimization",
+      icon: Zap,
+      level: 80,
+      color: "from-cyber-pink to-cyber-blue",
+    },
+    {
+      name: "Problem Solving",
+      icon: Heart,
+      level: 95,
+      color: "from-cyber-blue to-cyber-green",
+    },
   ];
 
   const containerVariants = {
@@ -35,7 +54,7 @@ const About = () => {
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-blue/5 to-transparent"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
@@ -52,7 +71,7 @@ const About = () => {
               About Me
             </span>
           </motion.h2>
-          
+
           <motion.div
             variants={itemVariants}
             className="w-24 h-1 bg-gradient-to-r from-cyber-blue to-cyber-purple mx-auto mb-8"
@@ -74,25 +93,31 @@ const About = () => {
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 className="absolute -top-4 -left-4 w-8 h-8 border-2 border-cyber-blue/30 rotate-45"
               ></motion.div>
-              
-              <p className="text-lg text-gray-300 leading-relaxed font-space">
-  Hello! I'm <span className="text-cyber-blue font-semibold">Bagas Dwi Permana</span>, 
-  a web developer passionate about crafting stunning and innovative digital experiences.
-</p>
-</div>
 
-           <p className="text-gray-300 leading-relaxed font-space">
-  With expertise in modern technologies like React, JavaScript, and the latest frameworks, I always strive to deliver solutions that are not only functional but also aesthetically pleasing and user-friendly.
-</p>
+              <p className="text-lg text-gray-300 leading-relaxed font-space">
+                Hello! I'm{" "}
+                <span className="text-cyber-blue font-semibold">
+                  Bagas Dwi Permana
+                </span>
+                , a web developer passionate about crafting stunning and
+                innovative digital experiences.
+              </p>
+            </div>
 
             <p className="text-gray-300 leading-relaxed font-space">
-  I believe every project is an opportunity to learn and grow. Creativity and technology are the two key elements that continually inspire me in every work I create.
-</p>
+              With expertise in modern technologies like React, JavaScript, and
+              the latest frameworks, I always strive to deliver solutions that
+              are not only functional but also aesthetically pleasing and
+              user-friendly.
+            </p>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="inline-block"
-            >
+            <p className="text-gray-300 leading-relaxed font-space">
+              I believe every project is an opportunity to learn and grow.
+              Creativity and technology are the two key elements that
+              continually inspire me in every work I create.
+            </p>
+
+            <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
               <div className="bg-gradient-to-r from-cyber-blue/20 to-cyber-purple/20 border border-cyber-blue/30 rounded-lg p-4 backdrop-blur-sm">
                 <p className="text-cyber-blue font-space font-semibold">
                   "Code is poetry, and every line tells a story."
@@ -124,8 +149,8 @@ const About = () => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-r from-cyber-blue/20 to-cyber-purple/20 rounded-lg">
-                      <skill.icon className="h-5 w-5 text-cyber-blue" />
+                    <div className="p-2 bg-white rounded-lg shadow-sm">
+                      <skill.icon className="h-5 w-5 text-black" />
                     </div>
                     <span className="font-space font-medium text-gray-300">
                       {skill.name}
