@@ -29,7 +29,7 @@ const DiagonalMarquee = ({
   );
   return (
     <div
-      className={`pointer-events-none absolute left-1/2 -translate-x-1/2 w-[140vw] ${height} ${className}`}
+      className={`pointer-events-none absolute left-1/2 -translate-x-1/2 w-[140vw] z-10 ${height} ${className}`}
       style={{ transform: `translateX(-50%) rotate(${rotate}deg)` }}
     >
       <div
