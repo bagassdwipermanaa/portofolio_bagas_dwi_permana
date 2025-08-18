@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,25 +11,25 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setIsMobileMenuOpen(false);
     }
   };
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'education', label: 'Education' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'certifications', label: 'Certifications' },
-    { id: 'contact', label: 'Contact' },
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "education", label: "Education" },
+    { id: "projects", label: "Projects" },
+    { id: "certifications", label: "Certifications" },
+    { id: "contact", label: "Contact" },
   ];
 
   return (
@@ -38,16 +38,16 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled || isMobileMenuOpen
-          ? 'bg-black/80 backdrop-blur-md border-b border-cyber-blue/20'
-          : 'bg-transparent'
+          ? "bg-black/80 backdrop-blur-md border-b border-cyber-blue/20"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
-            <span className="text-2xl font-space font-bold text-cyber-blue glitch-text" data-text="Bagas">
-              Bagas Dwi Permana
+          <motion.div whileHover={{ scale: 1.02 }} className="flex-shrink-0">
+            <span className="text-2xl font-space font-semibold text-white">
+              bagas
             </span>
           </motion.div>
 
@@ -62,13 +62,13 @@ const Navbar = () => {
                   transition={{ delay: index * 0.1 }}
                   whileHover={{
                     scale: 1.1,
-                    textShadow: "0 0 10px rgba(0, 245, 255, 0.8)"
+                    textShadow: "0 0 10px rgba(0, 245, 255, 0.8)",
                   }}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-300 hover:text-cyber-blue px-3 py-2 text-sm font-medium transition-all duration-300 relative group"
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 relative group"
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyber-blue to-cyber-purple group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white/60 group-hover:w-full transition-all duration-300"></span>
                 </motion.button>
               ))}
             </div>
