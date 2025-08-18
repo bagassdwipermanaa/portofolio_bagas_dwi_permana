@@ -14,6 +14,7 @@ import BackgroundEffects from '@/components/BackgroundEffects';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [trail, setTrail] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,7 +26,13 @@ function App() {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      const x = e.clientX;
+      const y = e.clientY;
+      setMousePosition({ x, y });
+      setTrail((prev) => {
+        const next = [...prev, { x, y, id: Date.now() + Math.random() }];
+        return next.slice(-10);
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -59,18 +66,35 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-gray-300 relative overflow-x-hidden">
+      {/* Cooler cursor: soft glow + trailing particles */}
       <motion.div
-        className="fixed w-8 h-8 border-2 border-cyber-blue/50 rounded-full pointer-events-none z-[9999] mix-blend-screen"
+        className="fixed w-6 h-6 rounded-full pointer-events-none z-[9999]"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.75), rgba(0,180,255,0.2) 60%, transparent 70%)",
+          boxShadow: "0 0 30px rgba(0,180,255,0.35)",
+          mixBlendMode: "screen",
+        }}
         animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
+          x: mousePosition.x - 12,
+          y: mousePosition.y - 12,
         }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 20,
-        }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
       />
+      {trail.map((p, i) => (
+        <motion.div
+          key={p.id}
+          className="fixed w-3 h-3 rounded-full pointer-events-none z-[9998]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(0,180,255,0.5), transparent 70%)",
+            mixBlendMode: "screen",
+          }}
+          initial={{ opacity: 0.5, scale: 1, x: p.x - 6, y: p.y - 6 }}
+          animate={{ opacity: 0, scale: 0.2, x: p.x - 6, y: p.y - 6 }}
+          transition={{ duration: 0.4 + i * 0.02, ease: "easeOut" }}
+        />
+      ))}
       
       <BackgroundEffects />
       

@@ -76,31 +76,7 @@ const BackgroundEffects = () => {
         />
       ))}
 
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-64 h-64 border border-cyber-blue/5 rotate-[30deg] opacity-20"
-        animate={{
-          rotate: [30, 390],
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-48 h-48 border border-cyber-purple/5 rounded-full opacity-20"
-        animate={{
-          rotate: [0, -360],
-          scale: [1, 0.95, 1],
-        }}
-        transition={{
-          duration: 45,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      {/* Removed large rotating outline shapes for a cleaner look */}
     </div>
   );
 };

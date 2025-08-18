@@ -5,6 +5,7 @@ const DiagonalMarquee = ({
   backgroundClass = "bg-white",
   textClass = "text-black",
   dotClass = "bg-orange-500",
+  dotShapeClass = "rounded-full",
   rotate = -15,
   className = "",
   height = "h-16",
@@ -20,7 +21,7 @@ const DiagonalMarquee = ({
         >
           <span className="uppercase">{label}</span>
           <span
-            className={`inline-block w-2 h-2 rounded-full ${dotClass}`}
+            className={`inline-block w-2 h-2 ${dotShapeClass} ${dotClass}`}
           ></span>
         </div>
       ))}

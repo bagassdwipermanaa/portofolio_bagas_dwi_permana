@@ -17,7 +17,18 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        space: ["Space Grotesk", "sans-serif"],
+        space: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Text",
+          "SF Pro Display",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",
