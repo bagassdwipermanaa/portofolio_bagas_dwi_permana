@@ -32,7 +32,7 @@ const DiagonalMarquee = ({
       style={{ transform: `translateX(-50%) rotate(${rotate}deg)` }}
     >
       <div
-        className={`overflow-hidden ${backgroundClass} ${height} w-full shadow-2xl/20`}
+        className={`overflow-hidden ${backgroundClass} ${height} w-full shadow-2xl/20 mask-fade-x`}
       >
         <div
           className={`marquee-track ${speedClass} flex whitespace-nowrap ${height}`}

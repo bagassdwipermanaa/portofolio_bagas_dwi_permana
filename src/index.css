@@ -58,6 +58,24 @@ body {
   }
 }
 
+/* Soft fade on both horizontal edges to avoid harsh cutoff in marquee */
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
 /* Custom scrollbar - Darker theme */
 ::-webkit-scrollbar {
   width: 6px;

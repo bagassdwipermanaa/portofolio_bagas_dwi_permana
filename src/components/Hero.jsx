@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, Download, ExternalLink } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import DiagonalMarquee from "@/components/DiagonalMarquee";
@@ -139,23 +139,6 @@ const Hero = () => {
           </motion.p>
         </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, ease: "easeOut" }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center text-gray-500 hover:text-white cursor-pointer"
-          onClick={scrollToProjects}
-        >
-          <span className="text-xs font-space mb-1">Scroll</span>
-          <ChevronDown className="h-5 w-5" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
