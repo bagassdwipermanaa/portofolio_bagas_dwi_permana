@@ -108,7 +108,7 @@ function Welcome() {
           transition={{ delay: 0.25, duration: 0.6 }}
           className="mt-1 max-w-2xl text-sm md:text-base tracking-wide text-gray-400"
         >
-          Web Developer • UI/UX Enthusiast
+          Web Developer • UI/UX Enthusiast • AI Enthusiast
         </motion.p>
 
         {/* Progress bar synced to ~2.5s */}
