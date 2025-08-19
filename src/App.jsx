@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Education from '@/components/Education';
-import Projects from '@/components/Projects';
-import Certifications from '@/components/Certifications';
-import Roadmap from '@/components/Roadmap';
-import LiveCodePlayground from '@/components/LiveCodePlayground';
-import FAQ from '@/components/FAQ';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import { Toaster } from '@/components/ui/toaster';
-import BackgroundEffects from '@/components/BackgroundEffects';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Education from "@/components/Education";
+import Projects from "@/components/Projects";
+import Certifications from "@/components/Certifications";
+import Roadmap from "@/components/Roadmap";
+import LiveCodePlayground from "@/components/LiveCodePlayground";
+import FAQ from "@/components/FAQ";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
+import BackgroundEffects from "@/components/BackgroundEffects";
+import Welcome from "@/components/Welcome";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -38,34 +39,11 @@ function App() {
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16 border-4 border-cyber-blue/70 border-t-transparent rounded-full mx-auto mb-4"
-          />
-          <motion.h2
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-2xl font-space font-bold text-cyber-blue/70"
-          >
-            Initializing Interface<span className="loading-dots"></span>
-          </motion.h2>
-        </motion.div>
-      </div>
-    );
-  }
+  if (isLoading) return <Welcome />;
 
   return (
     <div className="min-h-screen bg-slate-950 text-gray-300 relative overflow-x-hidden">
@@ -98,9 +76,9 @@ function App() {
           transition={{ duration: 0.4 + i * 0.02, ease: "easeOut" }}
         />
       ))}
-      
+
       <BackgroundEffects />
-      
+
       <AnimatePresence>
         <motion.div
           initial={{ opacity: 0 }}
@@ -108,20 +86,20 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <Navbar />
-          
+
           <main>
             <section id="home">
               <Hero />
             </section>
-            
+
             <section id="about">
               <About />
             </section>
-            
+
             <section id="education">
               <Education />
             </section>
-            
+
             <section id="projects">
               <Projects />
             </section>
@@ -129,28 +107,28 @@ function App() {
             <section id="certifications">
               <Certifications />
             </section>
-            
+
             <section id="roadmap">
               <Roadmap />
             </section>
-            
+
             <section id="playground">
               <LiveCodePlayground />
             </section>
-            
+
             <section id="faq">
               <FAQ />
             </section>
-            
+
             <section id="contact">
               <Contact />
             </section>
           </main>
-          
+
           <Footer />
         </motion.div>
       </AnimatePresence>
-      
+
       <Toaster />
     </div>
   );
