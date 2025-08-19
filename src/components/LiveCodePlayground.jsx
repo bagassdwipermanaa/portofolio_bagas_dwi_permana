@@ -42,7 +42,7 @@ const LiveCodePlayground = () => {
 </head>
 <body>
   <div class="header">
-    <h1>Bagas Dwi Permana</h1>
+    <h1 class="name">Bagas Dwi Permana</h1>
     <p>Full Stack Developer</p>
   </div>
   
@@ -128,19 +128,21 @@ const LiveCodePlayground = () => {
 document.addEventListener('DOMContentLoaded', function() {
   // Add typing effect to name
   const nameElement = document.querySelector('.name');
-  const originalText = nameElement.textContent;
-  nameElement.textContent = '';
-  
-  let i = 0;
-  const typeWriter = () => {
-    if (i < originalText.length) {
-      nameElement.textContent += originalText.charAt(i);
-      i++;
-      setTimeout(typeWriter, 100);
-    }
-  };
-  
-  setTimeout(typeWriter, 500);
+  if (nameElement) {
+    const originalText = nameElement.textContent;
+    nameElement.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+      if (i < originalText.length) {
+        nameElement.textContent += originalText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    };
+    
+    setTimeout(typeWriter, 500);
+  }
   
   // Add skill progress bars
   const skills = document.querySelectorAll('.skill');
@@ -248,7 +250,7 @@ document.head.appendChild(style);`,
   <title>My Portfolio</title>
 </head>
 <body>
-  <h1>Hello World!</h1>
+  <h1 class="name">Hello World!</h1>
   <p>Start coding here...</p>
 </body>
 </html>`,
@@ -361,7 +363,7 @@ console.log('Hello from JavaScript!');`,
                   srcDoc={output}
                   title="Code Output"
                   className="w-full h-full border-0"
-                  sandbox="allow-scripts allow-same-origin"
+                  sandbox="allow-scripts"
                 />
               </div>
             </div>
