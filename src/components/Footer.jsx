@@ -124,7 +124,7 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               className="text-neutral-400 font-space text-sm text-center md:text-left"
             >
-              © 2024 Bagas Dwi Permana. All rights reserved.
+              © 2025 Bagas Dwi Permana. All rights reserved.
             </motion.p>
 
             {/* Back to Top Button */}
