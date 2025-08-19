@@ -38,17 +38,17 @@ const TiltCard = ({
       }}
       animate={{ rotateX: tilt.rx, rotateY: tilt.ry }}
       transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.6 }}
-      className="relative rounded-2xl p-[1px] bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+      className="relative rounded-2xl p-[1px] bg-gradient-to-br from-neutral-700/50 to-neutral-600/30 border border-neutral-600 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
     >
       <div
-        className={`relative rounded-2xl p-6 bg-gradient-to-b ${gradient} backdrop-blur-sm overflow-hidden`}
+        className={`relative rounded-2xl p-6 bg-neutral-800/90 backdrop-blur-sm overflow-hidden`}
         style={{ transform: "translateZ(0.01px)" }}
       >
         {/* spotlight */}
         <div
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
-            background: `radial-gradient(350px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.15), transparent 40%)`,
+            background: `radial-gradient(350px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.1), transparent 40%)`,
           }}
         />
 
@@ -56,7 +56,7 @@ const TiltCard = ({
           className="relative z-10 flex items-start gap-4"
           style={{ transform: "translateZ(30px)" }}
         >
-          <div className="p-3 rounded-xl bg-black/40 border border-white/10 text-white">
+          <div className="p-3 rounded-xl bg-neutral-700/50 border border-neutral-600 text-white">
             <Icon className="h-6 w-6" />
           </div>
           <div>
@@ -64,7 +64,7 @@ const TiltCard = ({
               {title}
             </h4>
             {subtitle && (
-              <p className="text-gray-300/80 font-space text-sm mt-1">
+              <p className="text-neutral-300 font-space text-sm mt-1">
                 {subtitle}
               </p>
             )}
@@ -72,7 +72,7 @@ const TiltCard = ({
         </div>
 
         {/* depth lines */}
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
       </div>
     </motion.div>
   );
@@ -143,7 +143,7 @@ const About = () => {
                 className="absolute -top-4 -left-4 w-8 h-8 border-2 border-cyber-blue/30 rotate-45"
               ></motion.div>
 
-              <p className="text-lg text-gray-300 leading-relaxed font-space">
+              <p className="text-lg text-neutral-300 leading-relaxed font-space">
                 Hello! I'm {""}
                 <span className="text-cyber-blue font-semibold">
                   Bagas Dwi Permana
@@ -153,21 +153,21 @@ const About = () => {
               </p>
             </div>
 
-            <p className="text-gray-300 leading-relaxed font-space">
+            <p className="text-neutral-300 leading-relaxed font-space">
               With expertise in modern technologies like React, JavaScript, and
               the latest frameworks, I always strive to deliver solutions that
               are not only functional but also aesthetically pleasing and
               user-friendly.
             </p>
 
-            <p className="text-gray-300 leading-relaxed font-space">
+            <p className="text-neutral-300 leading-relaxed font-space">
               I believe every project is an opportunity to learn and grow.
               Creativity and technology are the two key elements that
               continually inspire me in every work I create.
             </p>
 
             <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
-              <div className="bg-gradient-to-r from-cyber-blue/20 to-cyber-purple/20 border border-cyber-blue/30 rounded-lg p-4 backdrop-blur-sm">
+              <div className="bg-neutral-800/90 border border-neutral-700 rounded-lg p-4 backdrop-blur-sm">
                 <p className="text-cyber-blue font-space font-semibold">
                   "Code is poetry, and every line tells a story."
                 </p>

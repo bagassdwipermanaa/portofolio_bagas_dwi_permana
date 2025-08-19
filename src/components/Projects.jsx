@@ -146,7 +146,7 @@ const Projects = () => {
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-cyber-green to-cyber-blue mx-auto mb-8"></div>
-          <p className="text-xl text-gray-300 font-space max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
             A collection of projects that demonstrate skill and creativity in
             modern web development.
           </p>
@@ -164,7 +164,7 @@ const Projects = () => {
               key={project.id}
               variants={itemVariants}
               whileHover={{ y: -10 }}
-              className="project-card rounded-xl overflow-hidden group"
+              className="project-card rounded-xl overflow-hidden group bg-neutral-800/90 border border-neutral-700 hover:border-neutral-600 transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">
                 <img
@@ -213,12 +213,12 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 bg-neutral-800/90">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-space font-semibold text-cyber-blue uppercase tracking-wider">
                     {project.category}
                   </span>
-                  <div className="flex items-center space-x-1 text-white/80">
+                  <div className="flex items-center space-x-1 text-neutral-300">
                     {[...Array(5)].map((_, index) => (
                       <Star key={index} className="h-3 w-3 fill-current" />
                     ))}
@@ -229,7 +229,7 @@ const Projects = () => {
                   {project.title}
                 </h3>
 
-                <p className="text-gray-300 text-sm font-space leading-relaxed mb-4">
+                <p className="text-neutral-300 text-sm font-space leading-relaxed mb-4">
                   {project.description}
                 </p>
 
@@ -237,7 +237,7 @@ const Projects = () => {
                   {project.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className={`px-2 py-1 text-xs font-space font-medium rounded bg-white/10 text-white border border-white/20 backdrop-blur-sm`}
+                      className={`px-2 py-1 text-xs font-space font-medium rounded bg-neutral-700/50 text-neutral-200 border border-neutral-600 backdrop-blur-sm`}
                     >
                       {tech}
                     </span>
@@ -259,8 +259,9 @@ const Projects = () => {
             <h3 className="text-2xl font-space font-bold text-white mb-4">
               Interested in my project?
             </h3>
-            <p className="text-gray-300 font-space mb-6 max-w-2xl mx-auto">
-              Let's collaborate and create something amazing together!
+            <p className="text-neutral-300 font-space mb-6 max-w-2xl mx-auto">
+              Each project represents a unique challenge and learning experience,
+              showcasing my growth as a developer.
             </p>
             <Button
               onClick={() => {

@@ -135,7 +135,7 @@ const Contact = () => {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-pink/5 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -146,14 +146,14 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-pink to-cyber-blue">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-300">
               Contact Me
             </span>
           </h2>
 
-          <div className="w-24 h-1 bg-gradient-to-r from-cyber-pink to-cyber-blue mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-white to-neutral-300 mx-auto mb-8"></div>
 
-          <p className="text-xl text-gray-300 font-space max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
             Let's work together to transform creative ideas into remarkable
             digital experiences.
           </p>
@@ -168,7 +168,7 @@ const Contact = () => {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-space font-bold text-cyber-blue mb-6">
+              <h3 className="text-2xl font-space font-bold text-white mb-6">
                 Contact Information
               </h3>
 
@@ -183,15 +183,15 @@ const Contact = () => {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       whileHover={{ scale: 1.02 }}
-                      className="flex items-center space-x-4 p-4 bg-black/30 backdrop-blur-md border border-gray-700 rounded-xl hover:border-cyber-blue/50 transition-all duration-300"
+                      className="flex items-center space-x-4 p-4 bg-neutral-800/90 backdrop-blur-md border border-neutral-700 rounded-xl hover:border-neutral-600 transition-all duration-300"
                     >
                       <div
-                        className={`p-3 bg-gradient-to-r ${info.color} rounded-lg`}
+                        className={`p-3 bg-neutral-700/50 rounded-lg border border-neutral-600`}
                       >
-                        <info.icon className="h-6 w-6 text-black" />
+                        <info.icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm font-space">
+                        <p className="text-neutral-400 text-sm font-space">
                           {info.label}
                         </p>
                         <a
@@ -207,7 +207,7 @@ const Contact = () => {
                                   handleSocialClick(info.href, info.label);
                                 },
                               })}
-                          className="text-white font-space font-medium hover:text-cyber-blue transition-colors"
+                          className="text-white font-space font-medium hover:text-neutral-300 transition-colors"
                         >
                           {info.value}
                         </a>
@@ -219,7 +219,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-space font-bold text-cyber-purple mb-4">
+              <h4 className="text-xl font-space font-bold text-white mb-4">
                 Follow me
               </h4>
 
@@ -234,7 +234,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleSocialClick(social.href, social.label)}
-                    className={`p-3 bg-black/30 backdrop-blur-md border border-gray-700 rounded-xl text-gray-400 ${social.color} transition-all duration-300 hover:border-current`}
+                    className={`p-3 bg-neutral-800/90 backdrop-blur-md border border-neutral-700 rounded-xl text-neutral-300 ${social.color} transition-all duration-300 hover:border-neutral-600`}
                     aria-label={`Kunjungi ${social.label}`}
                   >
                     <social.icon className="h-6 w-6" />
@@ -248,10 +248,10 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-gradient-to-r from-cyber-blue/10 to-cyber-purple/10 border border-cyber-blue/30 rounded-xl p-6 backdrop-blur-sm"
+              className="bg-neutral-800/90 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
             >
-              <p className="text-cyber-blue font-space font-semibold text-lg italic">
-                "Each project is a chance to craft something exceptional. Let’s
+              <p className="text-white font-space font-semibold text-lg italic">
+                "Each project is a chance to craft something exceptional. Let's
                 collaborate to realize your digital vision."
               </p>
             </motion.div>
@@ -263,8 +263,8 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="bg-black/30 backdrop-blur-md border border-gray-700 rounded-xl p-8">
-              <h3 className="text-2xl font-space font-bold text-cyber-pink mb-6">
+            <div className="bg-neutral-800/90 backdrop-blur-md border border-neutral-700 rounded-xl p-8">
+              <h3 className="text-2xl font-space font-bold text-white mb-6">
                 Send message
               </h3>
 
@@ -272,7 +272,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
                   >
                     Full name
                   </label>
@@ -283,7 +283,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 cyber-input rounded-lg font-space"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -291,7 +291,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
                   >
                     Email
                   </label>
@@ -302,7 +302,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 cyber-input rounded-lg font-space"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
                     placeholder="name@gmail.com"
                   />
                 </div>
@@ -310,7 +310,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-space font-medium text-gray-300 mb-2"
+                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
                   >
                     Message
                   </label>
@@ -321,7 +321,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 cyber-input rounded-lg font-space resize-none"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors resize-none"
                     placeholder="Tell us about a project or idea you'd like to bring to life..."
                   />
                 </div>
@@ -329,7 +329,7 @@ const Contact = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full cyber-button py-3 text-lg font-space font-semibold group"
+                  className="w-full bg-neutral-700/50 hover:bg-neutral-600/50 border border-neutral-600 text-white py-3 text-lg font-space font-semibold group rounded-lg transition-colors"
                 >
                   {isSubmitting ? (
                     <>

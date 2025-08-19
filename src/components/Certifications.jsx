@@ -134,7 +134,7 @@ const Certifications = () => {
 
           <div className="w-24 h-1 bg-gradient-to-r from-cyber-purple to-cyber-blue mx-auto mb-8"></div>
 
-          <p className="text-xl text-gray-300 font-space max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
             Recognition of expertise and dedication in mastering the latest
             technologies in the world of web development.
           </p>
@@ -151,37 +151,37 @@ const Certifications = () => {
             <motion.div
               key={cert.id}
               variants={itemVariants}
-              className="certification-card rounded-xl overflow-hidden group bg-slate-900/70 backdrop-blur-md border border-slate-800 hover:border-cyber-purple/50 transition-colors duration-300"
+              className="certification-card rounded-xl overflow-hidden group bg-neutral-800/90 backdrop-blur-md border border-neutral-700 hover:border-neutral-600 transition-colors duration-300"
             >
               <div className={`p-6 md:p-8 relative`}>
                 <div
                   className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${cert.gradient}`}
                 ></div>
                 <div className="flex items-center mb-4">
-                  <div className="p-3 bg-white rounded-lg mr-4 shadow-sm">
-                    <Award className="h-6 w-6 text-black" />
+                  <div className="p-3 bg-neutral-700/50 rounded-lg mr-4 shadow-sm border border-neutral-600">
+                    <Award className="h-6 w-6 text-white" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-space font-bold text-white group-hover:text-cyber-purple transition-colors">
                     {cert.title}
                   </h3>
                 </div>
 
-                <div className="flex items-center text-sm text-gray-400 mb-2 font-space">
+                <div className="flex items-center text-sm text-neutral-400 mb-2 font-space">
                   <CheckCircle className="h-4 w-4 mr-2 text-cyber-green flex-shrink-0" />
                   <span>Issued by: {cert.issuer}</span>
                 </div>
-                <div className="flex items-center text-sm text-gray-400 mb-4 font-space">
+                <div className="flex items-center text-sm text-neutral-400 mb-4 font-space">
                   <Calendar className="h-4 w-4 mr-2 text-cyber-blue flex-shrink-0" />
                   <span>Date: {cert.date}</span>
                 </div>
 
-                <p className="text-gray-300 text-base font-space leading-relaxed mb-6">
+                <p className="text-neutral-300 text-base font-space leading-relaxed mb-6">
                   {cert.description}
                 </p>
 
                 <Button
                   onClick={() => handleViewPdf(cert.pdfLink, cert.title)}
-                  className="cyber-button bg-cyber-purple/10 hover:bg-cyber-purple/20 border-cyber-purple text-cyber-purple px-6 py-2.5 text-sm font-space font-medium group"
+                  className="cyber-button bg-neutral-700/50 hover:bg-neutral-600/50 border-neutral-600 text-neutral-200 px-6 py-2.5 text-sm font-space font-medium group"
                 >
                   View Details
                   <FileText className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

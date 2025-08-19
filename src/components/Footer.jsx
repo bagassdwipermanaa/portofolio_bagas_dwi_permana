@@ -48,7 +48,7 @@ const Footer = () => {
                 <Code className="h-6 w-6 text-white" />
               </div>
 
-              <p className="text-gray-300 font-space leading-relaxed">
+              <p className="text-neutral-300 font-space leading-relaxed">
                 A web developer passionate about creating stunning and
                 innovative digital experiences using cutting-edge technology.
               </p>
@@ -78,7 +78,7 @@ const Footer = () => {
                     key={link.id}
                     whileHover={{ x: 5 }}
                     onClick={() => scrollToSection(link.id)}
-                    className="text-gray-300 hover:text-cyber-blue font-space text-left transition-colors duration-300"
+                    className="text-neutral-300 hover:text-cyber-blue font-space text-left transition-colors duration-300"
                   >
                     {link.label}
                   </motion.button>
@@ -98,7 +98,7 @@ const Footer = () => {
                 Get In Touch
               </span>
 
-              <div className="space-y-2 text-gray-300 font-space">
+              <div className="space-y-2 text-neutral-300 font-space">
                 <p>bagastelkomschool@gmail.com</p>
                 <p>+62 859-6656-5357</p>
                 <p>Jakarta, Indonesia</p>
@@ -122,10 +122,9 @@ const Footer = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-gray-400 font-space text-sm text-center md:text-left"
+              className="text-neutral-400 font-space text-sm text-center md:text-left"
             >
-              © 2025 Bagas Dwi Permana. All rights reserved. Built with React &
-              Tailwind CSS.
+              © 2024 Bagas Dwi Permana. All rights reserved.
             </motion.p>
 
             {/* Back to Top Button */}
