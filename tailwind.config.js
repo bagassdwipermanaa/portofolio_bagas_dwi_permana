@@ -65,11 +65,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         cyber: {
-          blue: "#ffffff",
-          purple: "#e5e7eb",
-          pink: "#f3f4f6",
-          green: "#d1d5db",
-          yellow: "#9ca3af",
+          blue: "#3b82f6",      // Bright blue
+          purple: "#8b5cf6",    // Bright purple
+          pink: "#ec4899",      // Bright pink
+          green: "#10b981",     // Bright green
+          yellow: "#f59e0b",    // Bright yellow
         },
       },
       borderRadius: {

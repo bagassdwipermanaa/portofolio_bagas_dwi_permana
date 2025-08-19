@@ -25,7 +25,7 @@ const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden bg-black/50 backdrop-blur-md border-t border-gray-800">
-      <div className="absolute inset-0 bg-gradient-to-t from-cyber-blue/5 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="py-12">
@@ -40,7 +40,7 @@ const Footer = () => {
             >
               <div className="flex items-center space-x-2">
                 <span
-                  className="text-2xl font-space font-bold text-cyber-blue glitch-text"
+                  className="text-2xl font-space font-bold text-white glitch-text"
                   data-text="Bagas"
                 >
                   Bagas
@@ -53,7 +53,7 @@ const Footer = () => {
                 innovative digital experiences using cutting-edge technology.
               </p>
 
-              <div className="flex items-center space-x-2 text-cyber-pink">
+              <div className="flex items-center space-x-2 text-white">
                 <span className="font-space text-sm">Made with</span>
                 <Heart className="h-4 w-4 fill-current animate-pulse" />
                 <span className="font-space text-sm">and lots of coffee</span>
@@ -68,7 +68,7 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-4"
             >
-              <span className="text-lg font-space font-semibold text-cyber-purple">
+              <span className="text-lg font-space font-semibold text-white">
                 Quick Links
               </span>
 
@@ -78,7 +78,7 @@ const Footer = () => {
                     key={link.id}
                     whileHover={{ x: 5 }}
                     onClick={() => scrollToSection(link.id)}
-                    className="text-neutral-300 hover:text-cyber-blue font-space text-left transition-colors duration-300"
+                    className="text-neutral-300 hover:text-white font-space text-left transition-colors duration-300"
                   >
                     {link.label}
                   </motion.button>
@@ -94,7 +94,7 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-4"
             >
-              <span className="text-lg font-space font-semibold text-cyber-green">
+              <span className="text-lg font-space font-semibold text-white">
                 Get In Touch
               </span>
 
@@ -138,7 +138,7 @@ const Footer = () => {
                 onClick={scrollToTop}
                 variant="outline"
                 size="icon"
-                className="cyber-button border-cyber-blue text-cyber-blue hover:bg-cyber-blue/10 group"
+                className="cyber-button border-white text-white hover:bg-white/10 group"
               >
                 <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform" />
               </Button>
@@ -148,7 +148,7 @@ const Footer = () => {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-pink"></div>
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-white"></div>
 
       <motion.div
         animate={{
@@ -160,7 +160,7 @@ const Footer = () => {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="absolute -bottom-4 -right-4 w-8 h-8 border-2 border-cyber-blue/20 rotate-45"
+        className="absolute -bottom-4 -right-4 w-8 h-8 border-2 border-white/20 rotate-45"
       />
     </footer>
   );

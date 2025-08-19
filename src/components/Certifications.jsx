@@ -14,7 +14,6 @@ const Certifications = () => {
       description:
         "This certificate is awarded for participating in the Competence Day event held by SMK Telkom Jakarta as a representative in the Graphic Design Center category.",
       pdfLink: "#",
-      gradient: "from-cyber-blue to-cyber-purple",
     },
     {
       id: 2,
@@ -25,7 +24,6 @@ const Certifications = () => {
         "This certificate is awarded to Bagas Dwi Permana for successfully completing JavaScript Essentials 1 through the Cisco Networking Academy program.",
       pdfLink:
         "/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf",
-      gradient: "from-cyber-purple to-cyber-pink",
     },
     {
       id: 3,
@@ -35,7 +33,6 @@ const Certifications = () => {
       description:
         'Certificate of Completion awarded to Bagas Dwi Permana for completing "Build a WordPress Website on Hostinger: Web Design 101".',
       pdfLink: "#",
-      gradient: "from-cyber-pink to-cyber-green",
     },
     {
       id: 4,
@@ -45,7 +42,6 @@ const Certifications = () => {
       description:
         'Certificate of Completion awarded to Bagas Dwi Permana for completing the "CSS Coding for Website Development" bootcamp for beginners.',
       pdfLink: "#",
-      gradient: "from-cyber-green to-cyber-blue",
     },
     {
       id: 5,
@@ -55,7 +51,6 @@ const Certifications = () => {
       description:
         'This certificate is awarded to Bagas Dwi Permana for completing the "Guide to Learn SQL with AI" program offered by DQLab.',
       pdfLink: "#",
-      gradient: "from-cyber-blue to-cyber-pink",
     },
     {
       id: 6,
@@ -65,7 +60,6 @@ const Certifications = () => {
       description:
         'Awarded to Bagas Dwi Permana for completing the Level 3 Qualification Competency Test on "Creating a Simple CV Website Using HTML and Bootstrap" on November 25, 2024, and declared Competent.',
       pdfLink: "#",
-      gradient: "from-cyber-purple to-cyber-green",
     },
     {
       id: 7,
@@ -76,7 +70,6 @@ const Certifications = () => {
       description:
         'Presented to:\nPARTICIPANT\nBagas Dwi Permana\nIn the event of "Training on Building a Simple Website Using Programming Languages HTML, CSS, JavaScript, and PHP" held at SMK Telkom Jakarta.',
       pdfLink: "/Bagas Dwi Permana.pdf",
-      gradient: "from-cyber-purple to-cyber-green",
     },
   ];
 
@@ -116,7 +109,7 @@ const Certifications = () => {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-purple/5 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -127,12 +120,10 @@ const Certifications = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-purple to-cyber-blue">
-              My Certification
-            </span>
+            <span className="text-white">My Certification</span>
           </h2>
 
-          <div className="w-24 h-1 bg-gradient-to-r from-cyber-purple to-cyber-blue mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
 
           <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
             Recognition of expertise and dedication in mastering the latest
@@ -154,24 +145,22 @@ const Certifications = () => {
               className="certification-card rounded-xl overflow-hidden group bg-neutral-800/90 backdrop-blur-md border border-neutral-700 hover:border-neutral-600 transition-colors duration-300"
             >
               <div className={`p-6 md:p-8 relative`}>
-                <div
-                  className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${cert.gradient}`}
-                ></div>
+                <div className="absolute top-0 left-0 h-1 w-full bg-white"></div>
                 <div className="flex items-center mb-4">
                   <div className="p-3 bg-neutral-700/50 rounded-lg mr-4 shadow-sm border border-neutral-600">
                     <Award className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-space font-bold text-white group-hover:text-cyber-purple transition-colors">
+                  <h3 className="text-xl md:text-2xl font-space font-bold text-white group-hover:text-white transition-colors">
                     {cert.title}
                   </h3>
                 </div>
 
                 <div className="flex items-center text-sm text-neutral-400 mb-2 font-space">
-                  <CheckCircle className="h-4 w-4 mr-2 text-cyber-green flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 mr-2 text-neutral-400 flex-shrink-0" />
                   <span>Issued by: {cert.issuer}</span>
                 </div>
                 <div className="flex items-center text-sm text-neutral-400 mb-4 font-space">
-                  <Calendar className="h-4 w-4 mr-2 text-cyber-blue flex-shrink-0" />
+                  <Calendar className="h-4 w-4 mr-2 text-neutral-400 flex-shrink-0" />
                   <span>Date: {cert.date}</span>
                 </div>
 

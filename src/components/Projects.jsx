@@ -1,10 +1,22 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FileText, Github, Star } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FileText,
+  Github,
+  Star,
+  ExternalLink,
+  Zap,
+  Code,
+  Palette,
+  Monitor,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 
 const Projects = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [hoveredProject, setHoveredProject] = useState(null);
+
   const projects = [
     {
       id: 1,
@@ -15,10 +27,12 @@ const Projects = () => {
       technologies: ["C#", "MySQL"],
       category: "Full Stack",
       status: "Completed",
-      gradient: "from-cyber-blue to-cyber-purple",
       pdfLink: "/aplikasidatakaryawancsharp.pdf",
       githubLink: "https://github.com/CodeWithBagas/project-c-bagas",
       isPrivate: false,
+      icon: Code,
+      complexity: "Intermediate",
+      duration: "3 weeks",
     },
     {
       id: 2,
@@ -29,10 +43,12 @@ const Projects = () => {
       technologies: ["Figma", "Design System", "UX Research"],
       category: "UI/UX Design",
       status: "Completed",
-      gradient: "from-cyber-purple to-cyber-pink",
       pdfLink: "/uiuxaplikasiesportsmktelkomjakarta.pdf",
       githubLink: "https://github.com/CodeWithBagas/uiux-esport-smktelkom",
       isPrivate: false,
+      icon: Palette,
+      complexity: "Advanced",
+      duration: "4 weeks",
     },
     {
       id: 3,
@@ -43,10 +59,12 @@ const Projects = () => {
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
       category: "Full Stack",
       status: "Completed",
-      gradient: "from-cyber-pink to-cyber-green",
       pdfLink: "/webportofoliobagas.pdf",
       githubLink: "https://github.com/CodeWithBagas/uiux-esport-smktelkom",
       isPrivate: true,
+      icon: Code,
+      complexity: "Advanced",
+      duration: "6 weeks",
     },
     {
       id: 4,
@@ -57,11 +75,12 @@ const Projects = () => {
       technologies: ["Java", "Swing", "NetBeans"],
       category: "Desktop App",
       status: "Completed",
-      gradient: "from-yellow-400 to-orange-600",
       pdfLink: "/aplikasipenilaianjavasederhana.pdf",
       githubLink: "http://github.com/CodeWithBagas/penilaian-sederhana-java",
+      icon: Monitor,
+      complexity: "Beginner",
+      duration: "2 weeks",
     },
-
     {
       id: 5,
       title: "Web Care Plus – UI/UX Design",
@@ -71,9 +90,11 @@ const Projects = () => {
       technologies: ["Figma", "UI/UX Design", "Design System"],
       category: "UI/UX Design",
       status: "Completed",
-      gradient: "from-teal-400 to-blue-600",
-      pdfLink: "webcareplusdesign.pdf",
+      pdfLink: "/webcareplusdesign.pdf",
       githubLink: "https://github.com/CodeWithBagas/web-careplus-uiux-design",
+      icon: Palette,
+      complexity: "Advanced",
+      duration: "5 weeks",
     },
     {
       id: 6,
@@ -84,12 +105,21 @@ const Projects = () => {
       technologies: ["React", "Tailwind CSS"],
       category: "Full Stack",
       status: "Completed",
-      gradient: "from-cyber-blue to-cyber-purple",
       pdfLink: "/kantenmanagementbagas.pdf",
       githubLink:
         "https://github.com/bagassdwipermanaa/kantinmanagement-bybagas",
+      icon: Code,
+      complexity: "Intermediate",
+      duration: "4 weeks",
     },
   ];
+
+  const categories = ["All", "Full Stack", "UI/UX Design", "Desktop App"];
+
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   const handleViewLink = (url, type, isPrivate = false) => {
     if (isPrivate) {
@@ -111,74 +141,129 @@ const Projects = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-green/5 to-transparent"></div>
+      {/* Simple background */}
+      <div className="absolute inset-0 bg-neutral-900/50"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-green to-cyber-blue">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mr-4">
+              <Zap className="w-8 h-8 text-black" />
+            </div>
+            <h2 className="text-5xl md:text-6xl font-space font-bold text-white">
               My Projects
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyber-green to-cyber-blue mx-auto mb-8"></div>
-          <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
+            </h2>
+          </div>
+          <div className="w-32 h-1 bg-white mx-auto mb-8 rounded-full"></div>
+          <p className="text-xl text-gray-300 font-space max-w-3xl mx-auto leading-relaxed">
             A collection of projects that demonstrate skill and creativity in
-            modern web development.
+            modern web development, UI/UX design, and software engineering.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={containerVariants}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={itemVariants}
-              whileHover={{ y: -10 }}
-              className="project-card rounded-xl overflow-hidden group bg-neutral-800/90 border border-neutral-700 hover:border-neutral-600 transition-all duration-300"
+        {/* Category filter */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-3 rounded-full font-space font-semibold transition-all duration-300 ${
+                selectedCategory === category
+                  ? "bg-white text-black shadow-lg"
+                  : "bg-neutral-800 text-white border border-neutral-700 hover:border-white/50"
+              }`}
             >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt={`${project.title} - ${project.description}`}
-                  src={project.image}
-                />
+              {category}
+            </button>
+          ))}
+        </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="flex space-x-2 w-full">
+        {/* Debug info */}
+        <div className="text-center text-white mb-6 p-4 bg-neutral-800 rounded-lg">
+          <p>
+            Selected: <strong>{selectedCategory}</strong> | Total:{" "}
+            <strong>{projects.length}</strong> | Filtered:{" "}
+            <strong>{filteredProjects.length}</strong>
+          </p>
+        </div>
+
+        {/* Projects grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-700 hover:border-white/50 transition-all duration-300"
+              >
+                {/* Project image */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    className="w-full h-full object-cover"
+                    alt={project.title}
+                    src={project.image}
+                  />
+
+                  {/* Status badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/20 text-white border border-white/50">
+                      {project.status}
+                    </span>
+                  </div>
+
+                  {/* Category badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-neutral-800/80 text-white border border-white/50">
+                      {project.category}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Project content */}
+                <div className="p-6">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                      <project.icon className="w-4 h-4 text-black" />
+                    </div>
+                    <span className="text-xs font-semibold text-white uppercase tracking-wider">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white mb-3 leading-tight">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-neutral-300 text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+
+                  {/* Technology tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-neutral-700 text-white border border-neutral-600"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project info */}
+                  <div className="flex items-center justify-between text-xs text-neutral-400 mb-4">
+                    <span>Complexity: {project.complexity}</span>
+                    <span>Duration: {project.duration}</span>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex space-x-2">
                     <Button
                       onClick={() => handleViewLink(project.pdfLink, "PDF")}
                       size="sm"
-                      className="cyber-button flex-1"
+                      className="flex-1 bg-white/20 border-white/50 text-white hover:bg-white/30"
                     >
                       <FileText className="h-4 w-4 mr-2" />
                       PDF
@@ -193,75 +278,52 @@ const Projects = () => {
                       }
                       size="sm"
                       variant="outline"
-                      className="cyber-button border-cyber-purple text-cyber-purple hover:bg-cyber-purple/10"
+                      className="border-white/50 text-white hover:bg-white/20"
                     >
                       <Github className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
-
-                <div className="absolute top-4 right-4">
-                  <span
-                    className={`px-3 py-1 text-xs font-space font-semibold rounded-full ${
-                      project.status === "Completed"
-                        ? "bg-cyber-green/20 text-cyber-green border border-cyber-green/30"
-                        : "bg-cyber-yellow/20 text-cyber-yellow border border-cyber-yellow/30"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
-                </div>
               </div>
-
-              <div className="p-6 bg-neutral-800/90">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-space font-semibold text-cyber-blue uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                  <div className="flex items-center space-x-1 text-neutral-300">
-                    {[...Array(5)].map((_, index) => (
-                      <Star key={index} className="h-3 w-3 fill-current" />
-                    ))}
-                  </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-16">
+              <div className="bg-neutral-800 rounded-2xl p-8 border border-neutral-700">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Code className="w-10 h-10 text-black" />
                 </div>
-
-                <h3 className="text-xl font-space font-bold text-white mb-3 group-hover:text-cyber-blue transition-colors">
-                  {project.title}
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  No projects found for "{selectedCategory}"
                 </h3>
-
-                <p className="text-neutral-300 text-sm font-space leading-relaxed mb-4">
-                  {project.description}
+                <p className="text-neutral-300 mb-6">
+                  Try selecting a different category or check back later for new
+                  projects.
                 </p>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className={`px-2 py-1 text-xs font-space font-medium rounded bg-neutral-700/50 text-neutral-200 border border-neutral-600 backdrop-blur-sm`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                <Button
+                  onClick={() => setSelectedCategory("All")}
+                  className="px-6 py-3 font-semibold bg-white text-black hover:bg-white/90"
+                >
+                  Show All Projects
+                </Button>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            </div>
+          )}
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-16"
-        >
-          <div className="bg-gradient-to-r from-cyber-blue/10 to-cyber-purple/10 border border-cyber-blue/30 rounded-xl p-8 backdrop-blur-sm">
-            <h3 className="text-2xl font-space font-bold text-white mb-4">
-              Interested in my project?
-            </h3>
-            <p className="text-neutral-300 font-space mb-6 max-w-2xl mx-auto">
-              Each project represents a unique challenge and learning experience,
-              showcasing my growth as a developer.
+        {/* Call to action */}
+        <div className="text-center mt-20">
+          <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-10">
+            <div className="inline-flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mr-4">
+                <ExternalLink className="w-8 h-8 text-black" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">
+                Interested in my projects?
+              </h3>
+            </div>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+              Each project represents a unique challenge and learning
+              experience, showcasing my growth as a developer and designer.
             </p>
             <Button
               onClick={() => {
@@ -270,12 +332,12 @@ const Projects = () => {
                   element.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="cyber-button px-8 py-3 text-lg font-space font-semibold"
+              className="px-10 py-4 text-lg font-semibold bg-white text-black hover:bg-white/90"
             >
-              Contact me
+              Let's Connect
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
