@@ -58,6 +58,28 @@ const Footer = () => {
                 <Heart className="h-4 w-4 fill-current animate-pulse" />
                 <span className="font-space text-sm">and lots of coffee</span>
               </div>
+
+              {/* Tech & Cert badges */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                {["React", "Node.js", "Java", "Python", "AWS", "Docker"].map(
+                  (item) => (
+                    <span
+                      key={item}
+                      className="px-2.5 py-1 text-xs rounded-full bg-neutral-800 border border-neutral-700 text-white"
+                    >
+                      {item}
+                    </span>
+                  )
+                )}
+                <a
+                  href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-2.5 py-1 text-xs rounded-full bg-white text-black hover:bg-white/90 transition-colors"
+                >
+                  Cisco JS Essentials
+                </a>
+              </div>
             </motion.div>
 
             {/* Quick Links */}

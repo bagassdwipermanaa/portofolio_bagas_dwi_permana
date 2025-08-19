@@ -219,22 +219,6 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Debug info */}
-        <motion.div
-          key={selectedCategory}
-          initial={{ opacity: 0, scale: 0.9, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: -10 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="text-center text-white mb-6 p-4 bg-neutral-800 rounded-lg border border-neutral-700"
-        >
-          <p>
-            Selected: <strong>{selectedCategory}</strong> | Total:{" "}
-            <strong>{projects.length}</strong> | Filtered:{" "}
-            <strong>{filteredProjects.length}</strong>
-          </p>
-        </motion.div>
-
         {/* Projects grid */}
         <AnimatePresence mode="wait">
           <motion.div

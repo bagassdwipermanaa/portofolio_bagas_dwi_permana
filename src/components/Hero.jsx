@@ -30,6 +30,13 @@ const Hero = () => {
     }
   };
 
+  const scrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleDownloadCV = () => {
     const pdfUrl = "/cvbagasdwipermana.pdf";
     if (pdfUrl === "#") {
@@ -59,7 +66,7 @@ const Hero = () => {
         textClass="text-black font-semibold"
         dotClass="bg-black"
         rotate={25}
-        className="top-[-8rem]"
+        className="top-[-12rem]"
         height="h-12"
         speedClass="marquee-fast"
       />
@@ -71,7 +78,7 @@ const Hero = () => {
         textClass="text-white font-semibold"
         dotClass="bg-white"
         rotate={-15}
-        className="top-[-6rem]"
+        className="top-[-10rem]"
         height="h-10"
         speedClass="marquee-medium"
       />
@@ -89,7 +96,7 @@ const Hero = () => {
         textClass="text-white font-semibold"
         dotClass="bg-white"
         rotate={20}
-        className="bottom-[-8rem]"
+        className="bottom-[-14rem]"
         height="h-12"
         speedClass="marquee-slow"
       />
@@ -128,6 +135,19 @@ const Hero = () => {
             </span>
           </motion.h1>
 
+          {/* Availability badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mt-6"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-800/80 border border-neutral-700 text-neutral-200 text-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Available for freelance/internship
+            </span>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,6 +167,12 @@ const Hero = () => {
             >
               Download CV <Download className="ml-2 h-4 w-4" />
             </Button>
+            <Button
+              onClick={scrollToContact}
+              className="bg-gradient-to-r from-white to-white/80 text-black hover:from-white/90 hover:to-white/70 px-8 py-3 rounded-full"
+            >
+              Hire Me
+            </Button>
           </motion.div>
 
           <motion.p
@@ -164,6 +190,33 @@ const Hero = () => {
               _
             </motion.span>
           </motion.p>
+
+          {/* Tech and certification badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+            className="mt-8 mb-6 flex flex-wrap items-center gap-2"
+          >
+            {["React", "Node.js", "Java", "Python", "AWS", "Docker"].map(
+              (tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 text-xs font-medium rounded-full bg-neutral-800 border border-neutral-700 text-white"
+                >
+                  {tech}
+                </span>
+              )
+            )}
+            <a
+              href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1 text-xs font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-colors"
+            >
+              Cisco JS Essentials
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
