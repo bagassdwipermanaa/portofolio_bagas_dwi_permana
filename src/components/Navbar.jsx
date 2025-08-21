@@ -9,6 +9,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [scrollProgress, setScrollProgress] = useState(0);
   const tickingRef = useRef(false);
+  const sectionRatiosRef = useRef({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,10 @@ const Navbar = () => {
         const progress =
           totalScrollable > 0 ? (window.scrollY / totalScrollable) * 100 : 0;
         setScrollProgress(progress);
+        // If near very top, force active to home
+        if (window.scrollY < 120) {
+          setActiveSection("home");
+        }
         tickingRef.current = false;
       });
     };
@@ -46,16 +51,31 @@ const Navbar = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          const id = entry.target.id;
+          sectionRatiosRef.current[id] = entry.isIntersecting
+            ? entry.intersectionRatio
+            : 0;
         });
+
+        // Choose the section with the highest intersection ratio
+        let bestId = activeSection;
+        let bestRatio = 0;
+        for (const id of sectionIds) {
+          const r = sectionRatiosRef.current[id] ?? 0;
+          if (r > bestRatio) {
+            bestRatio = r;
+            bestId = id;
+          }
+        }
+        if (bestRatio > 0.05 && bestId !== activeSection) {
+          setActiveSection(bestId);
+        }
       },
       {
         root: null,
-        // Use center-window focus for more accurate section detection
-        threshold: 0.1,
-        rootMargin: "-45% 0px -45% 0px",
+        // Multiple thresholds for smoother and more accurate detection
+        threshold: [0.05, 0.1, 0.25, 0.5, 0.75, 1],
+        rootMargin: "-35% 0px -55% 0px",
       }
     );
 

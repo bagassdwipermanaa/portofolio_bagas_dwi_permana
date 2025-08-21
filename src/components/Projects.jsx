@@ -119,6 +119,19 @@ const Projects = () => {
       ? projects
       : projects.filter((project) => project.category === selectedCategory);
 
+  // Deterministic random aspect per project: 1:1, 9:16, 16:9
+  const getAspectClass = (project) => {
+    const key = `${project.id}-${project.title}`;
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+    }
+    const pick = hash % 3; // 0,1,2
+    if (pick === 0) return "aspect-square"; // 1:1
+    if (pick === 1) return "aspect-[9/16]"; // portrait
+    return "aspect-[16/9]"; // landscape
+  };
+
   const handleViewLink = (url, type, isPrivate = false) => {
     if (isPrivate) {
       toast({
@@ -140,7 +153,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="projects" className="py-20 relative overflow-hidden">
       {/* Use global background only (no extra overlay) */}
       <div className="absolute inset-0 pointer-events-none"></div>
 
@@ -220,7 +233,7 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            className="columns-1 md:columns-2 xl:columns-3 gap-x-6"
           >
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (
@@ -234,10 +247,14 @@ const Projects = () => {
                     delay: index * 0.1,
                     ease: "easeOut",
                   }}
-                  className="group rounded-xl overflow-hidden bg-neutral-900/60 border border-white/10 ring-1 ring-white/5 transition-shadow duration-300 shadow-[0_6px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
+                  className={`group rounded-xl overflow-hidden bg-neutral-900/60 border border-white/10 ring-1 ring-white/5 transition-shadow duration-300 shadow-[0_6px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)] break-inside-avoid mb-6 inline-block w-full`}
                 >
                   {/* Project image */}
-                  <div className="relative overflow-hidden aspect-[16/10]">
+                  <div
+                    className={`relative overflow-hidden ${getAspectClass(
+                      project
+                    )}`}
+                  >
                     <img
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       alt={project.title}
@@ -246,15 +263,8 @@ const Projects = () => {
                       decoding="async"
                     />
 
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Status badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="px-2.5 py-1 text-[10px] font-semibold rounded-full bg-white/20 text-white border border-white/40 backdrop-blur-sm">
-                        {project.status}
-                      </span>
-                    </div>
+                    {/* Persistent gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300" />
 
                     {/* Category badge */}
                     <div className="absolute top-3 left-3">
@@ -262,69 +272,64 @@ const Projects = () => {
                         {project.category}
                       </span>
                     </div>
-                  </div>
 
-                  {/* Project content */}
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                        <project.icon className="w-4 h-4 text-black" />
-                      </div>
-                      <span className="text-xs font-semibold text-white uppercase tracking-wide">
-                        {project.category}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-white mb-2 leading-tight">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-neutral-300 text-sm leading-relaxed mb-4">
-                      {project.description}
-                    </p>
-
-                    {/* Technology tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-800 text-white border border-white/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Project info */}
-                    <div className="flex items-center justify-between text-xs text-neutral-400 mb-4">
-                      <span>Complexity: {project.complexity}</span>
-                      <span>Duration: {project.duration}</span>
-                    </div>
-
-                    {/* Action buttons */}
-                    <div className="flex gap-2">
-                      <Button
+                    {/* View project pill */}
+                    <div className="absolute top-3 right-3">
+                      <button
                         onClick={() => handleViewLink(project.pdfLink, "PDF")}
-                        size="sm"
-                        className="flex-1 bg-white text-black hover:bg-white/90"
+                        className="px-3 py-1 text-[11px] font-semibold rounded-full bg-white text-black shadow hover:bg-white/90 transition"
                       >
-                        <FileText className="h-4 w-4 mr-2" />
-                        PDF
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleViewLink(
-                            project.githubLink,
-                            "GitHub",
-                            project.isPrivate
-                          )
-                        }
-                        size="sm"
-                        variant="outline"
-                        className="border-white/30 text-white hover:bg-white/10"
-                      >
-                        <Github className="h-4 w-4" />
-                      </Button>
+                        VIEW PROJECT →
+                      </button>
+                    </div>
+
+                    {/* Bottom overlay content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center">
+                          <project.icon className="w-4 h-4 text-black" />
+                        </div>
+                        <span className="text-xs font-semibold text-white/90 uppercase tracking-wide">
+                          {project.status} • {project.duration}
+                        </span>
+                      </div>
+
+                      <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                        {project.title}
+                      </h3>
+
+                      <p className="mt-2 max-w-xl text-sm text-neutral-200">
+                        {project.description}
+                      </p>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="absolute bottom-5 right-5">
+                        <Button
+                          onClick={() =>
+                            handleViewLink(
+                              project.githubLink,
+                              "GitHub",
+                              project.isPrivate
+                            )
+                          }
+                          size="sm"
+                          variant="outline"
+                          className="h-9 w-9 p-0 rounded-full border-white/30 text-white bg-black/30 hover:bg-white/10"
+                          aria-label="Open GitHub"
+                        >
+                          <Github className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
