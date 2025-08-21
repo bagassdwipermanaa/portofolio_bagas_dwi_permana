@@ -173,7 +173,7 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Clean 3D Profile Card */}
+          {/* Right side - Clean profile card (simpler, more elegant) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -181,251 +181,39 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex justify-center"
           >
-            <div className="relative group">
-              {/* Subtle Glow */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-sm opacity-0 group-hover:opacity-100 transition duration-500"></div>
+            <motion.div
+              whileHover={{ scale: 1.02, y: -4 }}
+              transition={{ type: "spring", stiffness: 250, damping: 20 }}
+              className="relative w-72 sm:w-80 overflow-hidden rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
+            >
+              <img
+                src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
+                alt="Bagas Dwi Permana"
+                className="w-full aspect-[3/4] object-cover"
+              />
 
-              {/* Interactive Lanyard */}
-              <motion.div
-                className="relative w-80 h-96 cursor-grab active:cursor-grabbing"
-                drag
-                dragConstraints={{
-                  top: -100,
-                  left: -100,
-                  right: 100,
-                  bottom: 100,
-                }}
-                dragElastic={0.4}
-                dragTransition={{
-                  bounceStiffness: 200,
-                  bounceDamping: 20,
-                }}
-                whileDrag={{
-                  scale: 1.05,
-                  rotateZ: 3,
-                  transition: { duration: 0.1 },
-                }}
-                animate={{
-                  y: [0, -8, 0],
-                  rotateZ: [0, 1, -1, 0],
-                }}
-                transition={{
-                  y: {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  },
-                  rotateZ: {
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  },
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
-                {/* Realistic Lanyard String */}
-                <motion.div
-                  className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-2 h-24"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #1e40af 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #3b82f6 100%)",
-                    borderRadius: "1px",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                  }}
-                  animate={{
-                    rotateZ: [0, 5, -5, 0],
-                    scaleY: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    rotateZ: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                    scaleY: {
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                  }}
-                />
+              {/* Soft sheen */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40"></div>
 
-                {/* String Connector */}
-                <motion.div
-                  className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-4 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                  style={{
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                  }}
-                  animate={{
-                    scaleX: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
+              {/* Stronger bottom scrim for readability */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-                {/* Lanyard Ring */}
-                <motion.div
-                  className="absolute -top-32 left-1/2 transform -translate-x-1/2 w-12 h-12"
-                  style={{
-                    background: "linear-gradient(145deg, #3b82f6, #8b5cf6)",
-                    borderRadius: "50%",
-                    border: "2px solid #1e40af",
-                    boxShadow:
-                      "0 4px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.1)",
-                  }}
-                  animate={{
-                    rotateZ: [0, 360],
-                    scale: [1, 1.08, 1],
-                    y: [0, -3, 0],
-                  }}
-                  transition={{
-                    rotateZ: {
-                      duration: 15,
-                      repeat: Infinity,
-                      ease: "linear",
-                    },
-                    scale: {
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                    y: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                  }}
-                />
+              {/* Subtle border gradient */}
+              <div
+                className="pointer-events-none absolute inset-0 rounded-2xl"
+                style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
+              />
 
-                {/* Ring Inner Glow */}
-                <motion.div
-                  className="absolute -top-30 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white/15 rounded-full"
-                  animate={{
-                    opacity: [0.1, 0.3, 0.1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-
-                {/* Main Lanyard Card */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
-                  style={{
-                    transform: "translateZ(20px)",
-                    boxShadow:
-                      "0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1)",
-                  }}
-                >
-                  <img
-                    src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
-                    alt="Bagas Dwi Permana"
-                    className="w-full h-full object-cover"
-                  />
-
-                  {/* Glossy overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20"></div>
-
-                  {/* Lanyard border */}
-                  <div className="absolute inset-0 border-4 border-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl"></div>
-                </motion.div>
-
-                {/* 3D Edges with Lanyard Style */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-blue-800 to-purple-800 rounded-t-2xl"
-                  style={{
-                    transform:
-                      "rotateX(-90deg) translateZ(20px) translateY(-3px)",
-                  }}
-                ></div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-purple-800 to-pink-800 rounded-b-2xl"
-                  style={{
-                    transform:
-                      "rotateX(90deg) translateZ(20px) translateY(3px)",
-                  }}
-                ></div>
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-blue-800 to-purple-800 rounded-l-2xl"
-                  style={{
-                    transform:
-                      "rotateY(90deg) translateZ(20px) translateX(-3px)",
-                  }}
-                ></div>
-                <div
-                  className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-purple-800 to-pink-800 rounded-r-2xl"
-                  style={{
-                    transform:
-                      "rotateY(-90deg) translateZ(20px) translateX(3px)",
-                  }}
-                ></div>
-
-                {/* Floating Particles */}
-                <motion.div
-                  className="absolute -top-8 -right-8 w-3 h-3 bg-blue-400 rounded-full"
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="absolute -bottom-6 -left-6 w-2 h-2 bg-purple-400 rounded-full"
-                  animate={{
-                    y: [0, -15, 0],
-                    opacity: [0.3, 0.8, 0.3],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                />
-                <motion.div
-                  className="absolute top-1/2 -right-4 w-1.5 h-1.5 bg-pink-400 rounded-full"
-                  animate={{
-                    y: [0, -10, 0],
-                    opacity: [0.4, 0.9, 0.4],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                />
-
-                {/* Dynamic Shadow */}
-                <motion.div
-                  className="absolute -bottom-6 left-6 right-6 h-8 bg-black/40 rounded-2xl blur-xl"
-                  style={{
-                    transform: "translateZ(0px)",
-                  }}
-                  animate={{
-                    scaleX: [1, 1.2, 1],
-                    opacity: [0.4, 0.6, 0.4],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </motion.div>
-            </div>
+              {/* Caption */}
+              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                <h3 className="text-white font-space font-semibold text-lg text-shadow-sm">
+                  Bagas Dwi Permana
+                </h3>
+                <p className="text-neutral-300 text-sm font-space text-shadow-sm">
+                  Web Developer
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

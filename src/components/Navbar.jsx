@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -8,15 +8,21 @@ const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      const totalScrollable =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress =
-        totalScrollable > 0 ? (window.scrollY / totalScrollable) * 100 : 0;
-      setScrollProgress(progress);
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        const totalScrollable =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress =
+          totalScrollable > 0 ? (window.scrollY / totalScrollable) * 100 : 0;
+        setScrollProgress(progress);
+        tickingRef.current = false;
+      });
     };
 
     handleScroll();
@@ -47,7 +53,9 @@ const Navbar = () => {
       },
       {
         root: null,
-        threshold: 0.6,
+        // Use center-window focus for more accurate section detection
+        threshold: 0.1,
+        rootMargin: "-45% 0px -45% 0px",
       }
     );
 
@@ -62,7 +70,11 @@ const Navbar = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Offset scroll to account for fixed navbar height
+      const yOffset = 80; // px
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset - yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
       setIsMobileMenuOpen(false);
     }
   };

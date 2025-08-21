@@ -96,7 +96,7 @@ const Education = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-background">
+    <section className="py-24 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">{/* Removed blur circles */}</div>
 

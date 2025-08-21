@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText,
   Github,
-  Star,
   ExternalLink,
   Zap,
   Code,
@@ -15,7 +14,6 @@ import { toast } from "@/components/ui/use-toast";
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [hoveredProject, setHoveredProject] = useState(null);
 
   const projects = [
     {
@@ -143,8 +141,8 @@ const Projects = () => {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Simple background */}
-      <div className="absolute inset-0 bg-neutral-900/50"></div>
+      {/* Use global background only (no extra overlay) */}
+      <div className="absolute inset-0 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -189,7 +187,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12"
         >
           {categories.map((category, index) => (
             <motion.button
@@ -201,17 +199,12 @@ const Projects = () => {
                 delay: index * 0.1,
                 ease: "easeOut",
               }}
-              whileHover={{
-                scale: 1.08,
-                y: -2,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-full font-space font-semibold transition-all duration-300 ${
+              className={`px-5 py-2.5 rounded-full font-space font-semibold transition-all duration-200 ring-1 ${
                 selectedCategory === category
-                  ? "bg-white text-black shadow-lg shadow-white/30 transform scale-105"
-                  : "bg-neutral-800 text-white border border-neutral-700 hover:border-white/50 hover:bg-neutral-700 hover:shadow-lg hover:shadow-white/10"
+                  ? "bg-white text-black ring-white/60"
+                  : "bg-neutral-900/60 text-white ring-white/10 hover:ring-white/30 hover:bg-neutral-800"
               }`}
             >
               {category}
@@ -227,84 +220,62 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           >
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (
                 <motion.div
                   key={`${selectedCategory}-${project.id}`}
-                  initial={{ opacity: 0, y: 50, scale: 0.8 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -30, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   transition={{
-                    duration: 0.5,
+                    duration: 0.4,
                     delay: index * 0.1,
-                    ease: [0.25, 0.46, 0.45, 0.94],
+                    ease: "easeOut",
                   }}
-                  whileHover={{
-                    y: -12,
-                    scale: 1.03,
-                    transition: { duration: 0.3, ease: "easeOut" },
-                  }}
-                  className="bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-700 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-white/20 cursor-pointer"
+                  className="group rounded-xl overflow-hidden bg-neutral-900/60 border border-white/10 ring-1 ring-white/5 transition-shadow duration-300 shadow-[0_6px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)]"
                 >
                   {/* Project image */}
-                  <div className="relative h-56 overflow-hidden group">
-                    <motion.img
-                      className="w-full h-full object-cover"
+                  <div className="relative overflow-hidden aspect-[16/10]">
+                    <img
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       alt={project.title}
                       src={project.image}
-                      whileHover={{
-                        scale: 1.1,
-                        transition: { duration: 0.6, ease: "easeOut" },
-                      }}
+                      loading="lazy"
+                      decoding="async"
                     />
 
                     {/* Hover overlay */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     {/* Status badge */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2 + index * 0.1 }}
-                      className="absolute top-4 right-4"
-                    >
-                      <span className="px-3 py-1 text-xs font-bold rounded-full bg-white/20 text-white border border-white/50 backdrop-blur-sm">
+                    <div className="absolute top-3 right-3">
+                      <span className="px-2.5 py-1 text-[10px] font-semibold rounded-full bg-white/20 text-white border border-white/40 backdrop-blur-sm">
                         {project.status}
                       </span>
-                    </motion.div>
+                    </div>
 
                     {/* Category badge */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="absolute top-4 left-4"
-                    >
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-neutral-800/80 text-white border border-white/50 backdrop-blur-sm">
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 text-[10px] font-semibold rounded-full bg-neutral-900/70 text-white border border-white/30 backdrop-blur-sm">
                         {project.category}
                       </span>
-                    </motion.div>
+                    </div>
                   </div>
 
                   {/* Project content */}
-                  <div className="p-6">
-                    <div className="flex items-center space-x-2 mb-4">
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-3">
                       <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                         <project.icon className="w-4 h-4 text-black" />
                       </div>
-                      <span className="text-xs font-semibold text-white uppercase tracking-wider">
+                      <span className="text-xs font-semibold text-white uppercase tracking-wide">
                         {project.category}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-white mb-3 leading-tight">
+                    <h3 className="text-lg font-bold text-white mb-2 leading-tight">
                       {project.title}
                     </h3>
 
@@ -317,7 +288,7 @@ const Projects = () => {
                       {project.technologies.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-3 py-1 text-xs font-medium rounded-full bg-neutral-700 text-white border border-neutral-600"
+                          className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-800 text-white border border-white/10"
                         >
                           {tech}
                         </span>
@@ -331,11 +302,11 @@ const Projects = () => {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="flex space-x-2">
+                    <div className="flex gap-2">
                       <Button
                         onClick={() => handleViewLink(project.pdfLink, "PDF")}
                         size="sm"
-                        className="flex-1 bg-white/20 border-white/50 text-white hover:bg-white/30"
+                        className="flex-1 bg-white text-black hover:bg-white/90"
                       >
                         <FileText className="h-4 w-4 mr-2" />
                         PDF
@@ -350,7 +321,7 @@ const Projects = () => {
                         }
                         size="sm"
                         variant="outline"
-                        className="border-white/50 text-white hover:bg-white/20"
+                        className="border-white/30 text-white hover:bg-white/10"
                       >
                         <Github className="h-4 w-4" />
                       </Button>
