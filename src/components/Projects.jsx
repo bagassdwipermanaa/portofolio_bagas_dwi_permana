@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
+import BackgroundEffects from "./BackgroundEffects";
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -76,6 +77,10 @@ const Projects = () => {
 
   return (
     <section className="py-32 relative overflow-hidden bg-black">
+      {/* Shared background effects */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <BackgroundEffects />
+      </div>
       <div className="max-w-7xl mx-auto px-12 sm:px-16 lg:px-20 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -115,10 +120,10 @@ const Projects = () => {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => handleOpen(project)}
-                    className="relative w-10 h-10 flex items-center justify-center text-gray-400 group-hover:text-red-500 transition-colors duration-300 cursor-pointer"
+                    className="relative w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 group-hover:text-red-500 transition-colors duration-300 cursor-pointer"
                     aria-label="Open project"
                   >
-                    <ArrowRight className="w-7 h-7 transition-transform duration-300 group-hover:rotate-45" />
+                    <ArrowRight className="w-7 h-7 transition-transform duration-300 hover:rotate-45 group-hover:rotate-45" />
                   </button>
                 </div>
               </div>

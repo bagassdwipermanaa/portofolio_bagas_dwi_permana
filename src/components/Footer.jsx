@@ -3,7 +3,7 @@ import { ArrowUp, Globe, Twitter, Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="py-32 relative overflow-hidden bg-black rounded-t-3xl">
+    <footer className="py-32 relative overflow-hidden rounded-t-3xl">
       <div className="max-w-7xl mx-auto px-12 sm:px-16 lg:px-20 relative z-10">
         {/* Top Section - Call to Action and Contact Form */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-24">
