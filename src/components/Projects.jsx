@@ -153,7 +153,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Use global background only (no extra overlay) */}
       <div className="absolute inset-0 pointer-events-none"></div>
 

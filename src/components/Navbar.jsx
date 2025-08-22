@@ -9,7 +9,6 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [scrollProgress, setScrollProgress] = useState(0);
   const tickingRef = useRef(false);
-  const sectionRatiosRef = useRef({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,10 +21,43 @@ const Navbar = () => {
         const progress =
           totalScrollable > 0 ? (window.scrollY / totalScrollable) * 100 : 0;
         setScrollProgress(progress);
+
+        // Simple and accurate section detection
+        const currentScrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
         // If near very top, force active to home
-        if (window.scrollY < 120) {
+        if (currentScrollY < 100) {
           setActiveSection("home");
+        } else {
+          // Find which section is currently in the center area of viewport
+          let currentSection = "home";
+
+          for (let i = sectionIds.length - 1; i >= 0; i--) {
+            const sectionId = sectionIds[i];
+            const element = document.getElementById(sectionId);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              const sectionTop = rect.top;
+              const sectionHeight = rect.height;
+
+              // Check if this section is in the center area of viewport
+              if (
+                sectionTop <= windowHeight * 0.3 &&
+                sectionTop + sectionHeight >= windowHeight * 0.3
+              ) {
+                currentSection = sectionId;
+                break;
+              }
+            }
+          }
+
+          if (currentSection !== activeSection) {
+            console.log(`Section changed to: ${currentSection}`);
+            setActiveSection(currentSection);
+          }
         }
+
         tickingRef.current = false;
       });
     };
@@ -35,57 +67,18 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const sectionIds = [
-      "home",
-      "about",
-      "education",
-      "projects",
-      "certifications",
-      "roadmap",
-      "playground",
-      "faq",
-      "contact",
-    ];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.id;
-          sectionRatiosRef.current[id] = entry.isIntersecting
-            ? entry.intersectionRatio
-            : 0;
-        });
-
-        // Choose the section with the highest intersection ratio
-        let bestId = activeSection;
-        let bestRatio = 0;
-        for (const id of sectionIds) {
-          const r = sectionRatiosRef.current[id] ?? 0;
-          if (r > bestRatio) {
-            bestRatio = r;
-            bestId = id;
-          }
-        }
-        if (bestRatio > 0.05 && bestId !== activeSection) {
-          setActiveSection(bestId);
-        }
-      },
-      {
-        root: null,
-        // Multiple thresholds for smoother and more accurate detection
-        threshold: [0.05, 0.1, 0.25, 0.5, 0.75, 1],
-        rootMargin: "-35% 0px -55% 0px",
-      }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  // Define section IDs for scroll detection
+  const sectionIds = [
+    "home",
+    "about",
+    "education",
+    "projects",
+    "certifications",
+    "roadmap",
+    "playground",
+    "faq",
+    "contact",
+  ];
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
