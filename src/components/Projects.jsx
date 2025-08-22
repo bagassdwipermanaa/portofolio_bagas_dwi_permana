@@ -1,70 +1,82 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isOverModal, setIsOverModal] = useState(false);
+
+  // Cursor-following values (no spring for zero-lag)
+  const mvX = useMotionValue(0);
+  const mvY = useMotionValue(0);
+  const sx = mvX;
+  const sy = mvY;
 
   const projects = [
     {
       id: 1,
       title: "Creative Studio Website",
       category: "Web Design",
-      arrowColor: "text-white",
       preview: {
         image: "/image/thumbnailportofoliobagas.jpg",
         description:
           "Modern creative studio website with stunning visuals and smooth interactions.",
+        link: "#",
       },
     },
     {
       id: 2,
       title: "Course App",
       category: "Mobile App",
-      arrowColor: "text-orange-500",
       preview: {
         image: "/image/APLIKASI ESPORT SMK TELKOM JAKARTA.png",
         description: "Interactive course application with modern UI/UX design.",
+        link: "#",
       },
     },
     {
       id: 3,
       title: "Money Management App",
       category: "Mobile App",
-      arrowColor: "text-white",
       preview: {
         image: "/image/kantinmanagement.png",
         description:
           "Comprehensive money management solution for personal finance.",
+        link: "#",
       },
     },
     {
       id: 4,
       title: "Real Estate App",
       category: "Mobile App",
-      arrowColor: "text-white",
       preview: {
         image: "/image/WEB CAREPLUS DESIGN.png",
         description:
           "Modern real estate platform with advanced search and filtering.",
+        link: "#",
       },
     },
   ];
 
-  const handleMouseMove = (e) => {
-    if (hoveredProject) {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    }
+  // Track mouse globally while a project is hovered
+  useEffect(() => {
+    if (!hoveredProject) return;
+    const handle = (e) => {
+      mvX.set(e.clientX);
+      mvY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handle, { passive: true });
+    return () => window.removeEventListener("mousemove", handle);
+  }, [hoveredProject, mvX, mvY]);
+
+  const handleOpen = (project) => {
+    const url = project?.preview?.link || "#";
+    if (url && url !== "#") window.open(url, "_blank");
   };
 
   return (
-    <section
-      className="py-32 relative overflow-hidden bg-black"
-      onMouseMove={handleMouseMove}
-    >
+    <section className="py-32 relative overflow-hidden bg-black">
       <div className="max-w-7xl mx-auto px-12 sm:px-16 lg:px-20 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +89,6 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        {/* Projects List */}
         <div className="space-y-0">
           {projects.map((project, index) => (
             <motion.div
@@ -90,32 +101,31 @@ const Projects = () => {
               onMouseEnter={() => setHoveredProject(project)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              {/* Project Row */}
               <div className="flex items-center justify-between py-8 border-b border-white/10 hover:border-white/20 transition-colors duration-300">
-                {/* Left Side - Project Info */}
                 <div className="flex items-center gap-8">
                   <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-heading font-semibold text-white group-hover:text-gray-200 transition-colors duration-300">
+                    <h3 className="text-2xl md:text-3xl font-heading font-semibold text-gray-400 group-hover:text-white transition-colors duration-300">
                       {project.title}
                     </h3>
-                    <p className="text-lg font-body text-gray-400 mt-2">
+                    <p className="text-lg font-body text-gray-500 mt-2 group-hover:text-gray-300">
                       {project.category}
                     </p>
                   </div>
                 </div>
-
-                {/* Right Side - Arrow */}
                 <div className="flex items-center gap-4">
-                  <ArrowUpRight
-                    className={`w-8 h-8 ${project.arrowColor} group-hover:scale-110 transition-transform duration-300`}
-                  />
+                  <button
+                    onClick={() => handleOpen(project)}
+                    className="relative w-10 h-10 flex items-center justify-center text-gray-400 group-hover:text-red-500 transition-colors duration-300 cursor-pointer"
+                    aria-label="Open project"
+                  >
+                    <ArrowRight className="w-7 h-7 transition-transform duration-300 group-hover:rotate-45" />
+                  </button>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -132,40 +142,61 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      {/* Floating Hover Modal - Follows Cursor Smoothly */}
       <AnimatePresence>
         {hoveredProject && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
             className="fixed z-50 pointer-events-none"
-            style={{
-              left: mousePosition.x + 25,
-              top: mousePosition.y - 120,
-            }}
+            style={{ left: sx, top: sy, transform: "translate(-50%, -50%)" }}
           >
-            <div className="bg-neutral-800/95 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 w-80 shadow-2xl pointer-events-auto">
-              {/* Project Preview Image */}
+            <div
+              className="bg-neutral-900/75 backdrop-blur-md border border-white/10 rounded-2xl p-5 w-80 shadow-[0_20px_60px_rgba(0,0,0,0.45)] pointer-events-auto select-none"
+              onMouseEnter={() => setIsOverModal(true)}
+              onMouseLeave={() => setIsOverModal(false)}
+            >
               <div className="relative mb-4 overflow-hidden rounded-xl">
-                <img
-                  src={hoveredProject.preview.image}
-                  alt={hoveredProject.title}
-                  className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
-                />
-                {/* View Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                  <button className="w-16 h-16 bg-white border-2 border-black rounded-full flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-lg hover:scale-110">
-                    <ArrowRight className="w-6 h-6 text-orange-500" />
-                  </button>
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={hoveredProject.id}
+                    src={hoveredProject.preview.image}
+                    alt={hoveredProject.title}
+                    className="w-full h-48 object-cover will-change-transform"
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                      scale: 0.98,
+                      filter: "blur(2px)",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      filter: "blur(0px)",
+                    }}
+                    exit={{
+                      opacity: 0,
+                      y: -10,
+                      scale: 0.98,
+                      filter: "blur(2px)",
+                    }}
+                    transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-black/15 pointer-events-none" />
               </div>
-
-              {/* Project Description */}
-              <p className="text-sm font-body text-gray-300 text-center leading-relaxed">
+              <motion.p
+                key={`desc-${hoveredProject.id}`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className="text-sm font-body text-gray-300/90 text-center leading-relaxed"
+              >
                 {hoveredProject.preview.description}
-              </p>
+              </motion.p>
             </div>
           </motion.div>
         )}
