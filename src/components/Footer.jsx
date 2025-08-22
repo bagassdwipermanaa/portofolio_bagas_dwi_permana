@@ -1,189 +1,131 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { ArrowUp, Heart, Code } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUp, Globe, Twitter, Instagram } from "lucide-react";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const quickLinks = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "certifications", label: "Certifications" },
-    { id: "contact", label: "Contact" },
-  ];
-
   return (
-    <footer className="relative overflow-hidden bg-black/50 backdrop-blur-md border-t border-gray-800">
-      <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="py-12">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Brand Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-4"
-            >
-              <div className="flex items-center space-x-2">
-                <span
-                  className="text-2xl font-space font-bold text-white glitch-text"
-                  data-text="Bagas"
-                >
-                  Bagas
-                </span>
-                <Code className="h-6 w-6 text-white" />
-              </div>
-
-              <p className="text-neutral-300 font-space leading-relaxed">
-                A web developer passionate about creating stunning and
-                innovative digital experiences using cutting-edge technology.
-              </p>
-
-              <div className="flex items-center space-x-2 text-white">
-                <span className="font-space text-sm">Made with</span>
-                <Heart className="h-4 w-4 fill-current animate-pulse" />
-                <span className="font-space text-sm">and lots of coffee</span>
-              </div>
-
-              {/* Tech & Cert badges */}
-              <div className="flex flex-wrap gap-2 pt-2">
-                {["React", "Node.js", "Java", "Python", "AWS", "Docker"].map(
-                  (item) => (
-                    <span
-                      key={item}
-                      className="px-2.5 py-1 text-xs rounded-full bg-neutral-800 border border-neutral-700 text-white"
-                    >
-                      {item}
-                    </span>
-                  )
-                )}
-                <a
-                  href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-2.5 py-1 text-xs rounded-full bg-white text-black hover:bg-white/90 transition-colors"
-                >
-                  Cisco JS Essentials
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-4"
-            >
-              <span className="text-lg font-space font-semibold text-white">
-                Quick Links
+    <footer className="py-32 relative overflow-hidden bg-black rounded-t-3xl">
+      <div className="max-w-7xl mx-auto px-12 sm:px-16 lg:px-20 relative z-10">
+        {/* Top Section - Call to Action and Contact Form */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-24">
+          <div className="text-white mb-16 lg:mb-0">
+            <h2 className="text-7xl md:text-8xl lg:text-9xl font-display font-black mb-6 leading-none">
+              Got a project?
+            </h2>
+            <div className="flex items-baseline gap-6">
+              <span className="text-7xl md:text-8xl lg:text-9xl font-display font-black leading-none">
+                Lets talk.
               </span>
-
-              <nav className="flex flex-col space-y-2">
-                {quickLinks.map((link) => (
-                  <motion.button
-                    key={link.id}
-                    whileHover={{ x: 5 }}
-                    onClick={() => scrollToSection(link.id)}
-                    className="text-neutral-300 hover:text-white font-space text-left transition-colors duration-300"
-                  >
-                    {link.label}
-                  </motion.button>
-                ))}
-              </nav>
-            </motion.div>
-
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4"
-            >
-              <span className="text-lg font-space font-semibold text-white">
-                Get In Touch
+              <span className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium leading-none text-gray-300">
+                Hi,
               </span>
-
-              <div className="space-y-2 text-neutral-300 font-space">
-                <p>bagastelkomschool@gmail.com</p>
-                <p>+62 859-6656-5357</p>
-                <p>Jakarta, Indonesia</p>
-              </div>
-
-              <Button
-                onClick={() => scrollToSection("contact")}
-                className="cyber-button mt-4"
-              >
-                Hubungi Saya
-              </Button>
-            </motion.div>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-end gap-10">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="What's your name?"
+                className="bg-transparent text-white text-2xl border-b-2 border-white pb-4 outline-none placeholder-gray-400 w-64 text-center font-body font-medium"
+              />
+            </div>
+            <button className="px-12 py-5 border-2 border-white text-white hover:bg-white hover:text-black transition-colors duration-300 rounded-xl text-xl font-accent font-semibold">
+              SUBMIT →
+            </button>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-neutral-400 font-space text-sm text-center md:text-left"
-            >
-              © 2025 Bagas Dwi Permana. All rights reserved.
-            </motion.p>
+        {/* Middle Section - Social Media, Navigation, and Contact Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-24">
+          {/* Left Side - Social Media and Navigation */}
+          <div>
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-10 mb-16">
+              <div className="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+                <span className="font-display font-bold text-2xl">B&</span>
+              </div>
+              <div className="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+                <Globe className="w-8 h-8" />
+              </div>
+              <div className="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+                <span className="font-display font-bold text-2xl">X</span>
+              </div>
+              <div className="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+                <div className="w-8 h-8 border-2 border-white rounded-lg flex items-center justify-center relative">
+                  <div className="w-4 h-4 bg-white rounded-full"></div>
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full"></div>
+                  <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full"></div>
+                </div>
+              </div>
+            </div>
 
-            {/* Back to Top Button */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Button
-                onClick={scrollToTop}
-                variant="outline"
-                size="icon"
-                className="cyber-button border-white text-white hover:bg-white/10 group"
-              >
-                <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-              </Button>
-            </motion.div>
+            {/* Navigation Links */}
+            <div className="text-white text-xl font-body">
+              <div className="mb-4">
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  Home
+                </span>
+                <span className="mx-6">/</span>
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  About Us
+                </span>
+                <span className="mx-6">/</span>
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  Projects
+                </span>
+              </div>
+              <div>
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  Services
+                </span>
+                <span className="mx-6">/</span>
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  Careers
+                </span>
+                <span className="mx-6">/</span>
+                <span className="hover:text-gray-300 transition-colors cursor-pointer">
+                  Blogs
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Contact Information */}
+          <div className="text-white">
+            <div className="mb-10">
+              <h3 className="font-accent font-medium text-gray-400 text-base mb-4 uppercase tracking-wider">
+                CONTACT US
+              </h3>
+              <p className="text-white text-xl font-body">+1891989-11-91</p>
+            </div>
+            <div className="mb-10">
+              <h3 className="font-accent font-medium text-gray-400 text-base mb-4 uppercase tracking-wider">
+                LOCATION
+              </h3>
+              <p className="text-white text-xl font-body leading-relaxed">
+                2972 Westheimer Rd. Santa Ana, Illinois 85486
+              </p>
+            </div>
+            <div>
+              <h3 className="font-accent font-medium text-gray-400 text-base mb-4 uppercase tracking-wider">
+                EMAIL
+              </h3>
+              <p className="text-white text-xl font-body">hello@gmail.com</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section - Scroll to Top */}
+        <div className="flex items-center justify-between">
+          <div className="text-white">
+            <span className="text-7xl md:text-8xl font-display font-black leading-none">
+              Top
+            </span>
+          </div>
+          <div className="w-20 h-20 border-2 border-white rounded-full flex items-center justify-center">
+            <ArrowUp className="w-10 h-10 text-white" />
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white"></div>
-
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="absolute -bottom-4 -right-4 w-8 h-8 border-2 border-white/20 rotate-45"
-      />
     </footer>
   );
 };

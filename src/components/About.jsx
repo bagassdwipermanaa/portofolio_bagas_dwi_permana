@@ -60,11 +60,11 @@ const TiltCard = ({
             <Icon className="h-6 w-6" />
           </div>
           <div>
-            <h4 className="text-white font-space font-semibold text-lg leading-tight">
+            <h4 className="text-white font-heading font-semibold text-lg leading-tight">
               {title}
             </h4>
             {subtitle && (
-              <p className="text-neutral-300 font-space text-sm mt-1">
+              <p className="text-neutral-300 font-body text-sm mt-1">
                 {subtitle}
               </p>
             )}
@@ -114,7 +114,7 @@ const About = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-space font-bold mb-6"
+            className="text-4xl md:text-5xl font-display font-bold mb-6"
           >
             <span className="text-white">About Me</span>
           </motion.h2>
@@ -141,9 +141,9 @@ const About = () => {
                 className="absolute -top-4 -left-4 w-8 h-8 border-2 border-white/30 rotate-45"
               ></motion.div>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-space">
+              <p className="text-lg text-neutral-300 leading-relaxed font-body">
                 Hello! I'm {""}
-                <span className="text-white font-semibold">
+                <span className="text-white font-accent font-semibold">
                   Bagas Dwi Permana
                 </span>
                 , a web developer passionate about crafting stunning and
@@ -151,14 +151,14 @@ const About = () => {
               </p>
             </div>
 
-            <p className="text-neutral-300 leading-relaxed font-space">
+            <p className="text-neutral-300 leading-relaxed font-body">
               With expertise in modern technologies like React, JavaScript, and
               the latest frameworks, I always strive to deliver solutions that
               are not only functional but also aesthetically pleasing and
               user-friendly.
             </p>
 
-            <p className="text-neutral-300 leading-relaxed font-space">
+            <p className="text-neutral-300 leading-relaxed font-body">
               I believe every project is an opportunity to learn and grow.
               Creativity and technology are the two key elements that
               continually inspire me in every work I create.
@@ -166,7 +166,7 @@ const About = () => {
 
             <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
               <div className="bg-neutral-800/90 border border-neutral-700 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-white font-space font-semibold">
+                <p className="text-white font-accent font-semibold">
                   "Code is poetry, and every line tells a story."
                 </p>
               </div>
@@ -206,10 +206,10 @@ const About = () => {
 
               {/* Caption */}
               <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                <h3 className="text-white font-space font-semibold text-lg text-shadow-sm">
+                <h3 className="text-white font-heading font-semibold text-lg text-shadow-sm">
                   Bagas Dwi Permana
                 </h3>
-                <p className="text-neutral-300 text-sm font-space text-shadow-sm">
+                <p className="text-neutral-300 text-sm font-body text-shadow-sm">
                   Web Developer
                 </p>
               </div>

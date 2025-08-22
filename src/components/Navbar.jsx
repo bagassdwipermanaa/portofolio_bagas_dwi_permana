@@ -165,7 +165,7 @@ const Navbar = () => {
                 transition={{ delay: index * 0.06 }}
                 onClick={() => scrollToSection(item.id)}
                 aria-current={activeSection === item.id ? "page" : undefined}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${
+                className={`px-4 py-2 text-sm font-accent font-medium rounded-full transition-colors whitespace-nowrap ${
                   activeSection === item.id
                     ? "text-black bg-white shadow-md"
                     : "text-gray-300 hover:text-white hover:bg-white/10"
@@ -180,7 +180,7 @@ const Navbar = () => {
         {/* Mobile top bar */}
         <div className="md:hidden w-full px-4">
           <div className="flex items-center justify-between h-12 rounded-full bg-black/90 backdrop-blur-md border border-white/10 px-4">
-            <span className="text-lg font-space font-semibold text-white">
+            <span className="text-lg font-display font-semibold text-white">
               bagas
             </span>
             <motion.button
@@ -214,7 +214,7 @@ const Navbar = () => {
                     aria-current={
                       activeSection === item.id ? "page" : undefined
                     }
-                    className={`block px-4 py-2 text-base font-medium w-full text-left transition-colors duration-300 ${
+                    className={`block px-4 py-2 text-base font-accent font-medium w-full text-left transition-colors duration-300 ${
                       activeSection === item.id
                         ? "text-white"
                         : "text-gray-300 hover:text-white"

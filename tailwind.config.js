@@ -17,7 +17,14 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        space: [
+        'display': ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        'heading': ['Space Grotesk', 'Inter', 'sans-serif'],
+        'body': ['Inter', 'sans-serif'],
+        'accent': ['DM Sans', 'Inter', 'sans-serif'],
+        'serif': ['Playfair Display', 'serif'],
+        'space': [
+          "Space Grotesk",
+          "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
           "SF Pro Text",
@@ -103,7 +110,7 @@ module.exports = {
         glitch: {
           "0%": { transform: "translate(0)" },
           "20%": { transform: "translate(-2px, 2px)" },
-          "40%": { transform: "translate(-2px, -2px)" },
+          "50%": { transform: "translate(-2px, -2px)" },
           "60%": { transform: "translate(2px, 2px)" },
           "80%": { transform: "translate(2px, -2px)" },
           "100%": { transform: "translate(0)" },

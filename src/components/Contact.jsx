@@ -145,7 +145,7 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-300">
               Contact Me
             </span>
@@ -153,7 +153,7 @@ const Contact = () => {
 
           <div className="w-24 h-1 bg-gradient-to-r from-white to-neutral-300 mx-auto mb-8"></div>
 
-          <p className="text-xl text-neutral-300 font-space max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-300 font-body max-w-3xl mx-auto">
             Let's work together to transform creative ideas into remarkable
             digital experiences.
           </p>
@@ -168,7 +168,7 @@ const Contact = () => {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-space font-bold text-white mb-6">
+              <h3 className="text-2xl font-heading font-bold text-white mb-6">
                 Contact Information
               </h3>
 
@@ -191,7 +191,7 @@ const Contact = () => {
                         <info.icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-neutral-400 text-sm font-space">
+                        <p className="text-neutral-400 text-sm font-accent">
                           {info.label}
                         </p>
                         <a
@@ -207,7 +207,7 @@ const Contact = () => {
                                   handleSocialClick(info.href, info.label);
                                 },
                               })}
-                          className="text-white font-space font-medium hover:text-neutral-300 transition-colors"
+                          className="text-white font-body font-medium hover:text-neutral-300 transition-colors"
                         >
                           {info.value}
                         </a>
@@ -219,7 +219,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <h4 className="text-xl font-space font-bold text-white mb-4">
+              <h4 className="text-xl font-heading font-bold text-white mb-4">
                 Follow me
               </h4>
 
@@ -250,7 +250,7 @@ const Contact = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="bg-neutral-800/90 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
             >
-              <p className="text-white font-space font-semibold text-lg italic">
+              <p className="text-white font-accent font-semibold text-lg italic">
                 "Each project is a chance to craft something exceptional. Let's
                 collaborate to realize your digital vision."
               </p>
@@ -264,7 +264,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="bg-neutral-800/90 backdrop-blur-md border border-neutral-700 rounded-xl p-8">
-              <h3 className="text-2xl font-space font-bold text-white mb-6">
+              <h3 className="text-2xl font-heading font-bold text-white mb-6">
                 Send message
               </h3>
 
@@ -272,7 +272,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
+                    className="block text-sm font-accent font-medium text-neutral-300 mb-2"
                   >
                     Full name
                   </label>
@@ -283,7 +283,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-body text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -291,7 +291,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
+                    className="block text-sm font-accent font-medium text-neutral-300 mb-2"
                   >
                     Email
                   </label>
@@ -302,7 +302,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-body text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors"
                     placeholder="name@gmail.com"
                   />
                 </div>
@@ -310,7 +310,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-space font-medium text-neutral-300 mb-2"
+                    className="block text-sm font-accent font-medium text-neutral-300 mb-2"
                   >
                     Message
                   </label>
@@ -321,7 +321,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-space text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 bg-neutral-700/50 border border-neutral-600 rounded-lg font-body text-white placeholder-neutral-400 focus:outline-none focus:border-neutral-500 transition-colors resize-none"
                     placeholder="Tell us about a project or idea you'd like to bring to life..."
                   />
                 </div>
@@ -329,7 +329,7 @@ const Contact = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-neutral-700/50 hover:bg-neutral-600/50 border border-neutral-600 text-white py-3 text-lg font-space font-semibold group rounded-lg transition-colors"
+                  className="w-full bg-neutral-700/50 hover:bg-neutral-600/50 border border-neutral-600 text-white py-3 text-lg font-accent font-semibold group rounded-lg transition-colors"
                 >
                   {isSubmitting ? (
                     <>
