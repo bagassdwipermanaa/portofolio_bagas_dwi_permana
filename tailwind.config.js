@@ -17,14 +17,13 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'display': ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-        'heading': ['Space Grotesk', 'Inter', 'sans-serif'],
-        'body': ['Inter', 'sans-serif'],
-        'accent': ['DM Sans', 'Inter', 'sans-serif'],
-        'serif': ['Playfair Display', 'serif'],
-        'space': [
-          "Space Grotesk",
-          "Inter",
+        display: ["Montserrat", "sans-serif"],
+        heading: ["Montserrat", "sans-serif"],
+        body: ["Montserrat", "sans-serif"],
+        accent: ["Montserrat", "sans-serif"],
+        serif: ["Crimson Text", "serif"],
+        space: [
+          "Montserrat",
           "-apple-system",
           "BlinkMacSystemFont",
           "SF Pro Text",
@@ -72,11 +71,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         cyber: {
-          blue: "#3b82f6",      // Bright blue
-          purple: "#8b5cf6",    // Bright purple
-          pink: "#ec4899",      // Bright pink
-          green: "#10b981",     // Bright green
-          yellow: "#f59e0b",    // Bright yellow
+          blue: "#3b82f6", // Bright blue
+          purple: "#8b5cf6", // Bright purple
+          pink: "#ec4899", // Bright pink
+          green: "#10b981", // Bright green
+          yellow: "#f59e0b", // Bright yellow
         },
       },
       borderRadius: {

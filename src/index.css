@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+/* Import Google Fonts - Updated to 2 fonts from image */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
 
 :root {
   --background: 0 0% 0%; /* Pure black background */
@@ -35,7 +35,7 @@
 body {
   color: hsl(var(--foreground));
   background-color: hsl(var(--background));
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   overflow-x: hidden;
@@ -45,32 +45,32 @@ body {
   line-height: 1.6;
 }
 
-/* Modern font classes */
+/* Modern font classes - Updated to use 2 fonts from image */
 .font-display {
-  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .font-heading {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .font-body {
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   line-height: 1.7;
 }
 
 .font-accent {
-  font-family: "DM Sans", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
 
 .font-serif {
-  font-family: "Playfair Display", serif;
+  font-family: "Crimson Text", serif;
   font-weight: 400;
   font-style: italic;
 }
@@ -165,7 +165,7 @@ body {
 .glitch-text {
   position: relative;
   color: hsl(var(--primary));
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
   text-shadow: 0 0 5px hsl(var(--primary) / 0.5);
@@ -276,7 +276,7 @@ body {
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   backdrop-filter: blur(2px);
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
 
@@ -351,7 +351,7 @@ body {
   border: 1px solid hsl(var(--border));
   color: hsl(var(--foreground));
   transition: all 0.3s ease;
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .cyber-input:focus {
@@ -413,7 +413,7 @@ body {
 
 /* Subtle, modern headline effects */
 .heading-soft {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   letter-spacing: -0.02em;
   text-shadow: 0 0 18px hsl(var(--primary) / 0.06);
 }
@@ -459,7 +459,7 @@ body {
 
 /* Subtle body text enhancement for readability */
 .body-soft {
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-shadow: 0 1px 12px rgba(255, 255, 255, 0.06);
 }
 
@@ -470,30 +470,30 @@ body {
 
 /* Modern typography utilities */
 .text-display {
-  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .text-heading {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .text-body {
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   line-height: 1.7;
 }
 
 .text-accent {
-  font-family: "DM Sans", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
 }
 
 .text-serif {
-  font-family: "Playfair Display", serif;
+  font-family: "Crimson Text", serif;
   font-weight: 400;
   font-style: italic;
 }
