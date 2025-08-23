@@ -58,7 +58,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden pt-24 pb-16">
+    <section className="min-h-screen flex items-center relative overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16">
       {/* Top diagonal strip - Tech Stack */}
       <DiagonalMarquee
         items={["REACT", "NODE.JS", "PYTHON", "JAVA", "AWS", "DOCKER"]}
@@ -66,8 +66,8 @@ const Hero = () => {
         textClass="text-black font-accent font-semibold"
         dotClass="bg-black"
         rotate={25}
-        className="top-[-12rem]"
-        height="h-12"
+        className="top-[-8rem] sm:top-[-12rem]"
+        height="h-8 sm:h-12"
         speedClass="marquee-fast"
       />
 
@@ -78,8 +78,8 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={-15}
-        className="top-[-10rem]"
-        height="h-10"
+        className="top-[-6rem] sm:top-[-10rem]"
+        height="h-6 sm:h-10"
         speedClass="marquee-medium"
       />
 
@@ -96,8 +96,8 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={20}
-        className="bottom-[-14rem]"
-        height="h-12"
+        className="bottom-[-10rem] sm:bottom-[-14rem]"
+        height="h-8 sm:h-12"
         speedClass="marquee-slow"
       />
 
@@ -112,7 +112,7 @@ const Hero = () => {
         <div className="origin-left -rotate-90 text-shadow-sm">CLOUD</div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-30 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-30 w-full">
         <div className="max-w-5xl">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -120,17 +120,17 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="font-display font-bold leading-tight text-white heading-soft"
           >
-            <span className="block text-5xl sm:text-6xl md:text-7xl">
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               <span className="headline-sheen">Bagas</span>
               <span className="text-gray-400">.Dwi.</span>
               <span className="text-gray-500 headline-sheen">Permana</span>
             </span>
-            <span className="block mt-4 text-5xl sm:text-6xl md:text-7xl">
+            <span className="block mt-2 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
               <span className="headline-sheen">
                 Software Engineering Student
               </span>
             </span>
-            <span className="block mt-4 text-5xl sm:text-6xl md:text-7xl">
+            <span className="block mt-2 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
               <span className="headline-sheen">& Full-Stack Developer</span>
             </span>
           </motion.h1>
@@ -140,9 +140,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-6"
+            className="mt-4 sm:mt-6"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-800/80 border border-neutral-700 text-neutral-200 text-sm font-body">
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-neutral-800/80 border border-neutral-700 text-neutral-200 text-xs sm:text-sm font-body">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               Available for freelance/internship
             </span>
@@ -152,24 +152,24 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-10 flex flex-wrap gap-4"
+            className="mt-6 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
           >
             <Button
               onClick={scrollToProjects}
-              className="bg-white text-black hover:bg-white/90 px-8 py-3 rounded-full font-accent font-semibold"
+              className="bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
             >
-              View Projects <ExternalLink className="ml-2 h-4 w-4" />
+              View Projects <ExternalLink className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             <Button
               onClick={handleDownloadCV}
               variant="outline"
-              className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 rounded-full px-8 py-3 font-accent font-medium"
+              className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 rounded-full px-6 sm:px-8 py-2.5 sm:py-3 font-accent font-medium text-sm sm:text-base"
             >
-              Download CV <Download className="ml-2 h-4 w-4" />
+              Download CV <Download className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             <Button
               onClick={scrollToContact}
-              className="bg-gradient-to-r from-white to-white/80 text-black hover:from-white/90 hover:to-white/70 px-8 py-3 rounded-full font-accent font-semibold"
+              className="bg-gradient-to-r from-white to-white/80 text-black hover:from-white/90 hover:to-white/70 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
             >
               Hire Me
             </Button>
@@ -179,7 +179,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 }}
-            className="mt-6 text-gray-200 max-w-2xl body-soft font-body"
+            className="mt-4 sm:mt-6 text-gray-200 max-w-2xl body-soft font-body text-sm sm:text-base"
           >
             <span className="font-body">{text}</span>
             <motion.span
@@ -196,13 +196,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="mt-8 mb-6 flex flex-wrap items-center gap-2"
+            className="mt-6 sm:mt-8 mb-4 sm:mb-6 flex flex-wrap items-center gap-2"
           >
             {["React", "Node.js", "Java", "Python", "AWS", "Docker"].map(
               (tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 text-xs font-accent font-medium rounded-full bg-neutral-800 border border-neutral-700 text-white"
+                  className="px-2 sm:px-3 py-1 text-xs font-accent font-medium rounded-full bg-neutral-800 border border-neutral-700 text-white"
                 >
                   {tech}
                 </span>
@@ -212,7 +212,7 @@ const Hero = () => {
               href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-1 text-xs font-accent font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-colors"
+              className="px-2 sm:px-3 py-1 text-xs font-accent font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-colors"
             >
               Cisco JS Essentials
             </a>

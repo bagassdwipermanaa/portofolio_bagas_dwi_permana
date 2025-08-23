@@ -401,6 +401,8 @@ body {
     /* Keep glitch on mobile but maybe less intense if needed */
     /* opacity: 0.6; */
   }
+  
+  /* Better mobile typography scaling */
   .text-4xl {
     font-size: 2rem;
     line-height: 2.5rem;
@@ -408,6 +410,47 @@ body {
   .text-5xl {
     font-size: 2.5rem;
     line-height: 3rem;
+  }
+  .text-6xl {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+  .text-7xl {
+    font-size: 3.5rem;
+    line-height: 4rem;
+  }
+  .text-8xl {
+    font-size: 4rem;
+    line-height: 4.5rem;
+  }
+  
+  /* Mobile-specific spacing */
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  /* Mobile touch targets */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile form improvements */
+  .mobile-form-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Mobile button improvements */
+  .mobile-button {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
   }
 }
 
@@ -496,4 +539,54 @@ body {
   font-family: "Crimson Text", serif;
   font-weight: 400;
   font-style: italic;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Ensure proper spacing on very small screens */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Better text wrapping */
+  .break-words {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Mobile-friendly images */
+  .mobile-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Mobile-friendly buttons */
+  .mobile-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Mobile-friendly forms */
+  .mobile-form {
+    gap: 1rem;
+  }
+  
+  /* Mobile-friendly cards */
+  .mobile-card {
+    margin: 0.5rem;
+    border-radius: 0.75rem;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .tablet-text {
+    font-size: 1.125rem;
+  }
 }

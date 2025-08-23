@@ -17,11 +17,11 @@ const DiagonalMarquee = ({
       {repeatedItems.map((label, idx) => (
         <div
           key={`${label}-${idx}`}
-          className={`flex items-center gap-3 px-8 ${textClass} font-space tracking-wider text-sm md:text-base`}
+          className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 lg:px-8 ${textClass} font-space tracking-wider text-xs sm:text-sm md:text-base`}
         >
           <span className="uppercase">{label}</span>
           <span
-            className={`inline-block w-2 h-2 ${dotShapeClass} ${dotClass}`}
+            className={`inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 ${dotShapeClass} ${dotClass}`}
           ></span>
         </div>
       ))}

@@ -41,7 +41,7 @@ const TiltCard = ({
       className="relative rounded-2xl p-[1px] bg-gradient-to-br from-neutral-700/50 to-neutral-600/30 border border-neutral-600 shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
     >
       <div
-        className={`relative rounded-2xl p-6 bg-neutral-800/90 backdrop-blur-sm overflow-hidden`}
+        className={`relative rounded-2xl p-4 sm:p-6 bg-neutral-800/90 backdrop-blur-sm overflow-hidden`}
         style={{ transform: "translateZ(0.01px)" }}
       >
         {/* spotlight */}
@@ -53,18 +53,18 @@ const TiltCard = ({
         />
 
         <div
-          className="relative z-10 flex items-start gap-4"
+          className="relative z-10 flex items-start gap-3 sm:gap-4"
           style={{ transform: "translateZ(30px)" }}
         >
-          <div className="p-3 rounded-xl bg-neutral-700/50 border border-neutral-600 text-white">
-            <Icon className="h-6 w-6" />
+          <div className="p-2 sm:p-3 rounded-xl bg-neutral-700/50 border border-neutral-600 text-white">
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div>
-            <h4 className="text-white font-heading font-semibold text-lg leading-tight">
+            <h4 className="text-white font-heading font-semibold text-base sm:text-lg leading-tight">
               {title}
             </h4>
             {subtitle && (
-              <p className="text-neutral-300 font-body text-sm mt-1">
+              <p className="text-neutral-300 font-body text-xs sm:text-sm mt-1">
                 {subtitle}
               </p>
             )}
@@ -101,7 +101,7 @@ const About = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -110,38 +110,38 @@ const About = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-display font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4 sm:mb-6"
           >
             <span className="text-white">About Me</span>
           </motion.h2>
 
           <motion.div
             variants={itemVariants}
-            className="w-24 h-1 bg-white mx-auto mb-8"
+            className="w-16 sm:w-24 h-1 bg-white mx-auto mb-6 sm:mb-8"
           ></motion.div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left side - Description */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
             <div className="relative">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-4 -left-4 w-8 h-8 border-2 border-white/30 rotate-45"
+                className="absolute -top-3 sm:-top-4 -left-3 sm:-left-4 w-6 h-6 sm:w-8 sm:h-8 border-2 border-white/30 rotate-45"
               ></motion.div>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-body">
+              <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-body">
                 Hello! I'm {""}
                 <span className="text-white font-accent font-semibold">
                   Bagas Dwi Permana
@@ -151,22 +151,22 @@ const About = () => {
               </p>
             </div>
 
-            <p className="text-neutral-300 leading-relaxed font-body">
+            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-body">
               With expertise in modern technologies like React, JavaScript, and
               the latest frameworks, I always strive to deliver solutions that
               are not only functional but also aesthetically pleasing and
               user-friendly.
             </p>
 
-            <p className="text-neutral-300 leading-relaxed font-body">
+            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-body">
               I believe every project is an opportunity to learn and grow.
               Creativity and technology are the two key elements that
               continually inspire me in every work I create.
             </p>
 
             <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
-              <div className="bg-neutral-800/90 border border-neutral-700 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-white font-accent font-semibold">
+              <div className="bg-neutral-800/90 border border-neutral-700 rounded-lg p-3 sm:p-4 backdrop-blur-sm">
+                <p className="text-white font-accent font-semibold text-sm sm:text-base">
                   "Code is poetry, and every line tells a story."
                 </p>
               </div>
@@ -184,7 +184,7 @@ const About = () => {
             <motion.div
               whileHover={{ scale: 1.02, y: -4 }}
               transition={{ type: "spring", stiffness: 250, damping: 20 }}
-              className="relative w-72 sm:w-80 overflow-hidden rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
+              className="relative w-64 sm:w-72 md:w-80 overflow-hidden rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
             >
               <img
                 src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
@@ -205,11 +205,11 @@ const About = () => {
               />
 
               {/* Caption */}
-              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                <h3 className="text-white font-heading font-semibold text-lg text-shadow-sm">
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 md:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                <h3 className="text-white font-heading font-semibold text-base sm:text-lg text-shadow-sm">
                   Bagas Dwi Permana
                 </h3>
-                <p className="text-neutral-300 text-sm font-body text-shadow-sm">
+                <p className="text-neutral-300 text-xs sm:text-sm font-body text-shadow-sm">
                   Web Developer
                 </p>
               </div>
