@@ -66,7 +66,7 @@ const Hero = () => {
         textClass="text-black font-accent font-semibold"
         dotClass="bg-black"
         rotate={25}
-        className="top-10 sm:top-[-12rem]"
+        className="top-10 sm:top-[-12rem] hidden sm:block"
         height="h-8 sm:h-12"
         speedClass="marquee-fast"
       />
@@ -78,7 +78,7 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={-15}
-        className="top-28 sm:top-[-10rem]"
+        className="top-28 sm:top-[-10rem] hidden sm:block"
         height="h-6 sm:h-10"
         speedClass="marquee-medium"
       />
@@ -96,7 +96,7 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={20}
-        className="bottom-10 sm:bottom-[-14rem]"
+        className="bottom-10 sm:bottom-[-14rem] hidden sm:block"
         height="h-8 sm:h-12"
         speedClass="marquee-slow"
       />
