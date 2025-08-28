@@ -66,7 +66,7 @@ const Hero = () => {
         textClass="text-black font-accent font-semibold"
         dotClass="bg-black"
         rotate={25}
-        className="top-[-8rem] sm:top-[-12rem]"
+        className="top-10 sm:top-[-12rem]"
         height="h-8 sm:h-12"
         speedClass="marquee-fast"
       />
@@ -78,7 +78,7 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={-15}
-        className="top-[-6rem] sm:top-[-10rem]"
+        className="top-28 sm:top-[-10rem]"
         height="h-6 sm:h-10"
         speedClass="marquee-medium"
       />
@@ -96,7 +96,7 @@ const Hero = () => {
         textClass="text-white font-accent font-semibold"
         dotClass="bg-white"
         rotate={20}
-        className="bottom-[-10rem] sm:bottom-[-14rem]"
+        className="bottom-10 sm:bottom-[-14rem]"
         height="h-8 sm:h-12"
         speedClass="marquee-slow"
       />
@@ -158,7 +158,8 @@ const Hero = () => {
               onClick={scrollToProjects}
               className="bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
             >
-              View Projects <ExternalLink className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              View Projects{" "}
+              <ExternalLink className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             <Button
               onClick={handleDownloadCV}
