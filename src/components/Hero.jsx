@@ -212,7 +212,7 @@ const Hero = () => {
             <a
               href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="px-2 sm:px-3 py-1 text-xs font-accent font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-colors"
             >
               Cisco JS Essentials

@@ -129,7 +129,7 @@ const Contact = () => {
         duration: 5000,
       });
     } else {
-      window.open(href, "_blank");
+      window.open(href, "_blank", "noopener,noreferrer");
     }
   };
 

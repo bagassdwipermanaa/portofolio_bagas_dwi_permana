@@ -81,7 +81,9 @@ const Navbar = () => {
           }
 
           if (currentSection !== activeSection) {
-            console.log(`Section changed to: ${currentSection}`);
+            if (import.meta.env.DEV) {
+              console.log(`Section changed to: ${currentSection}`);
+            }
             setActiveSection(currentSection);
           }
         }
