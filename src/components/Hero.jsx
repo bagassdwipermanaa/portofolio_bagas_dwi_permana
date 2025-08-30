@@ -41,16 +41,16 @@ const Hero = () => {
     const pdfUrl = "/cvbagasdwipermana.pdf";
     if (pdfUrl === "#") {
       toast({
-        title: "🚧 URL PDF Belum Disetel!",
-        description: "Harap ganti '#' dengan URL PDF CV Anda di kode.",
+        title: "🚧 PDF URL Not Set!",
+        description: "Please replace '#' with your CV PDF URL in the code.",
         variant: "destructive",
         duration: 5000,
       });
     } else {
       window.open(pdfUrl, "_blank");
       toast({
-        title: "CV Sedang Diunduh...",
-        description: "File CV akan segera terbuka di tab baru.",
+        title: "CV Downloading...",
+        description: "CV file will open in a new tab shortly.",
         variant: "default",
         duration: 3000,
       });

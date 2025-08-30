@@ -123,8 +123,8 @@ const Contact = () => {
   const handleSocialClick = (href, platform) => {
     if (href === "#") {
       toast({
-        title: `🚧 URL ${platform} Belum Disetel!`,
-        description: `Harap ganti '#' dengan URL ${platform} Anda di kode.`,
+        title: `🚧 ${platform} URL Not Set!`,
+        description: `Please replace '#' with your ${platform} URL in the code.`,
         variant: "destructive",
         duration: 5000,
       });

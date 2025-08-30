@@ -76,8 +76,8 @@ const Certifications = () => {
   const handleViewPdf = (pdfLink, title) => {
     if (pdfLink === "#") {
       toast({
-        title: `🚧 URL PDF Belum Disetel!`,
-        description: `Harap ganti '#' dengan URL PDF untuk sertifikat "${title}" di kode.`,
+        title: `🚧 PDF URL Not Set!`,
+        description: `Please replace '#' with the PDF URL for certificate "${title}" in the code.`,
         variant: "destructive",
         duration: 5000,
       });
