@@ -1,8 +1,14 @@
 {
   "name": "bagas-portfolio",
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "author": "Bagas Dwi Permana <contact.bagasdp@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bagassdwipermana/portfolio.git"
+  },
+  "homepage": "https://bagasdwipermana.netlify.app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

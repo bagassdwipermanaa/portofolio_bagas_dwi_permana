@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Welcome from "@/components/Welcome";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -45,7 +46,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ErrorBoundary>
       {/* Welcome Screen */}
       <AnimatePresence mode="wait">
         {showWelcome && <Welcome onLoadingComplete={handleWelcomeComplete} />}
@@ -59,6 +60,8 @@ function App() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
+            role="main"
+            aria-label="Portfolio main content"
           >
             {/* Cooler cursor: soft glow + trailing particles */}
             <motion.div
@@ -146,7 +149,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </ErrorBoundary>
   );
 }
 

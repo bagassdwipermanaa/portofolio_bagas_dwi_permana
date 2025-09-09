@@ -119,6 +119,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="font-display font-bold leading-tight text-white heading-soft"
+            role="heading"
+            aria-level="1"
           >
             <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               <span className="headline-sheen">Bagas</span>
@@ -157,20 +159,30 @@ const Hero = () => {
             <Button
               onClick={scrollToProjects}
               className="bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
+              aria-label="View my projects portfolio"
             >
               View Projects{" "}
-              <ExternalLink className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <ExternalLink
+                className="ml-2 h-3 w-3 sm:h-4 sm:w-4"
+                aria-hidden="true"
+              />
             </Button>
             <Button
               onClick={handleDownloadCV}
               variant="outline"
               className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 rounded-full px-6 sm:px-8 py-2.5 sm:py-3 font-accent font-medium text-sm sm:text-base"
+              aria-label="Download my CV in PDF format"
             >
-              Download CV <Download className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              Download CV{" "}
+              <Download
+                className="ml-2 h-3 w-3 sm:h-4 sm:w-4"
+                aria-hidden="true"
+              />
             </Button>
             <Button
               onClick={scrollToContact}
               className="bg-gradient-to-r from-white to-white/80 text-black hover:from-white/90 hover:to-white/70 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
+              aria-label="Contact me for hiring opportunities"
             >
               Hire Me
             </Button>

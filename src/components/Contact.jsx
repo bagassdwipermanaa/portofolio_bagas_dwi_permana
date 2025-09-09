@@ -79,8 +79,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "bagastelkomschool@gmail.com",
-      href: "mailto:bagastelkomschool@gmail.com",
+      value: "contact.bagasdp@gmail.com",
+      href: "mailto:contact.bagasdp@gmail.com",
       color: "from-cyber-blue to-cyber-purple",
     },
     {
@@ -103,7 +103,7 @@ const Contact = () => {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com/bagassdwipermanaa", // Ganti '#' dengan URL GitHub-mu
+      href: "https://github.com/bagassdwipermana", // GitHub URL
       color: "hover:text-cyber-blue",
     },
     {
