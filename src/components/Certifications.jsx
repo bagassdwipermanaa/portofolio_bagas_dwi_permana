@@ -82,7 +82,7 @@ const Certifications = () => {
         duration: 5000,
       });
     } else {
-      window.open(pdfLink, "_blank");
+      window.open(pdfLink, "_blank", "noopener,noreferrer");
     }
   };
 

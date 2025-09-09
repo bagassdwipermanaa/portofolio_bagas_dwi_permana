@@ -51,84 +51,99 @@ const LiveCodePlayground = () => {
   <div class="skill">JavaScript</div>
   <div class="skill">React</div>
   <div class="skill">Node.js</div>
-  
-  <h2>About Me</h2>
-  <p>Passionate developer with experience in building modern web applications.</p>
+  <div class="skill">Python</div>
+  <div class="skill">Cloud Computing</div>
 </body>
 </html>`,
-    css: `body {
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   margin: 0;
-   padding: 20px;
-   background: #0f0f0f;
-   min-height: 100vh;
-   color: #ffffff;
- }
+    css: `/* Modern Portfolio Styles */
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #ffffff;
+  min-height: 100vh;
+}
 
- .container {
-   max-width: 800px;
-   margin: 0 auto;
-   background: #1a1a1a;
-   border-radius: 15px;
-   padding: 30px;
-   border: 1px solid #333333;
- }
+.header {
+  background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid #555555;
+}
 
- .header {
-   text-align: center;
-   margin-bottom: 40px;
-   background: #2d2d2d;
-   padding: 30px;
-   border-radius: 15px;
-   border: 1px solid #404040;
- }
+.skill {
+  background: linear-gradient(135deg, #333333 0%, #404040 100%);
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 12px;
+  border: 1px solid #555555;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
 
- .name {
-   font-size: 3em;
-   font-weight: bold;
-   margin: 0;
-   color: #ffffff;
-   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
- }
+.skill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
 
- .title {
-   font-size: 1.5em;
-   color: #cccccc;
-   margin: 10px 0;
- }
+.skill:hover::before {
+  left: 100%;
+}
 
- .skills {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-   gap: 20px;
-   margin: 30px 0;
- }
+.skill:hover {
+  background: linear-gradient(135deg, #404040 0%, #555555 100%);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
 
- .skill {
-   background: #333333;
-   padding: 20px;
-   border-radius: 12px;
-   text-align: center;
-   transition: all 0.3s ease;
-   border: 1px solid #404040;
- }
+h1 { 
+  margin: 0 0 15px 0; 
+  color: #ffffff; 
+  font-size: 2.5em;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
- .skill:hover {
-   transform: translateY(-3px);
-   background: #404040;
-   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
- }
+h2 { 
+  color: #cccccc; 
+  border-bottom: 3px solid #555555; 
+  padding-bottom: 15px; 
+  font-size: 1.8em;
+  margin-top: 30px;
+}
 
- .skill-icon {
-   font-size: 2em;
-   margin-bottom: 10px;
-   color: #cccccc;
- }`,
-    js: `// Interactive Portfolio Demo
-document.addEventListener('DOMContentLoaded', function() {
-  // Add typing effect to name
-  const nameElement = document.querySelector('.name');
-  if (nameElement) {
+.skill-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #cccccc;
+}`,
+    js: `// Interactive Portfolio Demo - Safe Version
+class PortfolioDemo {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.addTypingEffect();
+    this.addSkillProgress();
+    this.addClickEffects();
+  }
+
+  addTypingEffect() {
+    const nameElement = document.querySelector('.name');
+    if (!nameElement) return;
+
     const originalText = nameElement.textContent;
     nameElement.textContent = '';
     
@@ -143,62 +158,78 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setTimeout(typeWriter, 500);
   }
-  
-  // Add skill progress bars
-  const skills = document.querySelectorAll('.skill');
-  skills.forEach((skill, index) => {
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = \`
-      width: 100%;
-      height: 4px;
-      background: #333333;
-      border-radius: 2px;
-      margin-top: 10px;
-      overflow: hidden;
-    \`;
-    
-    const progress = document.createElement('div');
-    progress.style.cssText = \`
-      height: 100%;
-      background: #ffffff;
-      border-radius: 2px;
-      width: 0%;
-      transition: width 1s ease;
-    \`;
-    
-    progressBar.appendChild(progress);
-    skill.appendChild(progressBar);
-    
-    // Animate progress bar
-    setTimeout(() => {
-      progress.style.width = (70 + Math.random() * 30) + '%';
-    }, index * 200);
-  });
-  
-  // Add click effects
-  document.addEventListener('click', function(e) {
+
+  addSkillProgress() {
+    const skills = document.querySelectorAll('.skill');
+    skills.forEach((skill, index) => {
+      const progressBar = document.createElement('div');
+      progressBar.style.cssText = \`
+        width: 100%;
+        height: 4px;
+        background: #333333;
+        border-radius: 2px;
+        margin-top: 10px;
+        overflow: hidden;
+      \`;
+      
+      const progress = document.createElement('div');
+      progress.style.cssText = \`
+        height: 100%;
+        background: linear-gradient(90deg, #00bfff, #0080ff);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 1s ease;
+      \`;
+      
+      progressBar.appendChild(progress);
+      skill.appendChild(progressBar);
+      
+      setTimeout(() => {
+        const randomWidth = 70 + Math.random() * 30;
+        progress.style.width = randomWidth + '%';
+      }, index * 200);
+    });
+  }
+
+  addClickEffects() {
+    document.addEventListener('click', (e) => {
+      this.createRipple(e.clientX, e.clientY);
+    });
+  }
+
+  createRipple(x, y) {
     const ripple = document.createElement('div');
     ripple.style.cssText = \`
       position: fixed;
       width: 20px;
       height: 20px;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(0, 191, 255, 0.3);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
       animation: ripple 0.6s linear;
+      z-index: 1000;
     \`;
     
-    ripple.style.left = e.clientX + 'px';
-    ripple.style.top = e.clientY + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
     
     document.body.appendChild(ripple);
     
     setTimeout(() => {
-      ripple.remove();
+      if (ripple.parentNode) {
+        ripple.parentNode.removeChild(ripple);
+      }
     }, 600);
-  });
-});
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => new PortfolioDemo());
+} else {
+  new PortfolioDemo();
+}
 
 // Add CSS animation for ripple effect
 const style = document.createElement('style');
@@ -220,189 +251,105 @@ document.head.appendChild(style);`,
   }, [code]);
 
   const updateOutput = () => {
-    const htmlContent = code.html;
-    const cssContent = code.css;
-    const jsContent = code.js;
-
-    const fullHTML = htmlContent
-      .replace("</head>", `<style>${cssContent}</style></head>`)
-      .replace("</body>", `<script>${jsContent}</script></body>`);
-
-    setOutput(fullHTML);
-  };
-
-  const handleCodeChange = (language, value) => {
-    setCode((prev) => ({
-      ...prev,
-      [language]: value,
-    }));
-  };
-
-  const runCode = () => {
-    updateOutput();
-  };
-
-  const resetCode = () => {
-    setCode({
-      html: `<!DOCTYPE html>
-<html>
-<head>
-  <title>My Portfolio</title>
-</head>
-<body>
-  <h1 class="name">Hello World!</h1>
-  <p>Start coding here...</p>
-</body>
-</html>`,
-      css: `body {
-  font-family: Arial, sans-serif;
-  margin: 40px;
-  background: #1a1a1a;
-  color: #ffffff;
-}`,
-      js: `// Your JavaScript code here
-console.log('Hello from JavaScript!');`,
-    });
+    const iframe = document.getElementById("output-iframe");
+    if (iframe) {
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      iframeDoc.open();
+      iframeDoc.write(code.html);
+      iframeDoc.write(`<style>${code.css}</style>`);
+      iframeDoc.write(`<script>${code.js}</script>`);
+      iframeDoc.close();
+    }
   };
 
   const tabs = [
-    { id: "html", name: "HTML", icon: "🔷" },
-    { id: "css", name: "CSS", icon: "🎨" },
-    { id: "js", name: "JavaScript", icon: "⚡" },
+    { id: "html", label: "HTML", icon: "🌐" },
+    { id: "css", label: "CSS", icon: "🎨" },
+    { id: "js", label: "JavaScript", icon: "⚡" },
   ];
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="py-20 px-4 bg-slate-950">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Live Code Playground
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Coba dan eksperimen dengan kode secara langsung. Lihat hasilnya
-            secara real-time!
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Experience interactive coding with a safe, sandboxed environment.
+            This playground demonstrates modern web development techniques.
           </p>
         </motion.div>
 
-        {/* Playground Container */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-slate-800/50 backdrop-blur-sm rounded-lg border border-slate-700/50 overflow-hidden"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700"
         >
-          {/* Toolbar */}
-          <div className="bg-slate-700/50 px-6 py-4 border-b border-slate-600/50">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <h3 className="text-lg font-semibold text-white">
-                  Code Editor
-                </h3>
-                <div className="flex gap-2">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        activeTab === tab.id
-                          ? "bg-slate-600 text-white"
-                          : "bg-slate-600/50 text-gray-300 hover:bg-slate-600"
-                      }`}
-                    >
-                      {tab.icon} {tab.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="flex gap-3">
+          {/* Code Editor */}
+          <div className="bg-slate-800 border-b border-slate-700">
+            <div className="flex">
+              {tabs.map((tab) => (
                 <button
-                  onClick={runCode}
-                  className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg text-sm font-medium transition-colors duration-200"
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-6 py-4 text-sm font-medium transition-colors ${
+                    activeTab === tab.id
+                      ? "bg-slate-700 text-white border-b-2 border-blue-500"
+                      : "text-gray-400 hover:text-white hover:bg-slate-700"
+                  }`}
                 >
-                  ▶️ Run Code
+                  <span className="mr-2">{tab.icon}</span>
+                  {tab.label}
                 </button>
-                <button
-                  onClick={resetCode}
-                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm font-medium transition-colors duration-200"
-                >
-                  🔄 Reset
-                </button>
-              </div>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[600px]">
-            {/* Code Editor */}
-            <div className="bg-slate-900 p-6">
-              <div className="mb-4">
-                <h4 className="text-white font-medium mb-2">
-                  {tabs.find((tab) => tab.id === activeTab)?.name} Code
-                </h4>
-              </div>
-              <textarea
-                value={code[activeTab]}
-                onChange={(e) => handleCodeChange(activeTab, e.target.value)}
-                className="w-full h-[500px] bg-slate-800 text-gray-200 p-4 rounded-lg border border-slate-600/50 font-mono text-sm resize-none focus:outline-none focus:border-slate-500/50"
-                placeholder={`Enter your ${activeTab.toUpperCase()} code here...`}
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-2 h-96">
+            {/* Code Display */}
+            <div className="bg-slate-900 p-6 overflow-auto">
+              <pre className="text-sm text-gray-300 whitespace-pre-wrap">
+                <code>{code[activeTab]}</code>
+              </pre>
             </div>
 
-            {/* Output Preview */}
-            <div className="bg-white p-6">
-              <div className="mb-4">
-                <h4 className="text-gray-800 font-medium mb-2">Live Preview</h4>
+            {/* Live Output */}
+            <div className="bg-white relative">
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               </div>
-              <div className="border border-gray-200 rounded-lg h-[500px] overflow-auto">
-                <iframe
-                  srcDoc={output}
-                  title="Code Output"
-                  className="w-full h-full border-0"
-                  sandbox="allow-scripts"
-                />
-              </div>
+              <iframe
+                id="output-iframe"
+                className="w-full h-full border-0"
+                sandbox="allow-scripts allow-same-origin"
+                title="Live Code Output"
+              />
             </div>
           </div>
         </motion.div>
 
-        {/* Instructions */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
         >
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-6 border border-slate-700/30">
-            <div className="text-3xl mb-4">💡</div>
-            <h3 className="text-xl font-bold text-white mb-2">Tips & Tricks</h3>
-            <p className="text-gray-400 text-sm">
-              Gunakan playground ini untuk eksperimen dengan HTML, CSS, dan
-              JavaScript. Lihat perubahan secara real-time!
-            </p>
-          </div>
-
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-6 border border-slate-700/30">
-            <div className="text-3xl mb-4">🚀</div>
-            <h3 className="text-xl font-bold text-white mb-2">Learning</h3>
-            <p className="text-gray-400 text-sm">
-              Coba ubah warna, tambah animasi, atau buat layout baru. Ini adalah
-              cara terbaik untuk belajar coding!
-            </p>
-          </div>
-
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-6 border border-slate-700/30">
-            <div className="text-3xl mb-4">🔧</div>
-            <h3 className="text-xl font-bold text-white mb-2">Customize</h3>
-            <p className="text-gray-400 text-sm">
-              Sesuaikan kode sesuai kebutuhan. Semua perubahan akan langsung
-              terlihat di preview!
-            </p>
-          </div>
+          <p className="text-gray-400 text-sm">
+            This playground runs in a secure sandbox environment. All code
+            execution is isolated and safe.
+          </p>
         </motion.div>
       </div>
     </section>

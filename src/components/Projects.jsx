@@ -198,8 +198,10 @@ const Projects = () => {
                   <motion.img
                     key={hoveredProject.id}
                     src={hoveredProject.preview.image}
-                    alt={hoveredProject.title}
+                    alt={`${hoveredProject.title} - ${hoveredProject.category} project preview`}
                     className="w-full h-40 sm:h-48 object-cover will-change-transform"
+                    loading="lazy"
+                    decoding="async"
                     initial={{
                       opacity: 0,
                       y: 10,

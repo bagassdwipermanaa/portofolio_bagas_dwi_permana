@@ -188,8 +188,10 @@ const About = () => {
             >
               <img
                 src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
-                alt="Bagas Dwi Permana"
+                alt="Bagas Dwi Permana - Software Engineering Student and Web Developer"
                 className="w-full aspect-[3/4] object-cover"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Soft sheen */}

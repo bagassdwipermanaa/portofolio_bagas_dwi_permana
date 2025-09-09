@@ -47,7 +47,7 @@ const Hero = () => {
         duration: 5000,
       });
     } else {
-      window.open(pdfUrl, "_blank");
+      window.open(pdfUrl, "_blank", "noopener,noreferrer");
       toast({
         title: "CV Downloading...",
         description: "CV file will open in a new tab shortly.",

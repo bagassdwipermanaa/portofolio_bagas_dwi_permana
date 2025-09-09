@@ -40,7 +40,7 @@ function App() {
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
@@ -48,15 +48,13 @@ function App() {
     <>
       {/* Welcome Screen */}
       <AnimatePresence mode="wait">
-        {showWelcome && (
-          <Welcome onLoadingComplete={handleWelcomeComplete} />
-        )}
+        {showWelcome && <Welcome onLoadingComplete={handleWelcomeComplete} />}
       </AnimatePresence>
 
       {/* Main Portfolio */}
       <AnimatePresence mode="wait">
         {showPortfolio && (
-          <motion.div 
+          <motion.div
             className="min-h-screen bg-slate-950 text-gray-300 relative overflow-x-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

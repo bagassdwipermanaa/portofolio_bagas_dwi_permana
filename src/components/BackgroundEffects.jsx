@@ -25,7 +25,7 @@ const BackgroundEffects = () => {
     };
 
     generateParticles();
-    window.addEventListener("resize", generateParticles);
+    window.addEventListener("resize", generateParticles, { passive: true });
 
     return () => window.removeEventListener("resize", generateParticles);
   }, []);

@@ -1,9 +1,9 @@
+/* Import Google Fonts - Updated to 2 fonts from image */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import Google Fonts - Updated to 2 fonts from image */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
 
 :root {
   --background: 0 0% 0%; /* Pure black background */
@@ -401,7 +401,7 @@ body {
     /* Keep glitch on mobile but maybe less intense if needed */
     /* opacity: 0.6; */
   }
-  
+
   /* Better mobile typography scaling */
   .text-4xl {
     font-size: 2rem;
@@ -423,30 +423,30 @@ body {
     font-size: 4rem;
     line-height: 4.5rem;
   }
-  
+
   /* Mobile-specific spacing */
   .mobile-padding {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   /* Mobile navigation improvements */
   .mobile-nav {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
-  
+
   /* Mobile touch targets */
   .mobile-touch-target {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Mobile form improvements */
   .mobile-form-input {
     font-size: 16px; /* Prevents zoom on iOS */
   }
-  
+
   /* Mobile button improvements */
   .mobile-button {
     min-height: 44px;
@@ -548,30 +548,30 @@ body {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   /* Better text wrapping */
   .break-words {
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
-  
+
   /* Mobile-friendly images */
   .mobile-image {
     max-width: 100%;
     height: auto;
   }
-  
+
   /* Mobile-friendly buttons */
   .mobile-button {
     width: 100%;
     justify-content: center;
   }
-  
+
   /* Mobile-friendly forms */
   .mobile-form {
     gap: 1rem;
   }
-  
+
   /* Mobile-friendly cards */
   .mobile-card {
     margin: 0.5rem;
@@ -585,7 +585,7 @@ body {
     padding-left: 2rem;
     padding-right: 2rem;
   }
-  
+
   .tablet-text {
     font-size: 1.125rem;
   }
