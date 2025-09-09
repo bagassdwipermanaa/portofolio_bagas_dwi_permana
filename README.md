@@ -75,7 +75,16 @@ npm install
 3. Start the development server:
 
 ```bash
+# Keren way 😎🔥
+npm run bagas:dev
+
+# Atau cara simple
+npm run bagas
+
+# Atau cara biasa
 npm run dev
+# atau
+npm start
 ```
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.

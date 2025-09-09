@@ -11,8 +11,12 @@
   "homepage": "https://bagasdwipermana.netlify.app",
   "scripts": {
     "dev": "vite",
+    "bagas": "echo '🚀 Starting Bagas Portfolio...' && vite",
+    "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && echo '🚀 Ready to deploy to Netlify!'",
+    "bagas:dev": "echo '🔥 BAGAS PORTFOLIO - DEVELOPMENT SERVER 🔥' && echo '📱 Available at: http://localhost:5173' && echo '💻 Press Ctrl+C to stop' && echo '' && vite"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
