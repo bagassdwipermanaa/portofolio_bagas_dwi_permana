@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import BackgroundEffects from "./BackgroundEffects";
+import ProjectDetail from "./ProjectDetail";
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [isOverModal, setIsOverModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   // Cursor-following values (no spring for zero-lag)
   const mvX = useMotionValue(0);
@@ -16,44 +19,67 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Creative Studio Website",
-      category: "Web Design",
+      title: "Portfolio Website",
+      category: "Website Portofolio",
       preview: {
-        image: "/image/thumbnailportofoliobagas.jpg",
+        image: "/image/localhost_5173_(Nest Hub Max) (3).png",
         description:
-          "Modern creative studio website with stunning visuals and smooth interactions.",
+          "Personal portfolio website with modern design and smooth interactions.",
         link: "#",
       },
     },
     {
       id: 2,
-      title: "Course App",
-      category: "Mobile App",
+      title: "Esport SMK Telkom Jakarta App",
+      category: "App Design",
       preview: {
         image: "/image/APLIKASI ESPORT SMK TELKOM JAKARTA.png",
-        description: "Interactive course application with modern UI/UX design.",
+        description:
+          "Esport application for SMK Telkom Jakarta with modern UI/UX design.",
         link: "#",
       },
     },
     {
       id: 3,
-      title: "Money Management App",
-      category: "Mobile App",
+      title: "Kantin Management System",
+      category: "Desktop App",
       preview: {
         image: "/image/kantinmanagement.png",
         description:
-          "Comprehensive money management solution for personal finance.",
+          "Canteen management system for efficient food service operations.",
         link: "#",
       },
     },
     {
       id: 4,
-      title: "Real Estate App",
-      category: "Mobile App",
+      title: "CarePlus Web Design",
+      category: "Web Design",
       preview: {
         image: "/image/WEB CAREPLUS DESIGN.png",
         description:
-          "Modern real estate platform with advanced search and filtering.",
+          "Healthcare web platform design with modern interface and user experience.",
+        link: "#",
+      },
+    },
+    {
+      id: 5,
+      title: "Data Karyawan C# Application",
+      category: "Desktop App",
+      preview: {
+        image: "/image/aplikasidatakaryawancsharpsederhana.png",
+        description:
+          "Employee data management application built with C# and modern interface.",
+        link: "#",
+      },
+    },
+    {
+      id: 6,
+      title: "Penilaian Java Application",
+      category: "Desktop App",
+      preview: {
+        image: "/image/Bagas_Dwi_Permana_APK_Penilaian_Java.png",
+        description:
+          "Assessment application built with Java for educational purposes.",
         link: "#",
       },
     },
@@ -71,8 +97,13 @@ const Projects = () => {
   }, [hoveredProject, mvX, mvY]);
 
   const handleOpen = (project) => {
-    const url = project?.preview?.link || "#";
-    if (url && url !== "#") window.open(url, "_blank");
+    setSelectedProject(project);
+    setIsDetailOpen(true);
+  };
+
+  const handleCloseDetail = () => {
+    setIsDetailOpen(false);
+    setSelectedProject(null);
   };
 
   return (
@@ -206,6 +237,13 @@ const Projects = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Project Detail Modal */}
+      <ProjectDetail
+        project={selectedProject}
+        isOpen={isDetailOpen}
+        onClose={handleCloseDetail}
+      />
     </section>
   );
 };
