@@ -6,7 +6,6 @@ A modern, responsive portfolio website built with React, showcasing my skills as
 
 - **Modern Design**: Clean, professional UI with smooth animations using Framer Motion
 - **Responsive**: Fully responsive design that works on all devices
-- **Interactive**: Live code playground, hover effects, and cursor trail
 - **SEO Optimized**: Complete SEO setup with meta tags, sitemap, and robots.txt
 - **Accessible**: ARIA labels, keyboard navigation, and screen reader support
 - **Performance**: Lazy loading, error boundaries, and optimized images
@@ -37,7 +36,6 @@ src/
 │   ├── Hero.jsx          # Hero section
 │   ├── LazyImage.jsx     # Optimized image loading
 │   ├── LoadingSpinner.jsx # Loading states
-│   ├── LiveCodePlayground.jsx # Interactive code editor
 │   ├── Navbar.jsx        # Navigation
 │   ├── NotFound.jsx      # 404 page
 │   ├── Projects.jsx      # Projects showcase
@@ -105,7 +103,6 @@ The built files will be in the `dist` directory.
 - **Projects**: Portfolio showcase with project details
 - **Certifications**: Professional certifications and achievements
 - **Roadmap**: Career development timeline
-- **Live Code Playground**: Interactive coding demonstration
 - **FAQ**: Frequently asked questions
 - **Contact**: Contact form with backend integration
 
