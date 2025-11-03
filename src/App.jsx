@@ -7,7 +7,6 @@ import Education from "@/components/Education";
 import Projects from "@/components/Projects";
 import Certifications from "@/components/Certifications";
 import Roadmap from "@/components/Roadmap";
-import LiveCodePlayground from "@/components/LiveCodePlayground";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -126,10 +125,6 @@ function App() {
 
                   <section id="roadmap">
                     <Roadmap />
-                  </section>
-
-                  <section id="playground">
-                    <LiveCodePlayground />
                   </section>
 
                   <section id="faq">
