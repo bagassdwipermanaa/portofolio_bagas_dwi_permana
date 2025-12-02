@@ -56,12 +56,12 @@ const Footer = () => {
                 href="https://www.instagram.com/bagassdwipermanaa?igsh=MW10NHJqZDlmMGw3dw%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer"
+                className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 border-2 border-white rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer group"
               >
-                <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-2 border-white rounded-lg flex items-center justify-center relative">
-                  <div className="w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-white rounded-full"></div>
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-white rounded-full"></div>
-                  <div className="absolute top-0 right-0 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full"></div>
+                <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-2 border-white rounded-lg flex items-center justify-center relative group-hover:border-black transition-colors duration-300">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-white rounded-full group-hover:bg-black transition-colors duration-300"></div>
+                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 bg-white rounded-full group-hover:bg-black transition-colors duration-300"></div>
+                  <div className="absolute top-0 right-0 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full group-hover:bg-black transition-colors duration-300"></div>
                 </div>
               </a>
               <a
