@@ -14,6 +14,7 @@ import { Toaster } from "@/components/ui/toaster";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import Welcome from "@/components/Welcome";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import DiscordProfile from "@/components/DiscordProfile";
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -140,6 +141,7 @@ function App() {
               </motion.div>
             </AnimatePresence>
 
+            <DiscordProfile />
             <Toaster />
           </motion.div>
         )}
