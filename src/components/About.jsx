@@ -14,15 +14,39 @@ const FlipCard3D = () => {
   const [lastMoveX, setLastMoveX] = useState(0);
   const [velocity, setVelocity] = useState(0);
 
+  // Helper function untuk mendapatkan clientX dari event (mouse atau touch)
+  const getClientX = (e) => {
+    if (e.touches && e.touches.length > 0) {
+      return e.touches[0].clientX;
+    }
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      return e.changedTouches[0].clientX;
+    }
+    return e.clientX;
+  };
+
+  const getClientY = (e) => {
+    if (e.touches && e.touches.length > 0) {
+      return e.touches[0].clientY;
+    }
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      return e.changedTouches[0].clientY;
+    }
+    return e.clientY;
+  };
+
   const handleMove = (e) => {
     if (!cardRef.current) return;
+    
     const rect = cardRef.current.getBoundingClientRect();
-    const relX = (e.clientX - rect.left) / rect.width;
-    const relY = (e.clientY - rect.top) / rect.height;
+    const clientX = getClientX(e);
+    const clientY = getClientY(e);
+    const relX = (clientX - rect.left) / rect.width;
+    const relY = (clientY - rect.top) / rect.height;
     
     // Jika sedang drag, update rotasi drag
     if (isDragging) {
-      const deltaX = e.clientX - dragStart.x;
+      const deltaX = clientX - dragStart.x;
       // Perhitungan rotasi yang lebih responsif - lebih sensitif
       const rotationY = Math.max(-180, Math.min(180, (deltaX / 1.5)));
       setDragRotation(rotationY);
@@ -31,13 +55,13 @@ const FlipCard3D = () => {
       const now = Date.now();
       if (lastMoveTime > 0) {
         const timeDelta = now - lastMoveTime;
-        const moveDelta = e.clientX - lastMoveX;
+        const moveDelta = clientX - lastMoveX;
         if (timeDelta > 0) {
           setVelocity(moveDelta / timeDelta);
         }
       }
       setLastMoveTime(now);
-      setLastMoveX(e.clientX);
+      setLastMoveX(clientX);
     } else {
       // Normal tilt effect saat tidak drag
       const ry = (relX - 0.5) * 20; // rotateY
@@ -47,18 +71,20 @@ const FlipCard3D = () => {
     }
   };
 
-  const handleMouseDown = (e) => {
+  const handleStart = (e) => {
     if (!cardRef.current) return;
-    e.preventDefault();
+    // Jangan preventDefault di React handler, akan dihandle di native listener
+    const clientX = getClientX(e);
+    const clientY = getClientY(e);
     setIsDragging(true);
-    setDragStart({ x: e.clientX, y: e.clientY });
+    setDragStart({ x: clientX, y: clientY });
     setDragRotation(0);
     setLastMoveTime(Date.now());
-    setLastMoveX(e.clientX);
+    setLastMoveX(clientX);
     setVelocity(0);
   };
 
-  const handleMouseUp = () => {
+  const handleEnd = () => {
     if (!isDragging) return;
     
     // Threshold lebih kecil (30 derajat) dan pertimbangkan velocity untuk lebih mudah flip
@@ -81,17 +107,47 @@ const FlipCard3D = () => {
       setTilt({ rx: 0, ry: 0 });
       setSpot({ x: 50, y: 50 });
     } else {
-      // Jika sedang drag dan mouse leave, tetap reset drag
-      handleMouseUp();
+      // Jika sedang drag dan mouse/touch leave, tetap reset drag
+      handleEnd();
     }
   };
 
-  // Handle mouse move dan mouse up di window untuk memastikan drag berfungsi
+  // Handle touchstart dengan native listener untuk preventDefault
+  React.useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleTouchStart = (e) => {
+      // Prevent default untuk mencegah scroll
+      e.preventDefault();
+      const clientX = getClientX(e);
+      const clientY = getClientY(e);
+      setIsDragging(true);
+      setDragStart({ x: clientX, y: clientY });
+      setDragRotation(0);
+      setLastMoveTime(Date.now());
+      setLastMoveX(clientX);
+      setVelocity(0);
+    };
+
+    card.addEventListener("touchstart", handleTouchStart, { passive: false });
+    
+    return () => {
+      card.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
+
+  // Handle mouse/touch move dan mouse/touch up di window untuk memastikan drag berfungsi
   React.useEffect(() => {
     if (isDragging) {
-      const handleWindowMouseMove = (e) => {
+      const handleWindowMove = (e) => {
         if (!cardRef.current) return;
-        const deltaX = e.clientX - dragStart.x;
+        // Prevent default untuk touch events
+        if (e.touches) {
+          e.preventDefault();
+        }
+        const clientX = getClientX(e);
+        const deltaX = clientX - dragStart.x;
         const rotationY = Math.max(-180, Math.min(180, (deltaX / 1.5)));
         setDragRotation(rotationY);
         
@@ -99,17 +155,17 @@ const FlipCard3D = () => {
         const now = Date.now();
         if (lastMoveTime > 0) {
           const timeDelta = now - lastMoveTime;
-          const moveDelta = e.clientX - lastMoveX;
+          const moveDelta = clientX - lastMoveX;
           if (timeDelta > 0) {
             setVelocity(moveDelta / timeDelta);
           }
         }
         setLastMoveTime(now);
-        setLastMoveX(e.clientX);
+        setLastMoveX(clientX);
       };
 
-      const handleWindowMouseUp = () => {
-        const shouldFlip = Math.abs(dragRotation) > 45 || (Math.abs(dragRotation) > 30 && Math.abs(velocity) > 0.5);
+      const handleWindowEnd = () => {
+        const shouldFlip = Math.abs(dragRotation) > 30 || (Math.abs(dragRotation) > 15 && Math.abs(velocity) > 0.2);
         
         if (shouldFlip) {
           setIsFlipped(!isFlipped);
@@ -122,11 +178,20 @@ const FlipCard3D = () => {
         setVelocity(0);
       };
 
-      window.addEventListener("mousemove", handleWindowMouseMove);
-      window.addEventListener("mouseup", handleWindowMouseUp);
+      // Mouse events
+      window.addEventListener("mousemove", handleWindowMove);
+      window.addEventListener("mouseup", handleWindowEnd);
+      // Touch events
+      window.addEventListener("touchmove", handleWindowMove, { passive: false });
+      window.addEventListener("touchend", handleWindowEnd);
+      window.addEventListener("touchcancel", handleWindowEnd);
+      
       return () => {
-        window.removeEventListener("mousemove", handleWindowMouseMove);
-        window.removeEventListener("mouseup", handleWindowMouseUp);
+        window.removeEventListener("mousemove", handleWindowMove);
+        window.removeEventListener("mouseup", handleWindowEnd);
+        window.removeEventListener("touchmove", handleWindowMove);
+        window.removeEventListener("touchend", handleWindowEnd);
+        window.removeEventListener("touchcancel", handleWindowEnd);
       };
     }
   }, [isDragging, dragStart, lastMoveTime, lastMoveX, dragRotation, velocity, isFlipped]);
@@ -139,10 +204,11 @@ const FlipCard3D = () => {
       <motion.div
         ref={cardRef}
         onMouseMove={handleMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
+        onMouseDown={handleStart}
+        onMouseUp={handleEnd}
         onMouseLeave={reset}
-        className="relative w-full h-full cursor-grab active:cursor-grabbing"
+        onTouchEnd={handleEnd}
+        className="relative w-full h-full cursor-grab active:cursor-grabbing touch-none select-none"
         style={{ transformStyle: "preserve-3d" }}
         animate={{
           rotateX: isDragging ? 0 : tilt.rx,
