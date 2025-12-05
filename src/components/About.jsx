@@ -2,6 +2,287 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Code, Palette, Zap, Heart, User } from "lucide-react";
 
+const FlipCard3D = () => {
+  const cardRef = useRef(null);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [spot, setSpot] = useState({ x: 50, y: 50 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragRotation, setDragRotation] = useState(0);
+  const [lastMoveTime, setLastMoveTime] = useState(0);
+  const [lastMoveX, setLastMoveX] = useState(0);
+  const [velocity, setVelocity] = useState(0);
+
+  const handleMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const relX = (e.clientX - rect.left) / rect.width;
+    const relY = (e.clientY - rect.top) / rect.height;
+    
+    // Jika sedang drag, update rotasi drag
+    if (isDragging) {
+      const deltaX = e.clientX - dragStart.x;
+      // Perhitungan rotasi yang lebih responsif - lebih sensitif
+      const rotationY = Math.max(-180, Math.min(180, (deltaX / 1.5)));
+      setDragRotation(rotationY);
+      
+      // Hitung velocity untuk smooth flip
+      const now = Date.now();
+      if (lastMoveTime > 0) {
+        const timeDelta = now - lastMoveTime;
+        const moveDelta = e.clientX - lastMoveX;
+        if (timeDelta > 0) {
+          setVelocity(moveDelta / timeDelta);
+        }
+      }
+      setLastMoveTime(now);
+      setLastMoveX(e.clientX);
+    } else {
+      // Normal tilt effect saat tidak drag
+      const ry = (relX - 0.5) * 20; // rotateY
+      const rx = -(relY - 0.5) * 20; // rotateX
+      setTilt({ rx, ry });
+      setSpot({ x: relX * 100, y: relY * 100 });
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    if (!cardRef.current) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStart({ x: e.clientX, y: e.clientY });
+    setDragRotation(0);
+    setLastMoveTime(Date.now());
+    setLastMoveX(e.clientX);
+    setVelocity(0);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    
+    // Threshold lebih kecil (30 derajat) dan pertimbangkan velocity untuk lebih mudah flip
+    const shouldFlip = Math.abs(dragRotation) > 30 || (Math.abs(dragRotation) > 15 && Math.abs(velocity) > 0.2);
+    
+    if (shouldFlip) {
+      setIsFlipped(!isFlipped);
+      setDragRotation(0);
+    } else {
+      // Jika tidak flip, reset ke posisi awal dengan animasi smooth
+      setDragRotation(0);
+    }
+    
+    setIsDragging(false);
+    setVelocity(0);
+  };
+
+  const reset = () => {
+    if (!isDragging) {
+      setTilt({ rx: 0, ry: 0 });
+      setSpot({ x: 50, y: 50 });
+    } else {
+      // Jika sedang drag dan mouse leave, tetap reset drag
+      handleMouseUp();
+    }
+  };
+
+  // Handle mouse move dan mouse up di window untuk memastikan drag berfungsi
+  React.useEffect(() => {
+    if (isDragging) {
+      const handleWindowMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const deltaX = e.clientX - dragStart.x;
+        const rotationY = Math.max(-180, Math.min(180, (deltaX / 1.5)));
+        setDragRotation(rotationY);
+        
+        // Hitung velocity
+        const now = Date.now();
+        if (lastMoveTime > 0) {
+          const timeDelta = now - lastMoveTime;
+          const moveDelta = e.clientX - lastMoveX;
+          if (timeDelta > 0) {
+            setVelocity(moveDelta / timeDelta);
+          }
+        }
+        setLastMoveTime(now);
+        setLastMoveX(e.clientX);
+      };
+
+      const handleWindowMouseUp = () => {
+        const shouldFlip = Math.abs(dragRotation) > 45 || (Math.abs(dragRotation) > 30 && Math.abs(velocity) > 0.5);
+        
+        if (shouldFlip) {
+          setIsFlipped(!isFlipped);
+          setDragRotation(0);
+        } else {
+          setDragRotation(0);
+        }
+        
+        setIsDragging(false);
+        setVelocity(0);
+      };
+
+      window.addEventListener("mousemove", handleWindowMouseMove);
+      window.addEventListener("mouseup", handleWindowMouseUp);
+      return () => {
+        window.removeEventListener("mousemove", handleWindowMouseMove);
+        window.removeEventListener("mouseup", handleWindowMouseUp);
+      };
+    }
+  }, [isDragging, dragStart, lastMoveTime, lastMoveX, dragRotation, velocity, isFlipped]);
+
+  return (
+    <div
+      className="w-64 sm:w-72 md:w-80 h-[426px] sm:h-[480px] md:h-[533px]"
+      style={{ perspective: "1000px" }}
+    >
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={reset}
+        className="relative w-full h-full cursor-grab active:cursor-grabbing"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={{
+          rotateX: isDragging ? 0 : tilt.rx,
+          rotateY: isDragging 
+            ? (isFlipped ? 180 : 0) + dragRotation
+            : isFlipped ? 180 + tilt.ry : tilt.ry,
+        }}
+        transition={
+          isDragging
+            ? { duration: 0, ease: "linear" }
+            : {
+                rotateY: { 
+                  duration: 0.8, 
+                  ease: [0.4, 0, 0.2, 1],
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 25
+                },
+                rotateX: { type: "spring", stiffness: 300, damping: 20, mass: 0.6 },
+              }
+        }
+      >
+        {/* Front Side */}
+        <motion.div
+          className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden bg-neutral-900/60 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(0deg)",
+          }}
+        >
+          <img
+            src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
+            alt="Bagas Dwi Permana - Software Engineering Student and Web Developer"
+            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+
+          {/* Soft sheen */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40"></div>
+
+          {/* Stronger bottom scrim for readability */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+          {/* Subtle border gradient */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl"
+            style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
+          />
+
+          {/* Spotlight effect */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl"
+            style={{
+              background: `radial-gradient(400px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.15), transparent 50%)`,
+            }}
+          />
+
+          {/* Caption */}
+          <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 md:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+            <h3 className="text-white font-heading font-semibold text-base sm:text-lg text-shadow-sm">
+              Bagas Dwi Permana
+            </h3>
+            <p className="text-neutral-300 text-xs sm:text-sm font-body text-shadow-sm">
+              Web Developer
+            </p>
+          </div>
+
+          {/* Flip hint */}
+          <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20">
+            <p className="text-white text-[10px] font-medium">Drag to flip</p>
+          </div>
+        </motion.div>
+
+        {/* Back Side */}
+        <motion.div
+          className="absolute inset-0 w-full h-full rounded-2xl bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10 flex items-center justify-center p-6 sm:p-8"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          {/* Spotlight effect on back */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl"
+            style={{
+              background: `radial-gradient(400px circle at ${spot.x}% ${spot.y}%, rgba(255,255,255,0.1), transparent 50%)`,
+            }}
+          />
+
+          {/* Decorative border */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl"
+            style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
+          />
+
+          {/* Content */}
+          <div className="relative z-10 text-center space-y-4">
+            <motion.h3 
+              className="text-white font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-2"
+              animate={{ 
+                opacity: isFlipped ? 1 : 0,
+                y: isFlipped ? 0 : 20 
+              }}
+              transition={{ delay: 0.2, duration: 0.3 }}
+            >
+              Bagas Dwi Permana
+            </motion.h3>
+            <motion.div
+              className="w-16 h-1 bg-white mx-auto"
+              animate={{ 
+                opacity: isFlipped ? 1 : 0,
+                scale: isFlipped ? 1 : 0.8
+              }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+            ></motion.div>
+            <motion.p
+              className="text-neutral-200 font-accent font-semibold text-lg sm:text-xl md:text-2xl"
+              animate={{ 
+                opacity: isFlipped ? 1 : 0,
+                y: isFlipped ? 0 : 20 
+              }}
+              transition={{ delay: 0.4, duration: 0.3 }}
+            >
+              Web Developer
+            </motion.p>
+          </div>
+
+          {/* Flip hint */}
+          <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20">
+            <p className="text-white text-[10px] font-medium">Drag to flip</p>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+
 const TiltCard = ({
   title,
   subtitle,
@@ -173,7 +454,7 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Clean profile card (simpler, more elegant) */}
+          {/* Right side - 3D Flip Card */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -181,41 +462,7 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex justify-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.02, y: -4 }}
-              transition={{ type: "spring", stiffness: 250, damping: 20 }}
-              className="relative w-64 sm:w-72 md:w-80 overflow-hidden rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
-            >
-              <img
-                src="/image/WhatsApp Image 2025-08-21 at 11.30.22_d8c88551.jpg"
-                alt="Bagas Dwi Permana - Software Engineering Student and Web Developer"
-                className="w-full aspect-[3/4] object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-
-              {/* Soft sheen */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40"></div>
-
-              {/* Stronger bottom scrim for readability */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-              {/* Subtle border gradient */}
-              <div
-                className="pointer-events-none absolute inset-0 rounded-2xl"
-                style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
-              />
-
-              {/* Caption */}
-              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 md:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                <h3 className="text-white font-heading font-semibold text-base sm:text-lg text-shadow-sm">
-                  Bagas Dwi Permana
-                </h3>
-                <p className="text-neutral-300 text-xs sm:text-sm font-body text-shadow-sm">
-                  Web Developer
-                </p>
-              </div>
-            </motion.div>
+            <FlipCard3D />
           </motion.div>
         </div>
       </div>
