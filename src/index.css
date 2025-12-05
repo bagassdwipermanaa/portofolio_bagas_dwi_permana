@@ -139,6 +139,30 @@ body {
   }
 }
 
+/* Tech marquee animations - right and left */
+.marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+.marquee-left {
+  animation: marquee-left 30s linear infinite;
+}
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* Soft fade on both horizontal edges to avoid harsh cutoff in marquee */
 .mask-fade-x {
   -webkit-mask-image: linear-gradient(

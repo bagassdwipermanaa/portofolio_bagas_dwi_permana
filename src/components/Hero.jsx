@@ -4,6 +4,7 @@ import { Download, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import DiagonalMarquee from "@/components/DiagonalMarquee";
+import TechMarquee from "@/components/TechMarquee";
 
 const Hero = () => {
   const [text, setText] = useState("");
@@ -204,31 +205,16 @@ const Hero = () => {
             </motion.span>
           </motion.p>
 
-          {/* Tech and certification badges */}
+          {/* Tech marquee dengan logo */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="mt-6 sm:mt-8 mb-4 sm:mb-6 flex flex-wrap items-center gap-2"
+            className="mt-6 sm:mt-8 mb-4 sm:mb-6 relative"
           >
-            {["React", "Node.js", "Java", "Python", "AWS", "Docker"].map(
-              (tech) => (
-                <span
-                  key={tech}
-                  className="px-2 sm:px-3 py-1 text-xs font-accent font-medium rounded-full bg-neutral-800 border border-neutral-700 text-white"
-                >
-                  {tech}
-                </span>
-              )
-            )}
-            <a
-              href="/JavaScript_Essentials_1_certificate_bagastelkomschool-gmail-com_fd03c603-9b7f-4389-8cd1-9d2717a6017a.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2 sm:px-3 py-1 text-xs font-accent font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-colors"
-            >
-              Cisco JS Essentials
-            </a>
+            <div className="relative overflow-hidden mask-fade-x">
+              <TechMarquee />
+            </div>
           </motion.div>
         </div>
       </div>
