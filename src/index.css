@@ -74,7 +74,16 @@
   border-color: hsl(var(--border));
 }
 
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
+  margin: 0;
+  padding: 0;
   color: hsl(var(--foreground));
   background-color: hsl(var(--background));
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "SF Pro Text",
@@ -85,6 +94,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   line-height: 1.6;
+  height: 100%;
 }
 
 /* Modern font classes - Updated to use 2 fonts from image */
@@ -462,11 +472,7 @@ body {
     background-size: 40px 40px;
   }
 
-  .glitch-text::before,
-  .glitch-text::after {
-    /* Keep glitch on mobile but maybe less intense if needed */
-    /* opacity: 0.6; */
-  }
+  /* Glitch effects work well on mobile, no changes needed */
 
   /* Better mobile typography scaling */
   .text-4xl {

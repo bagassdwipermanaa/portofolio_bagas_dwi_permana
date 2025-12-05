@@ -59,7 +59,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16">
+    <section className="h-screen flex items-center relative overflow-hidden pt-12 sm:pt-16 pb-2 sm:pb-4">
       {/* Top diagonal strip - Tech Stack */}
       <DiagonalMarquee
         items={["REACT", "NODE.JS", "PYTHON", "JAVA", "AWS", "DOCKER"]}
@@ -113,7 +113,7 @@ const Hero = () => {
         <div className="origin-left -rotate-90 text-shadow-sm">CLOUD</div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-30 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-30 w-full h-full flex flex-col justify-center py-4">
         <div className="max-w-5xl">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -123,17 +123,17 @@ const Hero = () => {
             role="heading"
             aria-level="1"
           >
-            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-7xl">
               <span className="headline-sheen">Bagas</span>
               <span className="text-gray-400">.Dwi.</span>
               <span className="text-gray-500 headline-sheen">Permana</span>
             </span>
-            <span className="block mt-2 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+            <span className="block mt-1 sm:mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
               <span className="headline-sheen">
                 Software Engineering Student
               </span>
             </span>
-            <span className="block mt-2 sm:mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+            <span className="block mt-1 sm:mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
               <span className="headline-sheen">& Full-Stack Developer</span>
             </span>
           </motion.h1>
@@ -143,9 +143,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-4 sm:mt-6"
+            className="mt-3 sm:mt-4"
           >
-            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-neutral-800/80 border border-neutral-700 text-neutral-200 text-xs sm:text-sm font-body">
+            <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-neutral-800/80 border border-neutral-700 text-neutral-200 text-xs sm:text-sm font-body">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               Available for freelance/internship
             </span>
@@ -155,45 +155,109 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-6 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
+            className="mt-4 sm:mt-6 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3"
           >
-            <Button
-              onClick={scrollToProjects}
-              className="bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
-              aria-label="View my projects portfolio"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              View Projects{" "}
-              <ExternalLink
-                className="ml-2 h-3 w-3 sm:h-4 sm:w-4"
-                aria-hidden="true"
-              />
-            </Button>
-            <Button
-              onClick={handleDownloadCV}
-              variant="outline"
-              className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 rounded-full px-6 sm:px-8 py-2.5 sm:py-3 font-accent font-medium text-sm sm:text-base"
-              aria-label="Download my CV in PDF format"
+              <Button
+                onClick={scrollToProjects}
+                className="group bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-white/50 relative overflow-hidden"
+                aria-label="View my projects portfolio"
+              >
+                <span className="relative z-10 flex items-center">
+                  View Projects{" "}
+                  <motion.span
+                    className="ml-2"
+                    whileHover={{ x: 3, y: -3 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <ExternalLink
+                      className="h-3 w-3 sm:h-4 sm:w-4 inline-block"
+                      aria-hidden="true"
+                    />
+                  </motion.span>
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-white via-gray-100 to-white opacity-0 group-hover:opacity-100"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Download CV{" "}
-              <Download
-                className="ml-2 h-3 w-3 sm:h-4 sm:w-4"
-                aria-hidden="true"
-              />
-            </Button>
-            <Button
-              onClick={scrollToContact}
-              className="bg-gradient-to-r from-white to-white/80 text-black hover:from-white/90 hover:to-white/70 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base"
-              aria-label="Contact me for hiring opportunities"
+              <Button
+                onClick={handleDownloadCV}
+                variant="outline"
+                className="group border-2 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:border-neutral-500 hover:text-white rounded-full px-6 sm:px-8 py-2.5 sm:py-3 font-accent font-medium text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] relative overflow-hidden"
+                aria-label="Download my CV in PDF format"
+              >
+                <span className="relative z-10 flex items-center">
+                  Download CV{" "}
+                  <motion.span
+                    className="ml-2"
+                    whileHover={{ y: 2 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Download
+                      className="h-3 w-3 sm:h-4 sm:w-4 inline-block"
+                      aria-hidden="true"
+                    />
+                  </motion.span>
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 opacity-0 group-hover:opacity-100"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Hire Me
-            </Button>
+              <Button
+                onClick={scrollToContact}
+                className="group bg-gradient-to-r from-white to-white/80 text-black hover:from-white hover:to-white/90 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-accent font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] hover:shadow-white/60 relative overflow-hidden"
+                aria-label="Contact me for hiring opportunities"
+              >
+                <span className="relative z-10">Hire Me</span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-white via-gray-50 to-white opacity-0 group-hover:opacity-100"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  animate={{
+                    x: ["-100%", "100%"],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatDelay: 1,
+                    ease: "linear",
+                  }}
+                />
+              </Button>
+            </motion.div>
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.35 }}
-            className="mt-4 sm:mt-6 text-gray-200 max-w-2xl body-soft font-body text-sm sm:text-base"
+            className="mt-3 sm:mt-4 text-gray-200 max-w-2xl body-soft font-body text-xs sm:text-sm"
           >
             <span className="font-body">{text}</span>
             <motion.span
@@ -210,7 +274,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="mt-6 sm:mt-8 mb-4 sm:mb-6 relative"
+            className="mt-4 sm:mt-5 relative"
           >
             <div className="relative overflow-hidden mask-fade-x">
               <TechMarquee />
