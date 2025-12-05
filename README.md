@@ -34,10 +34,7 @@ src/
 │   ├── FAQ.jsx           # Frequently asked questions
 │   ├── Footer.jsx        # Footer component
 │   ├── Hero.jsx          # Hero section
-│   ├── LazyImage.jsx     # Optimized image loading
-│   ├── LoadingSpinner.jsx # Loading states
 │   ├── Navbar.jsx        # Navigation
-│   ├── NotFound.jsx      # 404 page
 │   ├── Projects.jsx      # Projects showcase
 │   ├── Roadmap.jsx       # Career roadmap
 │   └── Welcome.jsx       # Welcome screen
@@ -142,8 +139,6 @@ Update the meta tags in `index.html` and `sitemap.xml` with your actual website 
 
 ## 📈 Performance
 
-- Lazy loading for images
-- Code splitting with React.lazy
 - Optimized animations
 - Compressed assets
 - CDN for external resources
@@ -170,9 +165,7 @@ The website is configured for deployment on Netlify:
 
 The project includes:
 
-- `_redirects` file for SPA routing
 - `manifest.json` for PWA support
-- `sitemap.xml` and `robots.txt` for SEO
 
 ## 📄 License
 
