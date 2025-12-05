@@ -307,7 +307,7 @@ const DiscordProfile = () => {
 
           <motion.div 
             ref={setAvatarRef}
-            className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white bg-black/80 backdrop-blur-xl z-10"
+            className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white/40 bg-black/30 backdrop-blur-2xl z-10"
             animate={{
               rotateX: avatarMousePos.y,
               rotateY: avatarMousePos.x,
@@ -448,11 +448,12 @@ const DiscordProfile = () => {
           )}
           {/* Hover tooltip with 3D effect */}
           <motion.div
-            className="absolute bottom-full right-0 mb-3 px-3 py-2 bg-black/95 backdrop-blur-xl text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none border-2 border-white z-30"
+            className="absolute bottom-full right-0 mb-3 px-3 py-2 bg-black/50 backdrop-blur-2xl text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none border-2 border-white/40 z-30"
             initial={{ opacity: 0, y: 10, scale: 0.8, rotateX: -15, z: -50 }}
             whileHover={{ opacity: 1, y: 0, scale: 1, rotateX: 0, z: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             style={{
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%)',
               transformStyle: "preserve-3d",
               boxShadow: `
                 0 0 0 1px rgba(255,255,255,0.2),
@@ -506,18 +507,19 @@ const DiscordProfile = () => {
               rotateX: { type: "spring", stiffness: 300, damping: 30 },
               rotateY: { type: "spring", stiffness: 300, damping: 30 },
             }}
+            className="relative w-[calc(100vw-2rem)] sm:w-72 bg-black/50 backdrop-blur-2xl border-2 border-white/40 rounded-2xl overflow-hidden"
             style={{
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%)',
               transformStyle: "preserve-3d",
               boxShadow: `
-                0 0 0 2px rgba(255,255,255,0.1),
-                0 8px 32px rgba(0,0,0,0.4),
-                0 0 60px rgba(255,255,255,0.05),
-                0 0 120px rgba(255,255,255,0.02),
-                inset 0 1px 0 rgba(255,255,255,0.15),
+                0 0 0 1px rgba(255,255,255,0.1),
+                0 8px 32px rgba(0,0,0,0.5),
+                0 0 60px rgba(255,255,255,0.08),
+                0 0 120px rgba(255,255,255,0.03),
+                inset 0 1px 0 rgba(255,255,255,0.2),
                 inset 0 -1px 0 rgba(255,255,255,0.05)
               `,
             }}
-            className="relative w-[calc(100vw-2rem)] sm:w-72 bg-black/95 backdrop-blur-2xl border-2 border-white rounded-2xl overflow-hidden"
           >
           {/* 3D Glow Effect - Multiple layers */}
           <div 
@@ -555,7 +557,11 @@ const DiscordProfile = () => {
           />
 
           {/* Header */}
-          <div className="relative h-16 bg-black/50 border-b-2 border-white/50 overflow-hidden">
+          <div className="relative h-16 bg-black/30 backdrop-blur-xl border-b-2 border-white/30 overflow-hidden"
+            style={{
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%)',
+            }}
+          >
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_50%)]" />
             </div>
@@ -570,13 +576,13 @@ const DiscordProfile = () => {
           </div>
 
           {/* Content */}
-          <div className="p-4 space-y-4 bg-black">
+          <div className="p-4 space-y-4 bg-transparent">
             {/* Close button */}
             <motion.button
               onClick={() => setIsExpanded(false)}
               whileHover={{ scale: 1.15, rotate: 90, backgroundColor: "white", color: "black" }}
               whileTap={{ scale: 0.9 }}
-              className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black hover:bg-white hover:text-black backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 shadow-lg border-2 border-white z-20"
+              className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 hover:bg-white hover:text-black backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-lg border-2 border-white/40 z-20"
             >
               <X size={14} />
             </motion.button>
@@ -593,7 +599,7 @@ const DiscordProfile = () => {
                   }}
                 />
                 <motion.div 
-                  className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white bg-black/50"
+                  className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white/40 bg-black/30 backdrop-blur-xl"
                   whileHover={{ scale: 1.1, rotateY: 10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   style={{
@@ -705,7 +711,7 @@ const DiscordProfile = () => {
 
             {/* Activities section */}
             {activities.length > 0 && (
-              <div className="space-y-2 pt-3 border-t-2 border-white/50 relative z-10">
+              <div className="space-y-2 pt-3 border-t-2 border-white/30 relative z-10">
                 {/* Divider glow */}
                 <div 
                   className="absolute top-0 left-0 right-0 h-px"
@@ -731,8 +737,9 @@ const DiscordProfile = () => {
                       rotateX: -2,
                       rotateY: 2,
                     }}
-                    className="bg-black/80 rounded-lg p-2.5 border-2 border-white/80 transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                    className="bg-black/40 backdrop-blur-xl rounded-lg p-2.5 border-2 border-white/30 transition-all duration-300 cursor-pointer group relative overflow-hidden"
                     style={{ 
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)',
                       transformStyle: "preserve-3d",
                       boxShadow: `
                         0 4px 16px rgba(0,0,0,0.3),
@@ -781,8 +788,9 @@ const DiscordProfile = () => {
                 rotateY: 2,
               }}
               whileTap={{ scale: 0.97 }}
-              className="relative w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-white rounded-lg font-semibold transition-all duration-300 border-2 border-white group overflow-hidden"
+              className="relative w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black/40 backdrop-blur-xl text-white rounded-lg font-semibold transition-all duration-300 border-2 border-white/30 group overflow-hidden"
               style={{
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)',
                 transformStyle: "preserve-3d",
                 boxShadow: `
                   0 4px 16px rgba(0,0,0,0.4),

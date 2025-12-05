@@ -10,7 +10,8 @@ const Navbar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileTextIndex, setMobileTextIndex] = useState(0);
   const [isInFooter, setIsInFooter] = useState(false);
-  const tickingRef = useRef(false);
+  const isScrollingRef = useRef(false);
+  const observerRef = useRef(null);
 
   const mobileRoles = [
     "Web Developer",
@@ -19,83 +20,6 @@ const Navbar = () => {
     "Full-Stack Developer",
     "UI/UX Designer",
   ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMobileTextIndex((prev) => (prev + 1) % mobileRoles.length);
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (tickingRef.current) return;
-      tickingRef.current = true;
-      requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 50);
-        const totalScrollable =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress =
-          totalScrollable > 0 ? (window.scrollY / totalScrollable) * 100 : 0;
-        setScrollProgress(progress);
-
-        // Check if we're in footer section - improved detection
-        const footerElement = document.querySelector("footer");
-        if (footerElement) {
-          const footerRect = footerElement.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-          // Check if footer is more than 30% visible
-          const isFooterVisible = footerRect.top <= windowHeight * 0.7;
-          setIsInFooter(isFooterVisible);
-        }
-
-        // Improved section detection
-        const currentScrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-
-        // If near very top, force active to home
-        if (currentScrollY < 100) {
-          setActiveSection("home");
-        } else {
-          // Find which section is currently in the center area of viewport
-          let currentSection = "home";
-
-          for (let i = sectionIds.length - 1; i >= 0; i--) {
-            const sectionId = sectionIds[i];
-            const element = document.getElementById(sectionId);
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              const sectionTop = rect.top;
-              const sectionHeight = rect.height;
-
-              // Check if this section is in the center area of viewport
-              if (
-                sectionTop <= windowHeight * 0.4 &&
-                sectionTop + sectionHeight >= windowHeight * 0.4
-              ) {
-                currentSection = sectionId;
-                break;
-              }
-            }
-          }
-
-          if (currentSection !== activeSection) {
-            if (import.meta.env.DEV) {
-              console.log(`Section changed to: ${currentSection}`);
-            }
-            setActiveSection(currentSection);
-          }
-        }
-
-        tickingRef.current = false;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
 
   // Define section IDs for scroll detection
   const sectionIds = [
@@ -109,16 +33,199 @@ const Navbar = () => {
     "contact",
   ];
 
+  // Mobile text rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMobileTextIndex((prev) => (prev + 1) % mobileRoles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Intersection Observer for section detection
+  useEffect(() => {
+    const setupObserver = () => {
+      // Clean up existing observer
+      if (observerRef.current) {
+        sectionIds.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) observerRef.current.unobserve(el);
+        });
+      }
+
+      const options = {
+        root: null,
+        rootMargin: '-100px 0px -60% 0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+      };
+
+      const handleIntersection = (entries) => {
+        // Skip if we're programmatically scrolling
+        if (isScrollingRef.current) return;
+
+        // Find the section with highest intersection ratio
+        let maxRatio = 0;
+        let activeId = "home";
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const ratio = entry.intersectionRatio;
+            if (ratio > maxRatio) {
+              maxRatio = ratio;
+              activeId = entry.target.id;
+            }
+          }
+        });
+
+        // Also check which section is closest to top
+        const scrollY = window.scrollY;
+        let closestSection = "home";
+        let closestDistance = Infinity;
+
+        sectionIds.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const distance = Math.abs(rect.top - 100); // 100px offset for navbar
+            if (distance < closestDistance && rect.top <= 200 && rect.bottom >= 0) {
+              closestDistance = distance;
+              closestSection = id;
+            }
+          }
+        });
+
+        // Use the closest section if scroll is near top
+        const finalSection = scrollY < 200 ? closestSection : activeId;
+
+        setActiveSection((prev) => {
+          if (prev !== finalSection) {
+            if (import.meta.env.DEV) {
+              console.log(`[Navbar] Active section: ${finalSection} (scroll: ${scrollY.toFixed(0)})`);
+            }
+            return finalSection;
+          }
+          return prev;
+        });
+      };
+
+      observerRef.current = new IntersectionObserver(handleIntersection, options);
+
+      // Observe all sections
+      let found = 0;
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          observerRef.current.observe(el);
+          found++;
+        } else {
+          if (import.meta.env.DEV) {
+            console.warn(`[Navbar] Section "${id}" not found`);
+          }
+        }
+      });
+
+      if (import.meta.env.DEV) {
+        console.log(`[Navbar] Observer setup: ${found}/${sectionIds.length} sections`);
+      }
+    };
+
+    // Setup with delay to ensure DOM is ready
+    const timer = setTimeout(setupObserver, 200);
+
+    return () => {
+      clearTimeout(timer);
+      if (observerRef.current) {
+        sectionIds.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) observerRef.current.unobserve(el);
+        });
+      }
+    };
+  }, []);
+
+  // Scroll handler for progress bar and footer
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 50);
+
+      // Progress bar
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      setScrollProgress(progress);
+
+      // Footer detection
+      const footer = document.querySelector("footer");
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top;
+        setIsInFooter(footerTop <= window.innerHeight * 0.7);
+      }
+
+      // Force home at top
+      if (scrollY < 50) {
+        setActiveSection("home");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to section function
   const scrollToSection = (sectionId) => {
+    console.log(`[Navbar] scrollToSection called: ${sectionId}`);
+    
     const element = document.getElementById(sectionId);
-    if (element) {
-      // Offset scroll to account for fixed navbar height
-      const yOffset = 80; // px
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset - yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      setIsMobileMenuOpen(false);
+    if (!element) {
+      console.error(`[Navbar] Section "${sectionId}" not found!`);
+      return;
     }
+
+    // Set scrolling flag
+    isScrollingRef.current = true;
+    
+    // Update active section immediately
+    setActiveSection(sectionId);
+    setIsMobileMenuOpen(false);
+
+    // Method 1: Try scrollIntoView first
+    try {
+      // Temporarily add scroll-margin-top
+      const originalMargin = element.style.scrollMarginTop;
+      element.style.scrollMarginTop = '100px';
+      
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      });
+      
+      // Reset after scroll
+      setTimeout(() => {
+        element.style.scrollMarginTop = originalMargin;
+      }, 1000);
+    } catch (err) {
+      console.warn('[Navbar] scrollIntoView failed, using window.scrollTo:', err);
+      
+      // Fallback: Calculate and scroll
+      const navbarOffset = 100;
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const elementTop = rect.top + scrollTop;
+      const targetY = Math.max(0, elementTop - navbarOffset);
+
+      console.log(`[Navbar] Scrolling to "${sectionId}": ${targetY}px`);
+      
+      window.scrollTo({
+        top: targetY,
+        behavior: 'smooth'
+      });
+    }
+
+    // Reset scrolling flag after animation
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1000);
   };
 
   const toggleCollapse = () => {
@@ -136,7 +243,7 @@ const Navbar = () => {
     { id: "contact", label: "Contact" },
   ];
 
-  // Don't render navbar if in footer
+  // Hide navbar in footer
   if (isInFooter) {
     return null;
   }
@@ -144,9 +251,9 @@ const Navbar = () => {
   return (
     <>
       {/* Scroll progress bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-[2px] bg-transparent">
+      <div className="fixed top-0 left-0 right-0 z-50 h-[2px] bg-transparent pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-white via-white/80 to-white/40"
+          className="h-full bg-gradient-to-r from-white via-white/80 to-white/40 transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -154,25 +261,28 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-2 sm:top-4 left-0 right-0 z-40 flex justify-center transition-all duration-300 ${
-          isScrolled || isMobileMenuOpen ? "" : ""
-        }`}
+        className="fixed top-2 sm:top-4 left-0 right-0 z-40 flex justify-center pointer-events-none"
       >
-        {/* Desktop capsule navbar */}
+        {/* Desktop Navbar */}
         <div
-          className={`hidden md:flex items-center gap-2 px-2 py-2 rounded-full border transition-all duration-300 ${
+          className={`hidden md:flex items-center gap-2 px-2 py-2 rounded-full border transition-all duration-300 pointer-events-auto ${
             isScrolled
-              ? "bg-white/10 backdrop-blur-md border-white/20 shadow-[0_8px_30px_rgb(255,255,255,0.1)]"
-              : "bg-black/90 backdrop-blur-md border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.25)]"
+              ? "bg-white/5 backdrop-blur-2xl border-white/30 shadow-[0_8px_32px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]"
+              : "bg-black/40 backdrop-blur-2xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]"
           }`}
+          style={{
+            background: isScrolled
+              ? 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)'
+              : 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)',
+          }}
         >
-          {/* Collapse/Expand toggle button */}
+          {/* Collapse button */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={toggleCollapse}
-            className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            aria-label={isCollapsed ? "Expand navbar" : "Collapse navbar"}
+            className="h-8 w-8 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+            aria-label={isCollapsed ? "Expand" : "Collapse"}
           >
             <motion.div
               animate={{ rotate: isCollapsed ? 180 : 0 }}
@@ -181,43 +291,56 @@ const Navbar = () => {
             />
           </motion.button>
 
-          {/* Links */}
+          {/* Nav items */}
           <motion.div
-            className="flex items-center gap-1 px-2 overflow-hidden"
+            className="flex items-center gap-1 px-2 overflow-hidden pointer-events-auto"
             animate={{
               width: isCollapsed ? 0 : "auto",
               opacity: isCollapsed ? 0 : 1,
+              pointerEvents: isCollapsed ? "none" : "auto",
             }}
             transition={{ duration: 0.3 }}
+            style={{ pointerEvents: isCollapsed ? "none" : "auto" }}
           >
             {navItems.map((item, index) => (
-              <motion.button
+              <button
                 key={item.id}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.06 }}
-                onClick={() => scrollToSection(item.id)}
-                aria-current={activeSection === item.id ? "page" : undefined}
-                className={`px-4 py-2 text-sm font-accent font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (import.meta.env.DEV) {
+                    console.log(`[Navbar] Button clicked: ${item.id}`);
+                  }
+                  scrollToSection(item.id);
+                }}
+                className={`px-4 py-2 text-sm font-accent font-medium rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer relative z-20 ${
                   activeSection === item.id
                     ? "text-black bg-white shadow-md"
                     : "text-gray-300 hover:text-white hover:bg-white/10"
                 }`}
+                aria-current={activeSection === item.id ? "page" : undefined}
+                style={{ pointerEvents: "auto" }}
               >
                 {item.label}
-              </motion.button>
+              </button>
             ))}
           </motion.div>
         </div>
 
-        {/* Mobile top bar */}
-        <div className="md:hidden w-full px-3 sm:px-4">
+        {/* Mobile Navbar */}
+        <div className="md:hidden w-full px-3 sm:px-4 pointer-events-auto">
           <div
             className={`flex items-center justify-between h-12 sm:h-14 rounded-full border px-4 sm:px-6 transition-all duration-300 ${
               isScrolled
-                ? "bg-white/10 backdrop-blur-md border-white/20 shadow-[0_8px_30px_rgb(255,255,255,0.1)]"
-                : "bg-black/90 backdrop-blur-md border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.25)]"
+                ? "bg-white/5 backdrop-blur-2xl border-white/30 shadow-[0_8px_32px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]"
+                : "bg-black/40 backdrop-blur-2xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]"
             }`}
+            style={{
+              background: isScrolled
+                ? 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)'
+                : 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)',
+            }}
           >
             <div className="flex flex-col">
               <span className="text-base sm:text-lg font-display font-semibold text-white">
@@ -230,13 +353,7 @@ const Navbar = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      ease: "easeInOut",
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 15,
-                    }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="text-xs text-gray-400 font-accent block"
                   >
                     {mobileRoles[mobileTextIndex]}
@@ -244,45 +361,47 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             </div>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-300 hover:text-white p-1"
+              className="text-gray-300 hover:text-white p-1 transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </motion.button>
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-16 sm:top-18 left-0 right-0 md:hidden bg-black/95 backdrop-blur-md border-t border-white/20 mx-3 sm:mx-4 rounded-b-2xl"
+              className="absolute top-16 sm:top-18 left-0 right-0 md:hidden bg-black/60 backdrop-blur-2xl border-t border-white/30 mx-3 sm:mx-4 rounded-b-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] pointer-events-auto"
+              style={{
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%)',
+              }}
             >
               <div className="px-4 pt-4 pb-6 space-y-2">
-                {navItems.map((item, index) => (
-                  <motion.button
+                {navItems.map((item) => (
+                  <button
                     key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    onClick={() => scrollToSection(item.id)}
-                    aria-current={
-                      activeSection === item.id ? "page" : undefined
-                    }
-                    className={`block px-4 py-3 text-base font-accent font-medium w-full text-left transition-all duration-300 rounded-lg ${
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      scrollToSection(item.id);
+                    }}
+                    className={`block px-4 py-3 text-base font-accent font-medium w-full text-left transition-all duration-300 rounded-lg cursor-pointer relative z-20 ${
                       activeSection === item.id
                         ? "text-black bg-white shadow-md"
                         : "text-gray-300 hover:text-white hover:bg-white/10"
                     }`}
+                    aria-current={activeSection === item.id ? "page" : undefined}
                   >
                     {item.label}
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             </motion.div>
