@@ -173,12 +173,8 @@ const Navbar = () => {
 
   // Scroll to section function
   const scrollToSection = (sectionId) => {
-    console.log(`[Navbar] scrollToSection called: ${sectionId}`);
-    
-    const element = document.getElementById(sectionId);
-    if (!element) {
-      console.error(`[Navbar] Section "${sectionId}" not found!`);
-      return;
+    if (import.meta.env.DEV) {
+      console.log(`[Navbar] scrollToSection called: ${sectionId}`);
     }
 
     // Set scrolling flag
@@ -188,37 +184,39 @@ const Navbar = () => {
     setActiveSection(sectionId);
     setIsMobileMenuOpen(false);
 
-    // Method 1: Try scrollIntoView first
-    try {
-      // Temporarily add scroll-margin-top
-      const originalMargin = element.style.scrollMarginTop;
-      element.style.scrollMarginTop = '100px';
-      
+    // Find element for all sections
+    const element = document.getElementById(sectionId);
+    if (!element) {
+      if (import.meta.env.DEV) {
+        console.error(`[Navbar] Section "${sectionId}" not found!`);
+      }
+      isScrollingRef.current = false;
+      return;
+    }
+
+    // For home section, use both scrollIntoView and direct scroll to top
+    if (sectionId === 'home') {
+      // First try scrollIntoView
       element.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'start',
         inline: 'nearest'
       });
       
-      // Reset after scroll
+      // Also ensure we scroll to absolute top as backup
       setTimeout(() => {
-        element.style.scrollMarginTop = originalMargin;
-      }, 1000);
-    } catch (err) {
-      console.warn('[Navbar] scrollIntoView failed, using window.scrollTo:', err);
-      
-      // Fallback: Calculate and scroll
-      const navbarOffset = 100;
-      const rect = element.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const elementTop = rect.top + scrollTop;
-      const targetY = Math.max(0, elementTop - navbarOffset);
-
-      console.log(`[Navbar] Scrolling to "${sectionId}": ${targetY}px`);
-      
-      window.scrollTo({
-        top: targetY,
-        behavior: 'smooth'
+        if (window.scrollY > 5) {
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 50);
+    } else {
+      // For other sections, use scrollIntoView which respects scrollMarginTop
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
       });
     }
 

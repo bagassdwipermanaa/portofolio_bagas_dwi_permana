@@ -96,7 +96,7 @@ const Education = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 relative overflow-hidden">
+    <section className="min-h-screen py-12 sm:py-16 lg:py-24 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
       {/* Background Effects */}
       <div className="absolute inset-0">{/* Removed blur circles */}</div>
 

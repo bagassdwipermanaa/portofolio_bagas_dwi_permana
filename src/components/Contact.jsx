@@ -134,7 +134,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+    <section className="min-h-screen py-12 sm:py-16 lg:py-20 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

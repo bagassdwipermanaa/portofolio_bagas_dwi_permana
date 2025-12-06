@@ -59,7 +59,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="h-screen flex items-center relative overflow-hidden pt-12 sm:pt-16 pb-2 sm:pb-4">
+    <section className="h-screen flex items-center relative overflow-hidden pt-12 sm:pt-16 pb-2 sm:pb-4" style={{ scrollMarginTop: '0px' }}>
       {/* Top diagonal strip - Tech Stack */}
       <DiagonalMarquee
         items={["REACT", "NODE.JS", "PYTHON", "JAVA", "AWS", "DOCKER"]}

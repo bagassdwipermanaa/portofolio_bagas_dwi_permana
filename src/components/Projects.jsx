@@ -107,7 +107,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-black">
+    <section className="min-h-screen py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-black" style={{ scrollMarginTop: '100px' }}>
       {/* Shared background effects */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <BackgroundEffects />

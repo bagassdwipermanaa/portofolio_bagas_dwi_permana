@@ -64,7 +64,7 @@ const Roadmap = () => {
   };
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="min-h-screen py-20 px-4 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
