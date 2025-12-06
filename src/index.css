@@ -107,6 +107,51 @@ body {
   transform: perspective(1200px) rotateX(2deg) rotateY(2deg) scale(1.03);
 }
 
+/* Roadmap Card Hover Shadow Effect - Using CSS to prevent re-renders */
+.roadmap-card-hover {
+  transition: box-shadow 0.3s ease-out;
+}
+
+.group:hover .roadmap-card-hover {
+  box-shadow: 0 25px 50px -12px var(--glow-color, rgba(255, 255, 255, 0.3)), 0 0 0 1px var(--border-color, rgba(255, 255, 255, 0.4)) !important;
+}
+
+/* Roadmap Card Entrance Animation - Pure CSS to prevent re-renders */
+@keyframes roadmapCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.roadmap-card-entrance {
+  animation: roadmapCardEntrance 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Roadmap Emoji Animation - Pure CSS */
+@keyframes roadmapEmojiRotate {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+}
+
+.roadmap-emoji-animation {
+  animation: roadmapEmojiRotate 2s ease-in-out infinite;
+  animation-delay: 3s;
+  will-change: transform;
+}
+
 /* Modern font classes - Updated to use 2 fonts from image */
 .font-display {
   font-family: "Montserrat", sans-serif;

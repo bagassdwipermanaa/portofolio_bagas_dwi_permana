@@ -1,11 +1,9 @@
-import React, { useState, useRef, useCallback, useMemo, memo, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useCallback, useMemo, memo } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown, ChevronUp, Code, Rocket, Brain, Cloud, Sparkles } from "lucide-react";
 
-const Roadmap = () => {
-  const [expandedCard, setExpandedCard] = useState(null);
-
-  const roadmapData = [
+// Move roadmapData outside component to prevent recreation on every render
+const roadmapData = [
     {
       year: "2023",
       title: "Memulai Perjalanan Coding",
@@ -62,7 +60,10 @@ const Roadmap = () => {
       status: "planned",
       icon: Cloud,
     },
-  ];
+];
+
+const Roadmap = () => {
+  const [expandedCard, setExpandedCard] = useState(null);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -122,38 +123,39 @@ const Roadmap = () => {
     setExpandedCard((prev) => (prev === index ? null : index));
   }, []);
 
+  // Create stable toggle handlers for each card
+  const toggleHandlers = useMemo(() => {
+    return roadmapData.map((_, index) => () => toggleExpand(index));
+  }, [toggleExpand]);
+
   // 3D Card Component - Simplified without mouse tracking to prevent re-renders
   const Card3D = memo(({ item, index, isExpanded, onToggle }) => {
+    const shouldReduceMotion = useReducedMotion();
     const statusColors = useMemo(() => getStatusColor(item.status), [item.status]);
     const Icon = item.icon;
 
+    // Use CSS variables for hover effects instead of direct style manipulation
+    const cardStyle = useMemo(() => ({
+      '--border-color': statusColors.border,
+      '--glow-color': statusColors.glow,
+      borderColor: statusColors.border,
+      boxShadow: `0 10px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px ${statusColors.border}`,
+      transform: "translateZ(20px)",
+    }), [statusColors.border, statusColors.glow]);
+
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, delay: index * 0.15 }}
-        className="relative group cursor-pointer"
+      <div
+        className="relative group roadmap-card-entrance"
+        style={{ animationDelay: `${index * 0.15}s`, paddingTop: '12px' }}
       >
         {/* 3D Card Container */}
         <div
           className="roadmap-card-3d transition-transform duration-300 ease-out"
-          onClick={onToggle}
         >
           {/* Main Card */}
           <div
-            className={`relative backdrop-blur-xl rounded-3xl p-8 border-2 overflow-visible h-full transition-shadow duration-300 ${statusColors.bg}`}
-            style={{
-              borderColor: statusColors.border,
-              boxShadow: `0 10px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px ${statusColors.border}`,
-              transform: "translateZ(20px)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `0 25px 50px -12px ${statusColors.glow}, 0 0 0 1px ${statusColors.border}`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = `0 10px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px ${statusColors.border}`;
-            }}
+            className={`relative backdrop-blur-xl rounded-3xl p-8 pt-16 border-2 overflow-visible h-full transition-shadow duration-300 roadmap-card-hover ${statusColors.bg}`}
+            style={cardStyle}
           >
             {/* Animated Gradient Background */}
             <div
@@ -161,7 +163,7 @@ const Roadmap = () => {
             />
 
             {/* Glow Effect */}
-            <motion.div
+            <div
               className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"
               style={{
                 background: `linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))`,
@@ -178,56 +180,46 @@ const Roadmap = () => {
             />
 
             {/* Status Badge - 3D Floating */}
-            <motion.div
-              className="absolute -top-4 left-8 z-20"
-              initial={{ scale: 0.8, opacity: 0, y: -10 }}
-              whileInView={{ scale: 1, opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, type: "spring" }}
+            <div
+              className="absolute top-2 left-4 z-30"
               style={{
                 transform: "translateZ(40px)",
               }}
             >
               <div
-                className={`px-5 py-2.5 rounded-full text-sm font-bold border backdrop-blur-xl ${statusColors.badge} shadow-xl`}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold border backdrop-blur-xl ${statusColors.badge} shadow-xl whitespace-nowrap`}
                 style={{
-                  boxShadow: `0 10px 25px ${statusColors.glow}, 0 0 0 1px ${statusColors.border}`,
+                  boxShadow: `0 8px 20px ${statusColors.glow}, 0 0 0 1px ${statusColors.border}`,
                 }}
               >
                 {getStatusText(item.status)}
               </div>
-            </motion.div>
+            </div>
 
             {/* Year Badge - 3D Floating */}
-            <motion.div
-              className="absolute -top-4 right-8 z-20"
-              initial={{ scale: 0.8, opacity: 0, y: -10 }}
-              whileInView={{ scale: 1, opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 + 0.1, type: "spring" }}
+            <div
+              className="absolute top-2 right-4 z-30"
               style={{
                 transform: "translateZ(40px)",
               }}
             >
               <div
-                className="px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/30 text-white text-sm font-bold shadow-xl"
+                className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/30 text-white text-xs font-bold shadow-xl whitespace-nowrap"
                 style={{
-                  boxShadow: "0 10px 25px rgba(255,255,255,0.1), 0 0 0 1px rgba(255,255,255,0.2)",
+                  boxShadow: "0 8px 20px rgba(255,255,255,0.1), 0 0 0 1px rgba(255,255,255,0.2)",
                 }}
               >
                 {item.year}
               </div>
-            </motion.div>
+            </div>
 
             {/* Icon & Title Section */}
-            <div className="flex items-start gap-5 mb-6 mt-4 relative z-10">
-              <motion.div
-                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 relative overflow-hidden"
+            <div className="flex items-start gap-5 mb-6 mt-8 relative z-10">
+              <div
+                className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 relative overflow-hidden transition-transform duration-300 hover:scale-110"
                 style={{
                   transform: "translateZ(50px)",
                 }}
-                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                transition={{ duration: 0.5 }}
               >
                 {/* Icon Glow */}
                 <div
@@ -237,7 +229,7 @@ const Roadmap = () => {
                   }}
                 />
                 <Icon className="h-8 w-8 text-white relative z-10" />
-              </motion.div>
+              </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-slate-100 transition-colors">
                   {item.title}
@@ -273,7 +265,13 @@ const Roadmap = () => {
             </div>
 
             {/* Expand Button */}
-            <div className="flex items-center justify-center gap-2 text-gray-400 group-hover:text-white transition-colors relative z-10">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggle();
+              }}
+              className="w-full flex items-center justify-center gap-2 text-gray-400 group-hover:text-white transition-colors relative z-10 py-2 hover:bg-white/5 rounded-lg"
+            >
               {isExpanded ? (
                 <ChevronUp className="h-5 w-5" />
               ) : (
@@ -282,22 +280,22 @@ const Roadmap = () => {
               <span className="text-sm font-medium">
                 {isExpanded ? "Tutup Detail" : "Baca Lebih Lengkap"}
               </span>
-            </div>
+            </button>
 
             {/* Expanded Content - 3D */}
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0, rotateX: -90 }}
-                  animate={{ opacity: 1, height: "auto", rotateX: 0 }}
-                  exit={{ opacity: 0, height: 0, rotateX: -90 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="mt-6 pt-6 border-t border-white/10 overflow-visible relative z-10"
-                  style={{
-                    transform: "translateZ(40px)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
+            <div
+              className="relative z-10 overflow-hidden transition-all duration-400 ease-in-out"
+              style={{
+                transform: "translateZ(40px)",
+                transformStyle: "preserve-3d",
+                maxHeight: isExpanded ? "2000px" : "0px",
+                opacity: isExpanded ? 1 : 0,
+                marginTop: isExpanded ? 20 : 0,
+                paddingTop: isExpanded ? 20 : 0,
+                borderTop: isExpanded ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+                transition: "max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, margin-top 0.4s ease-in-out, padding-top 0.4s ease-in-out",
+              }}
+            >
                   {/* Full Description */}
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-3">
@@ -321,16 +319,13 @@ const Roadmap = () => {
                     </div>
                     <ul className="space-y-3">
                       {item.achievements.map((achievement, achIndex) => (
-                        <motion.li
+                        <li
                           key={achIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: achIndex * 0.1 }}
                           className="flex items-start gap-3 text-gray-300"
                         >
                           <span className="text-white text-lg mt-0.5">✓</span>
                           <span>{achievement}</span>
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -368,9 +363,7 @@ const Roadmap = () => {
                       />
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            </div>
 
             {/* 3D Depth Lines */}
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
@@ -381,14 +374,18 @@ const Roadmap = () => {
         {index < roadmapData.length - 1 && (
           <div className="hidden lg:block absolute top-1/2 -right-6 w-12 h-1 bg-gradient-to-r from-white/30 via-white/20 to-transparent transform -translate-y-1/2 z-0" />
         )}
-      </motion.div>
+      </div>
     );
   }, (prevProps, nextProps) => {
-    // Custom comparison for memo
+    // Custom comparison for memo - prevent unnecessary re-renders
+    // But allow re-render when isExpanded changes
+    if (prevProps.isExpanded !== nextProps.isExpanded) {
+      return false; // Allow re-render when expansion state changes
+    }
     return (
       prevProps.item.year === nextProps.item.year &&
-      prevProps.isExpanded === nextProps.isExpanded &&
-      prevProps.index === nextProps.index
+      prevProps.index === nextProps.index &&
+      prevProps.onToggle === nextProps.onToggle
     );
   });
 
@@ -402,11 +399,7 @@ const Roadmap = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">
@@ -416,7 +409,7 @@ const Roadmap = () => {
             Perjalanan pengembangan skill dan karir dalam dunia teknologi yang
             terus berkembang
           </p>
-        </motion.div>
+        </div>
 
         {/* 3D Roadmap Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative">
@@ -426,28 +419,21 @@ const Roadmap = () => {
               item={item}
               index={index}
               isExpanded={expandedCard === index}
-              onToggle={() => toggleExpand(index)}
+              onToggle={toggleHandlers[index]}
             />
           ))}
         </div>
 
         {/* Bottom Info Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        <div
           className="mt-20 text-center"
         >
           <div className="bg-gradient-to-r from-neutral-800/90 to-neutral-700/90 backdrop-blur-xl rounded-3xl p-10 border border-white/10 max-w-4xl mx-auto shadow-2xl">
-            <motion.div
-              className="text-6xl mb-6"
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
-              style={{ willChange: "transform" }}
+            <div
+              className="text-6xl mb-6 roadmap-emoji-animation"
             >
               📚
-            </motion.div>
+            </div>
             <h3 className="text-3xl font-bold text-white mb-6">
               Selalu Belajar & Berkembang
             </h3>
@@ -464,26 +450,22 @@ const Roadmap = () => {
                 { value: "20+", label: "Skill yang Dipelajari" },
                 { value: "∞", label: "Potensi Pertumbuhan" },
               ].map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
                   className="text-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
                 >
                   <div className="text-3xl font-bold text-white mb-2">
                     {stat.value}
                   </div>
                   <div className="text-gray-400 text-sm">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Roadmap;
+export default React.memo(Roadmap);
