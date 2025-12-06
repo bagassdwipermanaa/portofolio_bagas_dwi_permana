@@ -97,6 +97,16 @@ body {
   height: 100%;
 }
 
+/* Roadmap 3D Card Hover Effect */
+.roadmap-card-3d {
+  transform-style: preserve-3d;
+  transform: perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1);
+}
+
+.group:hover .roadmap-card-3d {
+  transform: perspective(1200px) rotateX(2deg) rotateY(2deg) scale(1.03);
+}
+
 /* Modern font classes - Updated to use 2 fonts from image */
 .font-display {
   font-family: "Montserrat", sans-serif;
